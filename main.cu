@@ -196,8 +196,8 @@ __global__ void gpu_mm_a(float *m, float *a, int p)
 	}
 }
 
-/*
-   Mnozi redak 16x16 matrica
+/*   
+   Mnozi redak 16x16 matrica, m += a'b 
  */
 __global__ void gpu_mm_r(float *m, float *a, float *b)
 {
