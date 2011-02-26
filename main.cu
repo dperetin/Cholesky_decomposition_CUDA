@@ -355,7 +355,24 @@ int main(int argc, char *argv[])
 	printf("GPU racuna: \n");
 
 
+	int i;
+	int it = n / 16 - 1;
+	gpu_dpotrf<<<1, 1>>>(device_m, device_m_out, size, 0);
 
+	for (i = 0; i < n / 16 - 1; i++) {
+		cudaMemcpy(device_eye, eye, 16 * 16 * sizeof(float), cudaMemcpyHostToDevice);
+		blokovaPoGridu.x = it;
+		blokovaPoGridu.y = it;
+		gpu_inv_l<<<1, 16>>>(device_m_out, device_eye, size, i);
+		gpu_mm_r<<<it, thredovaPoBloku, 2 * 16 * 16 * sizeof(float)>>>
+			(device_m_out, device_eye, device_m, size, i);
+		gpu_mm_a<<<blokovaPoGridu, thredovaPoBloku, 2 * 16 * 16 * sizeof(float)>>>
+		(device_m, device_m_out, size, i);
+		gpu_dpotrf<<<1, 1>>>(device_m, device_m_out, size, i + 1);
+		it--;
+		
+	}
+/*****************************************************************
 	gpu_dpotrf<<<1, 1>>>(device_m, device_m_out, size, 0);
 	cudaThreadSynchronize();
 	gpu_inv_l<<<1, 16>>>(device_m_out, device_eye, size, 0);
@@ -386,7 +403,7 @@ int main(int argc, char *argv[])
 	gpu_mm_a<<<blokovaPoGridu, thredovaPoBloku, 2 * 16 * 16 * sizeof(float)>>>
 		(device_m, device_m_out, size, 2);
 	gpu_dpotrf<<<1, 1>>>(device_m, device_m_out, size, 3);
-
+***********************************************************************/
 //	gpu_dpotrf<<<1, 1>>>(device_m, device_m_out, size, 1);
 	//cpu_dpotrf(m_in, m_out, size, 0);
 
