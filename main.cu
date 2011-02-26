@@ -199,23 +199,24 @@ __global__ void gpu_mm_a(float *m, float *a, int p)
 /*   
    Mnozi redak 16x16 matrica, m += a'b 
  */
-__global__ void gpu_mm_r(float *m, float *a, float *b)
+__global__ void gpu_mm_r(float *m, float *a, float *b, int size, int p)
 {
 	__shared__ float s_a[16][16];
 	__shared__ float s_b[16][16];
 	int tx = threadIdx.x;
 	int ty = threadIdx.y;
+	int stride = blockIdx.x + 1;
 	int i;
 
 	s_a[ty][tx] = a[ty * 16 + tx];
-	s_b[ty][tx] = b[ty * 32 + tx + 16];
+	s_b[ty][tx] = b[(ty + p * 16) * size + tx + 16 * stride];
 
 	__syncthreads();
 
 	#pragma unroll 16
 	for (i = 0; i < 16; i++)
 	{
-		m[ty * 32 + tx + 16] += s_a[ty][i] * s_b[i][tx];
+		m[(ty + p * 16) * size + tx + 16 * stride] += s_a[ty][i] * s_b[i][tx];
 	}
 }
 
@@ -252,7 +253,7 @@ void init_eye(float *v, int n)
 
 int main(int argc, char *argv[])
 {
-	int size = 32;//atoi(argv[2]);
+	int size = 64;//atoi(argv[2]);
 	unsigned int timer, timer2, t=0, t2=0;
 //	float *m, *a, *b;
 //	float *d_m, *d_a, *d_b;
@@ -282,7 +283,7 @@ int main(int argc, char *argv[])
 	CUT_SAFE_CALL(cutCreateTimer(&t));
 	CUT_SAFE_CALL(cutStartTimer(t));
 	
-	loadMatrix(m_in, "po32.mat", size);
+	loadMatrix(m_in, "po64.mat", size);
 	/*loadMatrix(m, "m.mat", size);
 	loadMatrix(a, "a.mat", size);
 	loadMatrix(b, "b.mat", size);*/
@@ -353,11 +354,11 @@ int main(int argc, char *argv[])
 	gpu_dpotrf<<<1, 1>>>(device_m, device_m_out, size, 0);
 	cudaThreadSynchronize();
 	gpu_inv_l<<<1, 16>>>(device_m_out, device_eye, size, 0);
-	gpu_mm_r<<<1, thredovaPoBloku, 2 * 16 * 16 * sizeof(float)>>>
-		(device_m_out, device_eye, device_m);
-	gpu_mm_a<<<1, thredovaPoBloku, 2 * 16 * 16 * sizeof(float)>>>
-		(device_m, device_m_out, 1);
-	gpu_dpotrf<<<1, 1>>>(device_m, device_m_out, size, 1);
+	gpu_mm_r<<<3, thredovaPoBloku, 2 * 16 * 16 * sizeof(float)>>>
+		(device_m_out, device_eye, device_m, size, 0);
+//	gpu_mm_a<<<1, thredovaPoBloku, 2 * 16 * 16 * sizeof(float)>>>
+//		(device_m, device_m_out, 1);
+//	gpu_dpotrf<<<1, 1>>>(device_m, device_m_out, size, 1);
 	//cpu_dpotrf(m_in, m_out, size, 0);
 
 	//cudaThreadSynchronize();
