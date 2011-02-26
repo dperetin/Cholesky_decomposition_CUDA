@@ -289,7 +289,7 @@ int main(int argc, char *argv[])
 	CUT_SAFE_CALL(cutCreateTimer(&timer));
 	CUT_SAFE_CALL(cutStartTimer(timer));
 
-	cpu_dpotrf_old(m_in, m_out, size);
+	//cpu_dpotrf_old(m_in, m_out, size);
 
 	CUT_SAFE_CALL(cutStopTimer(timer));
 
