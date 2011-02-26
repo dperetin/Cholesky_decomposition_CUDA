@@ -6,7 +6,7 @@
 
 using namespace std;
 
-void loadMatrix(double * matrix, char *s, int size)
+void loadMatrix(float * matrix, char *s, int size)
 {
 	fstream f;
 	int i = 0;
@@ -18,7 +18,7 @@ void loadMatrix(double * matrix, char *s, int size)
 	f.close();
 }
 
-void saveMatrix(double * matrix, char *s, int size)
+void saveMatrix(float * matrix, char *s, int size)
 {
 	fstream f;
 	f.open(s, ifstream::out);
@@ -31,10 +31,10 @@ void saveMatrix(double * matrix, char *s, int size)
 	f.close();
 }
 
-void cpu_dpotrf_old(double *m_in, double *m_out, int size)
+void cpu_dpotrf_old(float *m_in, float *m_out, int size)
 {
 	for (int i = 0; i < size; i++) {
-		double sum = 0;
+		float sum = 0;
 		for (int k = 0; k < i; k++){
 			sum += (m_out[k * size + i] * m_out[k * size + i]);
 		}
@@ -49,10 +49,10 @@ void cpu_dpotrf_old(double *m_in, double *m_out, int size)
 	}
 }
 
-void cpu_dpotrf(double *m_in, double *m_out, int size, int p)
+void cpu_dpotrf(float *m_in, float *m_out, int size, int p)
 {
 	for (int i = 0; i < 16; i++) {
-			double sum = 0;
+			float sum = 0;
 			for (int k = 0; k < i; k++){
 				sum += (m_in[(k + p * 16) * size + (i + p * 16)] 
 						* m_in[(k + p * 16) * size + (i + p * 16)]);
@@ -73,11 +73,11 @@ void cpu_dpotrf(double *m_in, double *m_out, int size, int p)
 }
 
 
-__global__ void gpu_dpotrf(double *m_in, double *m_out, int size, int p)
+__global__ void gpu_dpotrf(float *m_in, float *m_out, int size, int p)
 {
 	if(threadIdx.x == 0){
 		for (int i = 0; i < 16; i++) {
-			double sum = 0;
+			float sum = 0;
 			for (int k = 0; k < i; k++){
 				sum += (m_out[(k + p * 16) * size + (i + p * 16)] 
 						* m_out[(k + p * 16) * size + (i + p * 16)]);
@@ -98,7 +98,7 @@ __global__ void gpu_dpotrf(double *m_in, double *m_out, int size, int p)
 	}
 }
 
-__global__ void gpu_inv(double *u, double *b, int size, int p)
+__global__ void gpu_inv(float *u, float *b, int size, int p)
 {
 	int tid = threadIdx.x, i, j;
 	b[15 * 16 + tid] = b[15 * 16 + tid] / 
@@ -114,7 +114,7 @@ __global__ void gpu_inv(double *u, double *b, int size, int p)
 	}
 }
 
-__global__ void gpu_inv_l(double *u, double *b, int size, int p)
+__global__ void gpu_inv_l(float *u, float *b, int size, int p)
 {
 	int i, j;
 	int tid = threadIdx.x;
@@ -132,7 +132,7 @@ __global__ void gpu_inv_l(double *u, double *b, int size, int p)
 	}
 }
 
-void cpu_inv(double *u, double *b)
+void cpu_inv(float *u, float *b)
 {
 	int tid, i, j;
 	for (tid = 0; tid < 16; tid++){
@@ -147,10 +147,10 @@ void cpu_inv(double *u, double *b)
 	}
 }
 
-__global__ void gpu_mm(double *m, double *a, double *b)
+__global__ void gpu_mm(float *m, float *a, float *b)
 {
-	__shared__ double s_a[16][16];
-	__shared__ double s_b[16][16];
+	__shared__ float s_a[16][16];
+	__shared__ float s_b[16][16];
 	int tx = threadIdx.x;
 	int ty = threadIdx.y;
 	int i;
@@ -167,10 +167,10 @@ __global__ void gpu_mm(double *m, double *a, double *b)
 	}
 }
 
-__global__ void gpu_mm_a(double *m, double *a, int size, int p)
+__global__ void gpu_mm_a(float *m, float *a, int size, int p)
 {
-	__shared__ double s_a[16][16];
-	__shared__ double s_b[16][16];
+	__shared__ float s_a[16][16];
+	__shared__ float s_b[16][16];
 	int tx = threadIdx.x;
 	int ty = threadIdx.y;
 	int bx = blockIdx.x;
@@ -193,10 +193,10 @@ __global__ void gpu_mm_a(double *m, double *a, int size, int p)
 /*   
    Mnozi redak 16x16 matrica, m += a'b 
  */
-__global__ void gpu_mm_r(double *m, double *a, double *b, int size, int p)
+__global__ void gpu_mm_r(float *m, float *a, float *b, int size, int p)
 {
-	__shared__ double s_a[16][16];
-	__shared__ double s_b[16][16];
+	__shared__ float s_a[16][16];
+	__shared__ float s_b[16][16];
 	int tx = threadIdx.x;
 	int ty = threadIdx.y;
 	int stride = blockIdx.x + 1;
@@ -215,7 +215,7 @@ __global__ void gpu_mm_r(double *m, double *a, double *b, int size, int p)
 }
 
 
-__global__ void gpu_dscal(double *v, int n)
+__global__ void gpu_dscal(float *v, int n)
 {
 	unsigned int i = (blockIdx.x * gridDim.y + blockIdx.y) * blockDim.x + threadIdx.x;
 	if(i < n) {
@@ -223,13 +223,13 @@ __global__ void gpu_dscal(double *v, int n)
 	}
 }
 
-__global__ void gpu_sqrt(double *device_m)
+__global__ void gpu_sqrt(float *device_m)
 {
 	if(threadIdx.x == 0)
 		device_m[0] = sqrt(device_m[0]);
 }
 
-__global__ void gpu_daxpy(double *a, double *b, int n, double *x, int k)
+__global__ void gpu_daxpy(float *a, float *b, int n, float *x, int k)
 {
 	//unsigned int tid = threadIdx.x;
 	unsigned int i = (blockIdx.x * gridDim.y + blockIdx.y) * blockDim.x + threadIdx.x;
@@ -238,7 +238,7 @@ __global__ void gpu_daxpy(double *a, double *b, int n, double *x, int k)
 	}
 }
 
-void init_eye(double *v, int n)
+void init_eye(float *v, int n)
 {
 	int i;
 	for (i = 0; i < n; i++)
@@ -247,16 +247,16 @@ void init_eye(double *v, int n)
 
 int main(int argc, char *argv[])
 {
-	int size = 4096;
+	int size = 10000;
 	unsigned int timer, timer2, t=0, t2=0;
 
-	double *m_in, *m_out, *device_m, *device_m_out, *eye, *device_eye;
-	m_in = new double[size * size];
-	m_out = new double[size * size];
-	eye = new double[16 * 16];
+	float *m_in, *m_out, *device_m, *device_m_out, *eye, *device_eye;
+	m_in = new float[size * size];
+	m_out = new float[size * size];
+	eye = new float[16 * 16];
 
-	memset(m_out, 0, size * size * sizeof(double));
-	memset(eye, 0, 16 * 16 * sizeof(double));
+	memset(m_out, 0, size * size * sizeof(float));
+	memset(eye, 0, 16 * 16 * sizeof(float));
 
 	init_eye(eye, 16);
 
@@ -272,7 +272,7 @@ int main(int argc, char *argv[])
 	CUT_SAFE_CALL(cutCreateTimer(&t));
 	CUT_SAFE_CALL(cutStartTimer(t));
 	
-	loadMatrix(m_in, "po4096.mat", size);
+	loadMatrix(m_in, "po10k.mat", size);
 
 	CUT_SAFE_CALL(cutStopTimer(t));
 
@@ -306,11 +306,11 @@ int main(int argc, char *argv[])
 	blokovaPoGridu.y = 3;
 
 
-	cudaMalloc((void **) &device_m, n * n * sizeof(double));
-	cudaMalloc((void **) &device_m_out, n * n * sizeof(double));
-	cudaMalloc((void **) &device_eye, 16 * 16 * sizeof(double));
+	cudaMalloc((void **) &device_m, n * n * sizeof(float));
+	cudaMalloc((void **) &device_m_out, n * n * sizeof(float));
+	cudaMalloc((void **) &device_eye, 16 * 16 * sizeof(float));
 
-	cudaMemset(device_m_out, 0, n * n *sizeof(double));
+	cudaMemset(device_m_out, 0, n * n *sizeof(float));
 	
 
 	printf("Kopiranje matrice na GPU: ");
@@ -318,9 +318,9 @@ int main(int argc, char *argv[])
 	CUT_SAFE_CALL(cutCreateTimer(&t2));
 	CUT_SAFE_CALL(cutStartTimer(t2));
 
-	cudaMemcpy(device_m, m_in, n * n * sizeof(double), cudaMemcpyHostToDevice);
+	cudaMemcpy(device_m, m_in, n * n * sizeof(float), cudaMemcpyHostToDevice);
 
-	cudaMemcpy(device_eye, eye, 16 * 16 * sizeof(double), cudaMemcpyHostToDevice);
+	cudaMemcpy(device_eye, eye, 16 * 16 * sizeof(float), cudaMemcpyHostToDevice);
 
 	CUT_SAFE_CALL(cutStopTimer(t2));
 
@@ -338,13 +338,13 @@ int main(int argc, char *argv[])
 	gpu_dpotrf<<<1, 1>>>(device_m, device_m_out, size, 0);
 
 	for (i = 0; i < n / 16 - 1; i++) {
-		cudaMemcpy(device_eye, eye, 16 * 16 * sizeof(double), cudaMemcpyHostToDevice);
+		cudaMemcpy(device_eye, eye, 16 * 16 * sizeof(float), cudaMemcpyHostToDevice);
 		blokovaPoGridu.x = it;
 		blokovaPoGridu.y = it;
 		gpu_inv_l<<<1, 16>>>(device_m_out, device_eye, size, i);
-		gpu_mm_r<<<it, thredovaPoBloku, 2 * 16 * 16 * sizeof(double)>>>
+		gpu_mm_r<<<it, thredovaPoBloku, 2 * 16 * 16 * sizeof(float)>>>
 			(device_m_out, device_eye, device_m, size, i);
-		gpu_mm_a<<<blokovaPoGridu, thredovaPoBloku, 2 * 16 * 16 * sizeof(double)>>>
+		gpu_mm_a<<<blokovaPoGridu, thredovaPoBloku, 2 * 16 * 16 * sizeof(float)>>>
 		(device_m, device_m_out, size, i);
 		gpu_dpotrf<<<1, 1>>>(device_m, device_m_out, size, i + 1);
 		it--;
@@ -359,7 +359,7 @@ int main(int argc, char *argv[])
 
 	
 	cudaMemcpy(m_out, device_m_out, 
-			n * n * sizeof(double), cudaMemcpyDeviceToHost);
+			n * n * sizeof(float), cudaMemcpyDeviceToHost);
 	
 
 	saveMatrix(m_out, "rez.mat", n);
