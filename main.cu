@@ -131,7 +131,7 @@ void init_eye(float *v, int n)
 
 int main(int argc, char *argv[])
 {
-	int size = 10240;
+	int size = 1024;
 	unsigned int timer2 = 0, t = 0, t2 = 0;
 
 	float *m_in, *m_out, *device_m, *device_m_out, *eye, *device_eye;
@@ -156,7 +156,7 @@ int main(int argc, char *argv[])
 	CUT_SAFE_CALL(cutCreateTimer(&t));
 	CUT_SAFE_CALL(cutStartTimer(t));
 	
-	loadMatrix(m_in, "matrice/po10240.mat", size);
+	loadMatrix(m_in, "matrice/po1024.mat", size);
 
 	CUT_SAFE_CALL(cutStopTimer(t));
 
