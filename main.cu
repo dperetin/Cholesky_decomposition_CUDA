@@ -4,6 +4,9 @@
 #include <cutil.h>
 #include <math.h>
 
+#define N 128
+#define BLOCK_SIZE 16
+
 using namespace std;
 
 void loadMatrix(float * matrix, char *s, int size)
@@ -35,23 +38,23 @@ void saveMatrix(float * matrix, char *s, int size)
 __global__ void gpu_dpotrf(float *m_in, float *m_out, int size, int p)
 {
 	if(threadIdx.x == 0){
-		for (int i = 0; i < 16; i++) {
+		for (int i = 0; i < BLOCK_SIZE; i++) {
 			float sum = 0;
 			for (int k = 0; k < i; k++){
-				sum += (m_out[(k + p * 16) * size + (i + p * 16)] 
-						* m_out[(k + p * 16) * size + (i + p * 16)]);
+				sum += (m_out[(k + p) * size + (i + p)] 
+						* m_out[(k + p) * size + (i + p)]);
 			}
-			m_out[(i + p * 16) * size + (i + p * 16)] = 
-				sqrt(m_in[(i + p * 16) * size + (i + p * 16)] - sum);
-			for (int j = i + 1; j < 16; j++ ) {
+			m_out[(i + p) * size + (i + p)] = 
+				sqrt(m_in[(i + p) * size + (i + p)] - sum);
+			for (int j = i + 1; j < BLOCK_SIZE; j++ ) {
 				sum = 0;
 				for (int k = 0; k < i; k++){
-					sum += (m_out[(k + p * 16) * size + (i + p * 16)] 
-						* m_out[(k + p * 16) * size + (j + p * 16)]);
+					sum += (m_out[(k + p) * size + (i + p)] 
+						* m_out[(k + p) * size + (j + p)]);
 				}
-				m_out[(i + p * 16) * size + (j + p * 16)] = 
-					(m_in[(i + p * 16) * size + (j + p * 16)] - sum) / 
-							m_out[(i + p * 16) * size + (i + p * 16)];
+				m_out[(i + p) * size + (j + p)] = 
+					(m_in[(i + p) * size + (j + p)] - sum) / 
+							m_out[(i + p) * size + (i + p)];
 			}
 		}
 	}
@@ -61,24 +64,24 @@ __global__ void gpu_inv_l(float *u, float *b, int size, int p)
 {
 	int i, j;
 	int tid = threadIdx.x;
-	b[0 * 16 + tid] = b[0 * 16 + tid] / 
-		u[(0 + p * 16) * size + (0 + 16 * p)];
-	for (i = 1; i < 16; i++){
+	b[tid] = b[+ tid] / 
+		u[(p) * size + (p)];
+	for (i = 1; i < BLOCK_SIZE; i++){
 		for (j = 0; j < i; j++){
-			b[i * 16 + tid] = b[i * 16 + tid] - 
-				u[(j + p * 16) * size + (i + p * 16)] *
-				b[j * 16 + tid];
+			b[i * BLOCK_SIZE + tid] = b[i * BLOCK_SIZE + tid] - 
+				u[(j + p) * size + (i + p)] *
+				b[j * BLOCK_SIZE + tid];
 		}
-		b[i * 16 + tid] = b[i * 16 + tid] / u[(i + p * 16) * size + 
-							(i + 16 *p)];
+		b[i * BLOCK_SIZE + tid] = b[i * BLOCK_SIZE + tid] / u[(i + p) * size + 
+							(i + p)];
 
 	}
 }
 
 __global__ void gpu_mm_a(float *m, float *a, int size, int p)
 {
-	__shared__ float s_a[16][16];
-	__shared__ float s_b[16][16];
+	__shared__ float s_a[BLOCK_SIZE][BLOCK_SIZE];
+	__shared__ float s_b[BLOCK_SIZE][BLOCK_SIZE];
 	int tx = threadIdx.x;
 	int ty = threadIdx.y;
 	int bx = blockIdx.x;
@@ -86,15 +89,15 @@ __global__ void gpu_mm_a(float *m, float *a, int size, int p)
 
 	int i;
 
-	s_a[ty][tx] = a[(ty + p * 16) * size + tx + (p + 1) * 16 + bx * 16];
-	s_b[ty][tx] = a[(ty + p * 16) * size + tx + (p + 1) * 16 + by * 16];
+	s_a[ty][tx] = a[(ty + p) * size + tx + (p + BLOCK_SIZE) + bx * BLOCK_SIZE];
+	s_b[ty][tx] = a[(ty + p) * size + tx + (p + BLOCK_SIZE) + by * BLOCK_SIZE];
 
 	__syncthreads();
 
 	#pragma unroll 16
-	for (i = 0; i < 16; i++)
+	for (i = 0; i < BLOCK_SIZE; i++)
 	{
-		m[(ty + (p + 1 + bx) * 16) * size + tx + (p + 1 + by) * 16] -= s_a[i][ty] * s_b[i][tx];
+		m[(ty + (p + BLOCK_SIZE + bx * BLOCK_SIZE)) * size + tx + (p + BLOCK_SIZE + by *BLOCK_SIZE)] -= s_a[i][ty] * s_b[i][tx];
 	}
 }
 
@@ -103,22 +106,22 @@ __global__ void gpu_mm_a(float *m, float *a, int size, int p)
  */
 __global__ void gpu_mm_r(float *m, float *a, float *b, int size, int p)
 {
-	__shared__ float s_a[16][16];
-	__shared__ float s_b[16][16];
+	__shared__ float s_a[BLOCK_SIZE][BLOCK_SIZE];
+	__shared__ float s_b[BLOCK_SIZE][BLOCK_SIZE];
 	int tx = threadIdx.x;
 	int ty = threadIdx.y;
 	int stride = blockIdx.x + 1;
 	int i;
 
-	s_a[ty][tx] = a[ty * 16 + tx];
-	s_b[ty][tx] = b[(ty + p * 16) * size + tx + 16 * (stride + p)];
+	s_a[ty][tx] = a[ty * BLOCK_SIZE + tx];
+	s_b[ty][tx] = b[(ty + p) * size + tx + (BLOCK_SIZE*stride + p)];
 
 	__syncthreads();
 
 	#pragma unroll 16
-	for (i = 0; i < 16; i++)
+	for (i = 0; i < BLOCK_SIZE; i++)
 	{
-		m[(ty + p * 16) * size + tx + 16 * (stride + p)] += s_a[ty][i] * s_b[i][tx];
+		m[(ty + p) * size + tx + (BLOCK_SIZE*stride + p)] += s_a[ty][i] * s_b[i][tx];
 	}
 }
 
@@ -131,7 +134,7 @@ void init_eye(float *v, int n)
 
 int main(int argc, char *argv[])
 {
-	int size = 1024;
+	int size = 64;
 	unsigned int timer2 = 0, t = 0, t2 = 0;
 
 	float *m_in, *m_out, *device_m, *device_m_out, *eye, *device_eye;
@@ -156,7 +159,7 @@ int main(int argc, char *argv[])
 	CUT_SAFE_CALL(cutCreateTimer(&t));
 	CUT_SAFE_CALL(cutStartTimer(t));
 	
-	loadMatrix(m_in, "matrice/po1024.mat", size);
+	loadMatrix(m_in, "matrice/po64.mat", size);
 
 	CUT_SAFE_CALL(cutStopTimer(t));
 
@@ -207,12 +210,12 @@ int main(int argc, char *argv[])
 		cudaMemcpy(device_eye, eye, 16 * 16 * sizeof(float), cudaMemcpyHostToDevice);
 		blokovaPoGridu.x = it;
 		blokovaPoGridu.y = it;
-		gpu_inv_l<<<1, 16>>>(device_m_out, device_eye, size, i);
+		gpu_inv_l<<<1, 16>>>(device_m_out, device_eye, size, i * BLOCK_SIZE);
 		gpu_mm_r<<<it, thredovaPoBloku, 2 * 16 * 16 * sizeof(float)>>>
-			(device_m_out, device_eye, device_m, size, i);
+			(device_m_out, device_eye, device_m, size, i * BLOCK_SIZE);
 		gpu_mm_a<<<blokovaPoGridu, thredovaPoBloku, 2 * 16 * 16 * sizeof(float)>>>
 		(device_m, device_m_out, size, i);
-		gpu_dpotrf<<<1, 1>>>(device_m, device_m_out, size, i + 1);
+		gpu_dpotrf<<<1, 1>>>(device_m, device_m_out, size, (i + 1) * BLOCK_SIZE);
 		it--;
 		
 	}
