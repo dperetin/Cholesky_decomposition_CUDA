@@ -31,47 +31,6 @@ void saveMatrix(float * matrix, char *s, int size)
 	f.close();
 }
 
-void cpu_dpotrf_old(float *m_in, float *m_out, int size)
-{
-	for (int i = 0; i < size; i++) {
-		float sum = 0;
-		for (int k = 0; k < i; k++){
-			sum += (m_out[k * size + i] * m_out[k * size + i]);
-		}
-		m_out[i * size + i] = sqrt(m_in[i * size + i] - sum);
-		for (int j = i + 1; j < size; j++ ) {
-			sum = 0;
-			for (int k = 0; k < i; k++){
-				sum += (m_out[k * size + i] * m_out[k * size + j]);
-			}
-			m_out[i * size + j] = (m_in[i * size + j] - sum) / m_out[i * size + i];
-		}
-	}
-}
-
-void cpu_dpotrf(float *m_in, float *m_out, int size, int p)
-{
-	for (int i = 0; i < 16; i++) {
-			float sum = 0;
-			for (int k = 0; k < i; k++){
-				sum += (m_in[(k + p * 16) * size + (i + p * 16)] 
-						* m_in[(k + p * 16) * size + (i + p * 16)]);
-			}
-			m_in[(i + p * 16) * size + (i + p * 16)] = 
-				sqrt(m_in[(i + p * 16) * size + (i + p * 16)] - sum);
-			for (int j = i + 1; j < 16; j++ ) {
-				sum = 0;
-				for (int k = 0; k < i; k++){
-					sum += (m_in[(k + p * 16) * size + (i + p * 16)] 
-						* m_in[(k + p * 16) * size + (j + p * 16)]);
-				}
-				m_in[(i + p * 16) * size + (j + p * 16)] = 
-					(m_in[(i + p * 16) * size + (j + p * 16)] - sum) / 
-							m_in[(i + p * 16) * size + (i + p * 16)];
-			}
-		}
-}
-
 
 __global__ void gpu_dpotrf(float *m_in, float *m_out, int size, int p)
 {
@@ -98,22 +57,6 @@ __global__ void gpu_dpotrf(float *m_in, float *m_out, int size, int p)
 	}
 }
 
-__global__ void gpu_inv(float *u, float *b, int size, int p)
-{
-	int tid = threadIdx.x, i, j;
-	b[15 * 16 + tid] = b[15 * 16 + tid] / 
-		u[(15 + p * 16) * size + (15 + 16 * p)];
-	for (i = 14; i >= 0; i--) {
-		for (j = i + 1; j < 16; j++) {
-			b[i * 16 + tid] = b[i * 16 + tid] - 
-							  u[(i + p * 16) * size + (j + p * 16)] * 
-							  b[j * 16 + tid];
-		}
-		b[i * 16 + tid] = b[i * 16 + tid] / u[(i + p * 16) * size + 
-							(i + 16 *p)];
-	}
-}
-
 __global__ void gpu_inv_l(float *u, float *b, int size, int p)
 {
 	int i, j;
@@ -129,41 +72,6 @@ __global__ void gpu_inv_l(float *u, float *b, int size, int p)
 		b[i * 16 + tid] = b[i * 16 + tid] / u[(i + p * 16) * size + 
 							(i + 16 *p)];
 
-	}
-}
-
-void cpu_inv(float *u, float *b)
-{
-	int tid, i, j;
-	for (tid = 0; tid < 16; tid++){
-	b[tid * 16 + 15] = b[tid * 16 + 15] / u[15 * 16 + 15];
-	for (i = 14; i >= 0; i--) {
-		for (j = i + 1; j < 16; j++) {
-			b[tid * 16 + i] = b[tid * 16 + i] - 
-							  u[i * 16 + j] * b[tid * 16 + j];
-		}
-		b[tid * 16 + i] = b[tid * 16 + i] / u[i * 16 + i];
-	}
-	}
-}
-
-__global__ void gpu_mm(float *m, float *a, float *b)
-{
-	__shared__ float s_a[16][16];
-	__shared__ float s_b[16][16];
-	int tx = threadIdx.x;
-	int ty = threadIdx.y;
-	int i;
-
-	s_a[ty][tx] = a[ty * 16 + tx];
-	s_b[ty][tx] = b[ty * 16 + tx];
-
-	__syncthreads();
-
-	#pragma unroll 16
-	for (i = 0; i < 16; i++)
-	{
-		m[ty * 16 + tx] = m[ty * 16 + tx] - s_a[i][ty] * s_b[i][tx];
 	}
 }
 
@@ -214,30 +122,6 @@ __global__ void gpu_mm_r(float *m, float *a, float *b, int size, int p)
 	}
 }
 
-
-__global__ void gpu_dscal(float *v, int n)
-{
-	unsigned int i = (blockIdx.x * gridDim.y + blockIdx.y) * blockDim.x + threadIdx.x;
-	if(i < n) {
-		v[i + 1] /= v[0];
-	}
-}
-
-__global__ void gpu_sqrt(float *device_m)
-{
-	if(threadIdx.x == 0)
-		device_m[0] = sqrt(device_m[0]);
-}
-
-__global__ void gpu_daxpy(float *a, float *b, int n, float *x, int k)
-{
-	//unsigned int tid = threadIdx.x;
-	unsigned int i = (blockIdx.x * gridDim.y + blockIdx.y) * blockDim.x + threadIdx.x;
-	if(i < n) {
-		a[i] -= (b[i] * x[k - 1]);
-	}
-}
-
 void init_eye(float *v, int n)
 {
 	int i;
@@ -247,7 +131,7 @@ void init_eye(float *v, int n)
 
 int main(int argc, char *argv[])
 {
-	int size = 10000;
+	int size = 128;
 	unsigned int timer, timer2, t=0, t2=0;
 
 	float *m_in, *m_out, *device_m, *device_m_out, *eye, *device_eye;
@@ -272,7 +156,7 @@ int main(int argc, char *argv[])
 	CUT_SAFE_CALL(cutCreateTimer(&t));
 	CUT_SAFE_CALL(cutStartTimer(t));
 	
-	loadMatrix(m_in, "po10k.mat", size);
+	loadMatrix(m_in, "po128.mat", size);
 
 	CUT_SAFE_CALL(cutStopTimer(t));
 
