@@ -162,24 +162,9 @@ int main(int argc, char *argv[])
 
 	printf("%f\n", cutGetTimerValue(t));
 
-	
-
-
 	timer = 0;
 	timer2 = 0;
 
-	printf("CPU racuna: ");
-
-	CUT_SAFE_CALL(cutCreateTimer(&timer));
-	CUT_SAFE_CALL(cutStartTimer(timer));
-
-	//cpu_dpotrf_old(m_in, m_out, size);
-
-	CUT_SAFE_CALL(cutStopTimer(timer));
-
-	printf("%f\n", cutGetTimerValue(timer));
-
-	
 	// GPU //
 	int n = size;
 	dim3 blokovaPoGridu, thredovaPoBloku;
