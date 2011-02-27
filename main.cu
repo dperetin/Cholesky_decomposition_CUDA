@@ -75,14 +75,25 @@ __global__ void gpu_inv_l(float *u, float *b, int size, int p)
 	}
 }
 
-__global__ void gpu_mm_a(float *m, float *a, int size, int p)
+__global__ void gpu_mm_a(float *m, float *a, int size, int p, int it)
 {
 	__shared__ float s_a[16][16];
 	__shared__ float s_b[16][16];
 	int tx = threadIdx.x;
 	int ty = threadIdx.y;
-	int bx = blockIdx.x;
-	int by = blockIdx.y;
+	
+	int poz = blockIdx.x;
+	int it_b = it;
+	int o = -1;
+
+	while (poz >= 0) {
+		poz -= it;
+		o++;
+		it--;
+	}
+	 
+	int bx = o;
+	int by = it_b + poz;
 
 	int i;
 
@@ -131,7 +142,7 @@ void init_eye(float *v, int n)
 
 int main(int argc, char *argv[])
 {
-	int size = 32;
+	int size = 2048;
 	unsigned int timer2 = 0, t = 0, t2 = 0;
 
 	float *m_in, *m_out, *device_m, *device_m_out, *eye, *device_eye;
@@ -156,7 +167,7 @@ int main(int argc, char *argv[])
 	CUT_SAFE_CALL(cutCreateTimer(&t));
 	CUT_SAFE_CALL(cutStartTimer(t));
 	
-	loadMatrix(m_in, "matrice/po32.mat", size);
+	loadMatrix(m_in, "matrice/po2048.mat", size);
 
 	CUT_SAFE_CALL(cutStopTimer(t));
 
@@ -211,7 +222,7 @@ int main(int argc, char *argv[])
 		gpu_mm_r<<<it, thredovaPoBloku, 2 * 16 * 16 * sizeof(float)>>>
 			(device_m_out, device_eye, device_m, size, i);
 		gpu_mm_a<<<blokovaPoGridu, thredovaPoBloku, 2 * 16 * 16 * sizeof(float)>>>
-		(device_m, device_m_out, size, i);
+		(device_m, device_m_out, size, i, it);
 		gpu_dpotrf<<<1, 1>>>(device_m, device_m_out, size, i + 1);
 		it--;
 		
