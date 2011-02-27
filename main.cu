@@ -131,8 +131,8 @@ void init_eye(float *v, int n)
 
 int main(int argc, char *argv[])
 {
-	int size = 128;
-	unsigned int timer, timer2, t=0, t2=0;
+	int size = 10240;
+	unsigned int timer2 = 0, t = 0, t2 = 0;
 
 	float *m_in, *m_out, *device_m, *device_m_out, *eye, *device_eye;
 	m_in = new float[size * size];
@@ -156,14 +156,11 @@ int main(int argc, char *argv[])
 	CUT_SAFE_CALL(cutCreateTimer(&t));
 	CUT_SAFE_CALL(cutStartTimer(t));
 	
-	loadMatrix(m_in, "po128.mat", size);
+	loadMatrix(m_in, "matrice/po10240.mat", size);
 
 	CUT_SAFE_CALL(cutStopTimer(t));
 
 	printf("%f\n", cutGetTimerValue(t));
-
-	timer = 0;
-	timer2 = 0;
 
 	// GPU //
 	int n = size;
