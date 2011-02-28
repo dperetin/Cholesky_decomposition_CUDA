@@ -156,7 +156,7 @@ int main(int argc, char *argv[])
 	CUT_SAFE_CALL(cutCreateTimer(&t));
 	CUT_SAFE_CALL(cutStartTimer(t));
 	
-	loadMatrix(m_in, "matrice/po1024.mat", size);
+	loadMatrix(m_in, "matrice/1024.mat", size);
 
 	CUT_SAFE_CALL(cutStopTimer(t));
 
