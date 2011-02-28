@@ -237,5 +237,7 @@ int main(int argc, char *argv[])
 	cudaFree(device_m_out);
 	cudaFree(device_eye);
 
+	system("PAUSE");
+
 	return 0;
 }
