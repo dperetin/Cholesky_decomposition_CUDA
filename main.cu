@@ -179,9 +179,6 @@ int main(int argc, char *argv[])
 	
 	thredovaPoBloku.x = 16;
 	thredovaPoBloku.y = 16;
-	blokovaPoGridu.x = 3;
-	blokovaPoGridu.y = 3;
-
 
 	cudaMalloc((void **) &device_m, n * n * sizeof(float));
 	cudaMalloc((void **) &device_m_out, n * n * sizeof(float));
