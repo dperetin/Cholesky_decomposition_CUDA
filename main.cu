@@ -134,7 +134,7 @@ void init_eye(float *v, int n)
 
 int main(int argc, char *argv[])
 {
-	int size = 64;
+	int size = 9216;
 	unsigned int timer2 = 0, t = 0, t2 = 0;
 
 	float *m_in, *m_out, *device_m, *device_m_out, *eye, *device_eye;
@@ -159,7 +159,7 @@ int main(int argc, char *argv[])
 	CUT_SAFE_CALL(cutCreateTimer(&t));
 	CUT_SAFE_CALL(cutStartTimer(t));
 	
-	loadMatrix(m_in, "matrice/po64.mat", size);
+	loadMatrix(m_in, "matrice/po9216.mat", size);
 
 	CUT_SAFE_CALL(cutStopTimer(t));
 
@@ -214,7 +214,7 @@ int main(int argc, char *argv[])
 		gpu_mm_r<<<it, thredovaPoBloku, 2 * 16 * 16 * sizeof(float)>>>
 			(device_m_out, device_eye, device_m, size, i * BLOCK_SIZE);
 		gpu_mm_a<<<blokovaPoGridu, thredovaPoBloku, 2 * 16 * 16 * sizeof(float)>>>
-		(device_m, device_m_out, size, i);
+		(device_m, device_m_out, size, i * BLOCK_SIZE);
 		gpu_dpotrf<<<1, 1>>>(device_m, device_m_out, size, (i + 1) * BLOCK_SIZE);
 		it--;
 		
