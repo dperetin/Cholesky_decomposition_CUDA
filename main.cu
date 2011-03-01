@@ -159,7 +159,7 @@ int main(int argc, char *argv[])
 	CUT_SAFE_CALL(cutCreateTimer(&t));
 	CUT_SAFE_CALL(cutStartTimer(t));
 	
-	loadMatrix(m_in, "po1024.mat", size);
+	loadMatrix(m_in, "matrice/po1024.mat", size);
 
 	CUT_SAFE_CALL(cutStopTimer(t));
 
@@ -206,7 +206,7 @@ int main(int argc, char *argv[])
 		cudaMemcpy(device_eye, eye, BLOCK_SIZE * BLOCK_SIZE * sizeof(float), cudaMemcpyHostToDevice);
 		blokovaPoGridu.x = it;
 		blokovaPoGridu.y = it;
-		gpu_inv_l<<<1, 16>>>(device_m_out, device_eye, size, i * BLOCK_SIZE);
+		gpu_inv_l<<<1, BLOCK_SIZE>>>(device_m_out, device_eye, size, i * BLOCK_SIZE);
 		gpu_mm_r<<<it, thredovaPoBloku, 2 * BLOCK_SIZE * BLOCK_SIZE * sizeof(float)>>>
 			(device_m_out, device_eye, device_m, size, i * BLOCK_SIZE);
 		gpu_mm_a<<<blokovaPoGridu, thredovaPoBloku, 2 * BLOCK_SIZE * BLOCK_SIZE * sizeof(float)>>>
