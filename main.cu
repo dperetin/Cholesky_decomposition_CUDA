@@ -96,6 +96,7 @@ __global__ void gpu_mm_a(float *m, float *a, int size, int p)
 {
 	__shared__ float s_a[16][16];
 	__shared__ float s_b[16][16];
+	__shared__ float s_c[16][16];
 	int tx = threadIdx.x;
 	int ty = threadIdx.y;
 	int bx = blockIdx.x;
@@ -111,8 +112,9 @@ __global__ void gpu_mm_a(float *m, float *a, int size, int p)
 	#pragma unroll 16
 	for (i = 0; i < 16; i++)
 	{
-		m[(ty + (p + 1 + bx) * 16) * size + tx + (p + 1 + by) * 16] -= s_a[i][ty] * s_b[i][tx];
+		s_c[ty][tx] -= s_a[i][ty] * s_b[i][tx];
 	}
+	m[(ty + (p + 1 + bx) * 16) * size + tx + (p + 1 + by) * 16] += s_c[ty][tx];
 }
 
 /*   
@@ -122,6 +124,7 @@ __global__ void gpu_mm_r(float *m, float *a, float *b, int size, int p)
 {
 	__shared__ float s_a[16][16];
 	__shared__ float s_b[16][16];
+	__shared__ float s_c[16][16];
 	int tx = threadIdx.x;
 	int ty = threadIdx.y;
 	int stride = blockIdx.x + 1;
@@ -135,8 +138,9 @@ __global__ void gpu_mm_r(float *m, float *a, float *b, int size, int p)
 	#pragma unroll 16
 	for (i = 0; i < 16; i++)
 	{
-		m[(ty + p * 16) * size + tx + 16 * (stride + p)] += s_a[ty][i] * s_b[i][tx];
+		s_c[ty][tx] += s_a[ty][i] * s_b[i][tx];
 	}
+	m[(ty + p * 16) * size + tx + 16 * (stride + p)] += s_c[ty][tx];
 }
 
 void init_eye(float *v, int n)
@@ -148,7 +152,7 @@ void init_eye(float *v, int n)
 
 int main(int argc, char *argv[])
 {
-	int size = 9216;
+	int size = 1024;
 	unsigned int timer2 = 0, t = 0, t2 = 0;
 
 	float *m_in, *m_out, *device_m, *device_m_out, *eye, *device_eye;
@@ -173,7 +177,7 @@ int main(int argc, char *argv[])
 	CUT_SAFE_CALL(cutCreateTimer(&t));
 	CUT_SAFE_CALL(cutStartTimer(t));
 	
-	loadMatrix(m_in, "matrice/po9216.mat", size);
+	loadMatrix(m_in, "matrice/po1024.mat", size);
 
 	CUT_SAFE_CALL(cutStopTimer(t));
 
@@ -225,9 +229,9 @@ int main(int argc, char *argv[])
 		blokovaPoGridu.x = it;
 		blokovaPoGridu.y = it;
 		gpu_inv_l<<<1, 16>>>(device_m_out, device_eye, size, i);
-		gpu_mm_r<<<it, thredovaPoBloku, 2 * 16 * 16 * sizeof(float)>>>
+		gpu_mm_r<<<it, thredovaPoBloku, 3 * 16 * 16 * sizeof(float)>>>
 			(device_m_out, device_eye, device_m, size, i);
-		gpu_mm_a<<<blokovaPoGridu, thredovaPoBloku, 2 * 16 * 16 * sizeof(float)>>>
+		gpu_mm_a<<<blokovaPoGridu, thredovaPoBloku, 3 * 16 * 16 * sizeof(float)>>>
 		(device_m, device_m_out, size, i);
 		gpu_dpotrf<<<1, thredovaPoBloku, 16*16*sizeof(float)>>>(device_m, device_m_out, size, i + 1);
 		it--;
