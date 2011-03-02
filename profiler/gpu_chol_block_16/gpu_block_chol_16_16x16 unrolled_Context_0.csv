@@ -1,0 +1,10 @@
+# CUDA_PROFILE_LOG_VERSION 2.0
+# CUDA_PROFILE_CSV 1
+# TIMESTAMPFACTOR fffff6ffa93b1130
+# CUDA_DEVICE 0 GeForce GTX 460
+gpustarttimestamp,method,gputime,cputime,occupancy,gridSizeX,gridSizeY,blockSizeX,blockSizeY,blockSizeZ,dynSmemPerBlock,staSmemPerBlock,registerPerThread,streamID,localblocksize,memTransferSize,memtransferhostmemtype,local_load,local_store,gld_request,gst_request,l2_subp0_write_sector_misses,fb_subp0_read_sectors,fb_subp0_write_sectors,shared_load,shared_store,sm_cta_launched,l1_local_load_hit,l2_subp1_write_sector_misses,fb_subp1_read_sectors,fb_subp1_write_sectors,branch,l1_local_load_miss,l1_local_store_hit,l2_subp0_read_sector_misses,divergent_branch,l1_local_store_miss,l1_global_load_hit,l2_subp1_read_sector_misses,inst_executed,l1_global_load_miss,l2_subp0_write_sector_queries,warps_launched,threads_launched,uncached_global_load_transaction,l2_subp1_write_sector_queries,active_warps,global_store_transaction,l2_subp0_read_sector_queries,active_cycles,l1_shared_bank_conflict,l2_subp1_read_sector_queries,tex0_cache_sector_queries,tex0_cache_sector_misses,inst_issued1_0,inst_issued2_0,tex1_cache_sector_queries,inst_issued1_1,inst_issued2_1,tex1_cache_sector_misses
+12073d6d5a1bfc20,memset32_aligned1D,4.544,25,0.25,2,1,192,1,1,0,0,6,0,-1,,0,0,0,0,6,16,43,16,0,0,1,0,16,32,16,12,0,0,23,0,0,0,36,90,0,0,6,192,0,16,7634,6,0,1262,0,0,0,0,33,12,0,33,12,0
+12073d6d5a1fc780,memcpyHtoD,0.928,3,,,,,,,,,,0,0,1024,0
+12073d6d5a1fe9a0,memcpyHtoD,0.96,3,,,,,,,,,,0,0,1024,0
+12073d6d5a208720,_Z10gpu_dpotrfPfS_ii,9.024,19,0.167,1,1,16,16,1,1024,1088,10,0,-1,,0,0,0,8,8,12,62,12,344,88,1,0,12,32,12,272,0,0,62,8,0,0,40,2008,8,0,8,256,0,12,43021,8,16,5379,9,16,0,0,868,64,0,909,72,0
+12073d6d5a246280,memcpyDtoH,1.568,13,,,,,,,,,,0,0,1024,0

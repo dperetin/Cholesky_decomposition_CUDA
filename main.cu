@@ -32,29 +32,46 @@ void saveMatrix(float * matrix, char *s, int size)
 }
 
 
-__global__ void gpu_dpotrf(float *m_in, float *m_out, int size, int p)
+__global__ void gpu_dpotrf(float *m, float *m_out, int size, int p)
 {
-	if(threadIdx.x == 0){
-		for (int i = 0; i < 16; i++) {
-			float sum = 0;
-			for (int k = 0; k < i; k++){
-				sum += (m_out[(k + p * 16) * size + (i + p * 16)] 
-						* m_out[(k + p * 16) * size + (i + p * 16)]);
-			}
-			m_out[(i + p * 16) * size + (i + p * 16)] = 
-				sqrt(m_in[(i + p * 16) * size + (i + p * 16)] - sum);
-			for (int j = i + 1; j < 16; j++ ) {
-				sum = 0;
-				for (int k = 0; k < i; k++){
-					sum += (m_out[(k + p * 16) * size + (i + p * 16)] 
-						* m_out[(k + p * 16) * size + (j + p * 16)]);
-				}
-				m_out[(i + p * 16) * size + (j + p * 16)] = 
-					(m_in[(i + p * 16) * size + (j + p * 16)] - sum) / 
-							m_out[(i + p * 16) * size + (i + p * 16)];
-			}
-		}
-	}
+	int tx = threadIdx.x;
+    int ty = threadIdx.y;
+
+    __shared__ float a[16][16+1];
+    a[ty][tx] = m[(ty + 16 * p) * size + tx + 16 * p];
+
+    __syncthreads();
+
+    float fac;
+
+
+// in this loop tx labels column, ty row
+#pragma unroll 16
+    for (int k = 0; k < 16; k++)
+    {
+		__syncthreads();
+		fac = rsqrtf(a[k][k]);
+		__syncthreads();
+		if ((ty == k) && (tx >= k)) 
+	    	a[tx][ty] = (a[tx][ty]) * fac;
+	
+		__syncthreads();
+
+		if ((ty >= tx) && (tx > k)) 
+	    	a[ty][tx]=a[ty][tx] - a[tx][k]*a[ty][k]; 
+	
+
+    }
+
+    __syncthreads();
+
+
+// here, tx labels column, ty row	
+    if (ty>=tx) 
+	m_out[(tx+16*p)*size+ty+16*p]=a[ty][tx];
+    
+
+
 }
 
 __global__ void gpu_inv_l(float *u, float *b, int size, int p)
@@ -131,7 +148,7 @@ void init_eye(float *v, int n)
 
 int main(int argc, char *argv[])
 {
-	int size = 1024;
+	int size = 4096;
 	unsigned int timer2 = 0, t = 0, t2 = 0;
 
 	float *m_in, *m_out, *device_m, *device_m_out, *eye, *device_eye;
@@ -156,7 +173,7 @@ int main(int argc, char *argv[])
 	CUT_SAFE_CALL(cutCreateTimer(&t));
 	CUT_SAFE_CALL(cutStartTimer(t));
 	
-	loadMatrix(m_in, "matrice/1024.mat", size);
+	loadMatrix(m_in, "matrice/po4096.mat", size);
 
 	CUT_SAFE_CALL(cutStopTimer(t));
 
@@ -201,7 +218,7 @@ int main(int argc, char *argv[])
 
 	int i;
 	int it = n / 16 - 1;
-	gpu_dpotrf<<<1, 1>>>(device_m, device_m_out, size, 0);
+	gpu_dpotrf<<<1, thredovaPoBloku, 16*16*sizeof(float)>>>(device_m, device_m_out, size, 0);
 
 	for (i = 0; i < n / 16 - 1; i++) {
 		cudaMemcpy(device_eye, eye, 16 * 16 * sizeof(float), cudaMemcpyHostToDevice);
@@ -212,7 +229,7 @@ int main(int argc, char *argv[])
 			(device_m_out, device_eye, device_m, size, i);
 		gpu_mm_a<<<blokovaPoGridu, thredovaPoBloku, 2 * 16 * 16 * sizeof(float)>>>
 		(device_m, device_m_out, size, i);
-		gpu_dpotrf<<<1, 1>>>(device_m, device_m_out, size, i + 1);
+		gpu_dpotrf<<<1, thredovaPoBloku, 16*16*sizeof(float)>>>(device_m, device_m_out, size, i + 1);
 		it--;
 		
 	}
@@ -236,8 +253,6 @@ int main(int argc, char *argv[])
 	cudaFree(device_m);
 	cudaFree(device_m_out);
 	cudaFree(device_eye);
-
-	system("PAUSE");
 
 	return 0;
 }
