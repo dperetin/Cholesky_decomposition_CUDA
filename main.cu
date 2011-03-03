@@ -74,31 +74,39 @@ __global__ void gpu_dpotrf(float *m, float *m_out, int size, int p)
 
 }
 
-__global__ void gpu_inv_l(float *u, float *b_o, int size, int p)
+__global__ void gpu_inv_l(float *u_o, float *b_o, int size, int p)
 {
 	__shared__ float b[16][16];
+	__shared__ float u[16][16];
+
+	//__shared__ flo
 
 	int i, j;
 	int tx = threadIdx.x;
+	int ty = threadIdx.x;
 
-	__syncthreads();
+	
 
 	b[tx][tx] = 1;
-	b[0][tx] = b[0][tx] / 
-		u[(p * 16) * size + (16 * p)];
-	for (i = 1; i < 16; i++) {
-		for (j = 0; j < i; j++){
-			b[i][tx] = b[i][tx] - 
-				u[(j + p * 16) * size + (i + p * 16)] *
-				b[j][tx];
-		}
-		b[i][tx] = b[i][tx] / u[(i + p * 16) * size + 
-							(i + 16 *p)];
+	u[ty][tx] = u_o[(ty + p * 16) * size + (tx + p * 16)];
 
-	}
 	__syncthreads();
-	for (i = 1; i < 16; i++) 
-		b_o[i*16+tx] = b[i][tx];
+
+	if(ty == 0)
+		b[0][tx] = b[0][tx] / u[0][0];
+//	for (i = 1; i < 16; i++) 
+
+		for (j = 0; j < ty; j++){
+			b[ty][tx] = b[ty][tx] - u[j][ty] * b[j][tx];
+		}
+		b[ty][tx] = b[ty][tx] / u[ty][ty];
+
+	
+	__syncthreads();
+	
+	b_o[ty * 16 + tx] = b[ty][tx];
+	u_o[(ty + p * 16) * size + (tx + p * 16)] = u[ty][tx];
+	
 }
 
 __global__ void gpu_mm_a(float *m, float *a, int size, int p, int it)
@@ -265,7 +273,7 @@ int main(int argc, char *argv[])
 					cudaMemcpyHostToDevice );*/
 		blokovaPoGridu.x = it;
 		blokovaPoGridu.y = it;
-		gpu_inv_l<<<1, 16>>>(device_m_out, device_eye, size, i);
+		gpu_inv_l<<<1, thredovaPoBloku, 2 * 16 * 16 * sizeof(float)>>>(device_m_out, device_eye, size, i);
 		gpu_mm_r<<<it, thredovaPoBloku, 3 * 16 * 16 * sizeof(float)>>>
 			(device_m_out, device_eye, device_m, size, i);
 		if(it % 2){

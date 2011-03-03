@@ -1,0 +1,13 @@
+# CUDA_PROFILE_LOG_VERSION 2.0
+# CUDA_PROFILE_CSV 1
+# TIMESTAMPFACTOR fffff6ff6f156d70
+# CUDA_DEVICE 0 GeForce GTX 460
+gpustarttimestamp,method,gputime,cputime,occupancy,gridSizeX,gridSizeY,blockSizeX,blockSizeY,blockSizeZ,dynSmemPerBlock,staSmemPerBlock,registerPerThread,streamID,localblocksize,memTransferSize,memtransferhostmemtype,local_load,local_store,gld_request,gst_request,l2_subp0_write_sector_misses,fb_subp0_read_sectors,fb_subp0_write_sectors,shared_load,shared_store,sm_cta_launched,l1_local_load_hit,l2_subp1_write_sector_misses,fb_subp1_read_sectors,fb_subp1_write_sectors,branch,l1_local_load_miss,l1_local_store_hit,l2_subp0_read_sector_misses,divergent_branch,l1_local_store_miss,l1_global_load_hit,l2_subp1_read_sector_misses,inst_executed,l1_global_load_miss,l2_subp0_write_sector_queries,warps_launched,threads_launched,uncached_global_load_transaction,l2_subp1_write_sector_queries,active_warps,global_store_transaction,l2_subp0_read_sector_queries,active_cycles,l1_shared_bank_conflict,l2_subp1_read_sector_queries,tex0_cache_sector_queries,tex0_cache_sector_misses,inst_issued1_0,inst_issued2_0,tex1_cache_sector_queries,inst_issued1_1,inst_issued2_1,tex1_cache_sector_misses
+12079896d85e2cc0,memset32_aligned1D,4.576,24,0.75,6,1,192,1,1,0,0,6,0,-1,,0,0,0,0,12,64,33,64,0,0,2,0,64,48,64,24,0,0,13,0,0,0,48,180,0,64,12,384,0,64,18106,12,0,1291,0,0,0,0,66,24,0,67,24,0
+12079896d86236e0,memcpyHtoD,0.96,4,,,,,,,,,,0,0,4096,0
+12079896d862da60,_Z10gpu_dpotrfPfS_ii,9.536,20,0.167,1,1,16,16,1,1024,1088,9,0,-1,,0,0,0,8,8,12,60,12,344,88,1,0,12,49,12,272,0,0,32,8,0,0,41,2048,16,128,8,256,0,32,44864,72,32,5438,9,32,0,0,928,60,0,977,68,0
+12079896d866dc00,_Z9gpu_inv_lPfS_ii,5.408,16,0.167,1,1,16,16,1,1024,2048,12,0,-1,,0,0,0,8,16,16,33,16,296,152,1,0,16,38,16,136,0,0,25,120,0,112,38,1672,16,128,8,256,0,128,23659,192,50,2514,0,38,0,0,509,256,0,516,256,0
+12079896d86aa660,_Z8gpu_mm_rPfS_S_ii,3.904,14,0.167,1,1,16,16,1,3072,3072,12,0,-1,,0,0,0,24,8,16,32,16,264,144,1,0,16,31,16,8,0,0,24,0,0,0,51,808,40,32,8,256,0,16,13886,16,80,1705,0,80,0,0,288,72,0,288,72,0
+12079896d86e6c40,_Z8gpu_mm_aPfS_iii,3.552,13,0.167,1,1,16,16,1,3072,3072,12,0,-1,,0,0,0,24,8,16,24,16,264,144,1,0,16,5,16,16,0,0,0,0,0,16,21,968,32,16,8,256,0,16,12978,16,64,1461,0,64,0,0,316,100,0,316,100,0
+12079896d8722c20,_Z10gpu_dpotrfPfS_ii,9.312,19,0.167,1,1,16,16,1,1024,1088,9,0,-1,,0,0,0,8,8,12,60,12,344,88,1,0,12,64,12,272,0,0,0,8,0,0,36,2048,16,48,8,256,0,40,44864,72,32,5281,9,32,0,0,928,60,0,977,68,0
+12079896d8767d20,memcpyDtoH,2.624,15,,,,,,,,,,0,0,4096,0
