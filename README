@@ -3,7 +3,7 @@ Faktorizacija Choleskog u CUDA-i
 TODO:
 varijabilni N i BLOCK_SIZE
 radit s jednom matricom
-ubrzat gpu_dpotr
 dat bolja imena funkcijama i varijablama
 PTX
 usporedit s MAGMA-om
+dodat generator matrice
