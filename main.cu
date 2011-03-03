@@ -99,9 +99,9 @@ __global__ void gpu_mm_a(float *m, float *a, int size, int p, int it)
 	__shared__ float s_c[16][16];
 	int tx = threadIdx.x;
 	int ty = threadIdx.y;
-	int BX = blockIdx.x;
-	int BY = blockIdx.y;
-	int bx, by, o = 0, e = -1;
+	int BY = blockIdx.x;
+	int BX = blockIdx.y;
+	int bx=0, by=0, o = 0, e = -1;
 
 	if(!(it % 2)){
 		o = 1;
@@ -168,7 +168,7 @@ void init_eye(float *v, int n)
 
 int main(int argc, char *argv[])
 {
-	int size = 32;
+	int size = 10240;
 	unsigned int timer2 = 0, t = 0, t2 = 0;
 
 	float *m_in, *m_out, *device_m, *device_m_out, *eye, *device_eye;
@@ -193,7 +193,7 @@ int main(int argc, char *argv[])
 	CUT_SAFE_CALL(cutCreateTimer(&t));
 	CUT_SAFE_CALL(cutStartTimer(t));
 	
-	loadMatrix(m_in, "matrice/po32.mat", size);
+	loadMatrix(m_in, "matrice/po10240.mat", size);
 
 	CUT_SAFE_CALL(cutStopTimer(t));
 
