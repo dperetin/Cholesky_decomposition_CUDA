@@ -74,22 +74,31 @@ __global__ void gpu_dpotrf(float *m, float *m_out, int size, int p)
 
 }
 
-__global__ void gpu_inv_l(float *u, float *b, int size, int p)
+__global__ void gpu_inv_l(float *u, float *b_o, int size, int p)
 {
+	__shared__ float b[16][16];
+
 	int i, j;
-	int tid = threadIdx.x;
-	b[0 * 16 + tid] = b[0 * 16 + tid] / 
-		u[(0 + p * 16) * size + (0 + 16 * p)];
-	for (i = 1; i < 16; i++){
+	int tx = threadIdx.x;
+
+	__syncthreads();
+
+	b[tx][tx] = 1;
+	b[0][tx] = b[0][tx] / 
+		u[(p * 16) * size + (16 * p)];
+	for (i = 1; i < 16; i++) {
 		for (j = 0; j < i; j++){
-			b[i * 16 + tid] = b[i * 16 + tid] - 
+			b[i][tx] = b[i][tx] - 
 				u[(j + p * 16) * size + (i + p * 16)] *
-				b[j * 16 + tid];
+				b[j][tx];
 		}
-		b[i * 16 + tid] = b[i * 16 + tid] / u[(i + p * 16) * size + 
+		b[i][tx] = b[i][tx] / u[(i + p * 16) * size + 
 							(i + 16 *p)];
 
 	}
+	__syncthreads();
+	for (i = 1; i < 16; i++) 
+		b_o[i*16+tx] = b[i][tx];
 }
 
 __global__ void gpu_mm_a(float *m, float *a, int size, int p, int it)
@@ -168,7 +177,7 @@ void init_eye(float *v, int n)
 
 int main(int argc, char *argv[])
 {
-	int size = 10240;
+	int size = 32;
 	unsigned int timer2 = 0, t = 0, t2 = 0;
 
 	float *m_in, *m_out, *device_m, *device_m_out, *eye, *device_eye;
@@ -193,7 +202,7 @@ int main(int argc, char *argv[])
 	CUT_SAFE_CALL(cutCreateTimer(&t));
 	CUT_SAFE_CALL(cutStartTimer(t));
 	
-	loadMatrix(m_in, "matrice/po10240.mat", size);
+	loadMatrix(m_in, "matrice/po32.mat", size);
 
 	CUT_SAFE_CALL(cutStopTimer(t));
 
@@ -223,10 +232,10 @@ int main(int argc, char *argv[])
 				n * n * sizeof(float), 
 				cudaMemcpyHostToDevice );
 
-	cudaMemcpy( device_eye, 
+/*	cudaMemcpy( device_eye, 
 				eye, 
 				16 * 16 * sizeof(float), 
-				cudaMemcpyHostToDevice );
+				cudaMemcpyHostToDevice );*/
 
 	CUT_SAFE_CALL(cutStopTimer(t2));
 
@@ -250,10 +259,10 @@ int main(int argc, char *argv[])
 				    0 );
 
 	for (i = 0; i < n / 16 - 1; i++) {
-		cudaMemcpy( device_eye, 
+/*		cudaMemcpy( device_eye, 
 					eye, 
 					16 * 16 * sizeof(float), 
-					cudaMemcpyHostToDevice );
+					cudaMemcpyHostToDevice );*/
 		blokovaPoGridu.x = it;
 		blokovaPoGridu.y = it;
 		gpu_inv_l<<<1, 16>>>(device_m_out, device_eye, size, i);
