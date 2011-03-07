@@ -99,30 +99,15 @@ __global__ void gpu_mm_a(float *m, int size, int p, int it)
 	__shared__ float s_c[16][16];
 	int tx = threadIdx.x;
 	int ty = threadIdx.y;
-	int BY = blockIdx.x;
-	int BX = blockIdx.y;
-	int bx=0, by=0, o = 0, e = -1;
-	int i, pi, n = it;
+	int bx = blockIdx.x;
+	int by = blockIdx.y;
+	int i;
 
-	if(!(it % 2)){
-		o = 1;
-		e = -2;
-	}
 
-	pi = n - 1 - BX;
-	if(BY <= pi){
-		bx=BX;
-		by=BY+BX;
-	}
-	else{
-		bx=n-(BX+o);
-		by=(n-BX)+BY-pi+e;
-	}
-
-	s_a[ty][tx] = m[(ty + p * 16) * size + tx + (p + 1) * 16 + bx * 16];
-	s_b[ty][tx] = m[(ty + p * 16) * size + tx + (p + 1) * 16 + by * 16];
+	s_a[ty][tx] = m[(ty + p * 16) * size + tx + (p + 1) * 16 + by * 16];
+	s_b[ty][tx] = m[(ty + p * 16) * size + tx + (p + 1) * 16 + bx * 16];
 	s_c[ty][tx] = 0;
-//a[(ty + p * 16) * size + tx + (p + 1) * 16 + by * 16]=666;
+
 	__syncthreads();
 
 	#pragma unroll 16
@@ -131,12 +116,10 @@ __global__ void gpu_mm_a(float *m, int size, int p, int it)
 		s_c[ty][tx] += s_a[i][ty] * s_b[i][tx];
 	}
 
-	m[(ty + (p + 1 + bx) * 16) * size + tx + (p + 1 + by) * 16] -= s_c[ty][tx];
+	m[(ty + (p + 1 + by) * 16) * size + tx + (p + 1 + bx) * 16] -= s_c[ty][tx];
 }
 
-/*   
-   Mnozi redak 16x16 matrica, m += a*b 
- */
+
 __global__ void gpu_mm_r(float *a, float *b, int size, int p)
 {
 	__shared__ float s_a[16][16];
@@ -170,7 +153,7 @@ void init_eye(float *v, int n)
 
 int main(int argc, char *argv[])
 {
-	int size = 64;
+	int size = 1024;
 	unsigned int timer2 = 0, t = 0, t2 = 0;
 
 	float *m_in, *m_out, *device_m, *device_m_out, *eye, *device_eye;
@@ -195,7 +178,7 @@ int main(int argc, char *argv[])
 	CUT_SAFE_CALL(cutCreateTimer(&t));
 	CUT_SAFE_CALL(cutStartTimer(t));
 	
-	loadMatrix(m_in, "matrice/po64.mat", size);
+	loadMatrix(m_in, "matrice/po1024.mat", size);
 
 	CUT_SAFE_CALL(cutStopTimer(t));
 
@@ -244,37 +227,66 @@ int main(int argc, char *argv[])
 	int i;
 	int it = n / 16 - 1;
 	gpu_dpotrf<<< 1, 
-				  thredovaPoBloku, 
-				  16 * 16 * sizeof(float) >>>
+				  thredovaPoBloku 
+				   >>>
 				  ( device_m, size, 0 );
 
 	for (i = 0; i < n / 16 - 1; i++) {
 		cudaMemcpy( device_eye, 
 					eye, 
-					16 * 16 * sizeof(float), 
+					16*16*sizeof(float),
 					cudaMemcpyHostToDevice );
 		blokovaPoGridu.x = it;
 		blokovaPoGridu.y = it;
 		gpu_inv_l<<<1, 16>>>(device_m, device_eye, size, i);
-		gpu_mm_r<<<it, thredovaPoBloku, 3 * 16 * 16 * sizeof(float)>>>
+		gpu_mm_r<<<it, thredovaPoBloku>>>
 			(device_eye, device_m, size, i);
-		if(it % 2){
-			blokovaPoGridu.x = (it+1)/2;
-			blokovaPoGridu.y = it;
+		/*if(it % 2){
+			blokovaPoGridu.y = (it+1)/2;
+			blokovaPoGridu.x = it;
 		}
 		else{
-			blokovaPoGridu.x = it/2;
-			blokovaPoGridu.y = it+1;
-		}
+			blokovaPoGridu.y = it/2;
+			blokovaPoGridu.x = it+1;
+		}*/
 	//	blokovaPoGridu.x = 1;
 	//		blokovaPoGridu.y = 1;
-		gpu_mm_a<<<blokovaPoGridu, thredovaPoBloku, 3 * 16 * 16 * sizeof(float)>>>
+	blokovaPoGridu.y = it;
+	blokovaPoGridu.x = it;
+		gpu_mm_a<<<blokovaPoGridu, thredovaPoBloku>>>
 		(device_m, size, i, it);
-		gpu_dpotrf<<<1, thredovaPoBloku, 16 * 16 * sizeof(float)>>>
+		gpu_dpotrf<<<1, thredovaPoBloku>>>
 		(device_m, size, i + 1);
 		it--;
 		
 	}
+	/*gpu_dpotrf<<< 1, thredovaPoBloku>>> ( device_m, size, 0 );
+
+
+	cudaMemcpy( device_eye, eye, 16 * 16 * sizeof(float), cudaMemcpyHostToDevice );
+	gpu_inv_l<<<1, 16>>>(device_m, device_eye, size, 0);
+	gpu_mm_r<<<it, thredovaPoBloku>>> (device_eye, device_m, size, 0);
+	blokovaPoGridu.y = it;
+	blokovaPoGridu.x = it;
+	gpu_mm_a<<<blokovaPoGridu, thredovaPoBloku>>>(device_m, size, 0, it);
+	gpu_dpotrf<<<1, thredovaPoBloku>>>	(device_m, size, 0 + 1);
+	it--;
+	cudaMemcpy( device_eye, eye, 16 * 16 * sizeof(float), cudaMemcpyHostToDevice );
+	gpu_inv_l<<<1, 16>>>(device_m, device_eye, size, 1);
+	gpu_mm_r<<<it, thredovaPoBloku>>> (device_eye, device_m, size, 1);
+	blokovaPoGridu.y = it;
+	blokovaPoGridu.x = it;
+	gpu_mm_a<<<blokovaPoGridu, thredovaPoBloku, 3 * 16 * 16 * sizeof(float)>>>(device_m, size, 1, it);
+	gpu_dpotrf<<<1, thredovaPoBloku, 16 * 16 * sizeof(float)>>>	(device_m, size, 1 + 1);
+	it--;
+	cudaMemcpy( device_eye, eye, 16 * 16 * sizeof(float), cudaMemcpyHostToDevice );
+	gpu_inv_l<<<1, 16>>>(device_m, device_eye, size, 2);
+	gpu_mm_r<<<it, thredovaPoBloku, 3 * 16 * 16 * sizeof(float)>>> (device_eye, device_m, size, 2);
+	blokovaPoGridu.y = it;
+	blokovaPoGridu.x = it;
+	gpu_mm_a<<<blokovaPoGridu, thredovaPoBloku, 3 * 16 * 16 * sizeof(float)>>>(device_m, size, 2, it);
+	gpu_dpotrf<<<1, thredovaPoBloku, 16 * 16 * sizeof(float)>>>	(device_m, size, 2 + 1);*/
+
 
 	cudaThreadSynchronize();
 
