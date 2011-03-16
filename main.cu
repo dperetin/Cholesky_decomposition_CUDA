@@ -147,10 +147,28 @@ __global__ void gpu_mm_a(float *m, int size, int p, int it)
 	__shared__ float s_c[16][16];
 	int tx = threadIdx.x;
 	int ty = threadIdx.y;
-	int bx = blockIdx.x;
-	int by = blockIdx.y;
+	int bx_g = blockIdx.x;
+	int by_g = blockIdx.y;
 	int i;
 
+	int bx=0, by=0, o = 0, e = -1;
+
+		if(!(it % 2)){
+			o = 1;
+			e = -2;
+		}
+
+		int pi, n = it;
+
+		pi = n - 1 - by_g;
+		if(bx_g <= pi){
+			by=by_g;
+			bx=by_g+bx_g;
+		}
+		else{
+			by=n-(by_g+o);
+			bx=(n-by_g)+bx_g-pi+e;
+		}
 
 	s_a[ty][tx] = m[(ty + p * 16) * size + tx + (p + 1) * 16 + by * 16];
 	s_b[ty][tx] = m[(ty + p * 16) * size + tx + (p + 1) * 16 + bx * 16];
@@ -202,6 +220,7 @@ void init_eye(float *v, int n)
 int main(int argc, char *argv[])
 {
 	int size = 1024;
+
 	unsigned int timer2 = 0, t = 0, t2 = 0, ta = 0;
 
 	float *m_in, *m_out, *device_m, *device_m_out, *eye, *device_eye, *v, *cpu_rez;
@@ -294,32 +313,36 @@ int main(int argc, char *argv[])
 	int i;
 	int it = n / 16 - 1;
 	gpu_dpotrf<<< 1, 
-				  thredovaPoBloku 
+				  thredovaPoBloku, 4*16*16*sizeof(float)
 				   >>>
 				  ( device_m, size, 0 );
+	cudaThreadSynchronize();
 
 	for (i = 0; i < n / 16 - 1; i++) {
 		blokovaPoGridu.x = it;
 		blokovaPoGridu.y = it;
-		gpu_inv_l<<<it, 16>>>(device_m, size, i);
+		gpu_inv_l<<<it, 16, 4*16*16*sizeof(float)>>>(device_m, size, i);
+	cudaThreadSynchronize();
 //		gpu_mm_r<<<it, thredovaPoBloku>>>
 //			(device_eye, device_m, size, i);
-		/*if(it % 2){
+		if(it % 2){
 			blokovaPoGridu.y = (it+1)/2;
 			blokovaPoGridu.x = it;
 		}
 		else{
 			blokovaPoGridu.y = it/2;
 			blokovaPoGridu.x = it+1;
-		}*/
+		}
 	//	blokovaPoGridu.x = 1;
 	//		blokovaPoGridu.y = 1;
-	blokovaPoGridu.y = it;
-	blokovaPoGridu.x = it;
-		gpu_mm_a<<<blokovaPoGridu, thredovaPoBloku>>>
+	//blokovaPoGridu.y = it;
+	//blokovaPoGridu.x = it;
+		gpu_mm_a<<<blokovaPoGridu, thredovaPoBloku, 4*16*16*sizeof(float)>>>
 		(device_m, size, i, it);
-		gpu_dpotrf<<<1, thredovaPoBloku>>>
+	cudaThreadSynchronize();
+		gpu_dpotrf<<<1, thredovaPoBloku, 4*16*16*sizeof(float)>>>
 		(device_m, size, i + 1);
+	cudaThreadSynchronize();
 		it--;
 		
 	}
