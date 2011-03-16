@@ -76,7 +76,7 @@ __global__ void gpu_potrf(float *m, int size, int p)
 	int tx = threadIdx.x;
     int ty = threadIdx.y;
 
-    __shared__ float a[16][16+1];
+    __shared__ float a[16][16 + 1];
     a[ty][tx] = m[(ty + 16 * p) * size + tx + 16 * p];
 
     __syncthreads();
@@ -180,7 +180,6 @@ __global__ void gpu_mm_a(float *m, int size, int p, int it)
 
 int main(int argc, char *argv[])
 {
-	//int size = 512;
 
 	if (argc < 2 || argc > 4)
 	{
@@ -190,7 +189,8 @@ int main(int argc, char *argv[])
 
 	int size = atoi(argv[1]);
 
-	unsigned int timer2 = 0, t = 0, t2 = 0, ta = 0;
+	unsigned int t_gpu = 0, t_mat_gen = 0, t_h2d = 0, 
+				 t_cpu = 0, t_mat_load = 0, t_d2h;
 
 	float *m_in, *m_out, *device_m, *v, *cpu_rez;
 	m_in = new float[size * size];
@@ -208,33 +208,34 @@ int main(int argc, char *argv[])
 	cudaSetDevice(deviceOrdinal);
 	cudaDeviceProp device_properties;
 	cudaGetDeviceProperties(&device_properties, deviceOrdinal);
-	printf("%s\n\n", device_properties.name);
+	printf("\n%s\n\n", device_properties.name);
 
 
 	if (argc == 2) {
 
-		printf("Generiranje matrice ");
+		printf("Generiranje matrice:\t\t");
+		fflush(stdout);
 
-		CUT_SAFE_CALL(cutCreateTimer(&t));
-		CUT_SAFE_CALL(cutStartTimer(t));
+		CUT_SAFE_CALL(cutCreateTimer(&t_mat_gen));
+		CUT_SAFE_CALL(cutStartTimer(t_mat_gen));
 	
 		
 		init(v, size * size);
 		standard(v, v, m_in, size);
 
-		CUT_SAFE_CALL(cutStopTimer(t));
+		CUT_SAFE_CALL(cutStopTimer(t_mat_gen));
 
-		printf("%f\n", cutGetTimerValue(t));
+		printf("%f\n", cutGetTimerValue(t_mat_gen));
 
-		printf("CPU racuna ");
+		printf("CPU racuna:\t\t\t");
 
-		CUT_SAFE_CALL(cutCreateTimer(&ta));
-		CUT_SAFE_CALL(cutStartTimer(ta));
+		CUT_SAFE_CALL(cutCreateTimer(&t_cpu));
+		CUT_SAFE_CALL(cutStartTimer(t_cpu));
 	
 		cpu_potrf(m_in, cpu_rez, size);
-		CUT_SAFE_CALL(cutStopTimer(ta));
+		CUT_SAFE_CALL(cutStopTimer(t_cpu));
 
-		printf("%f\n", cutGetTimerValue(ta));
+		printf("%f\n\n", cutGetTimerValue(t_cpu));
 
 		saveMatrix(m_in, "m.mat", size);
 		saveMatrix(cpu_rez, "cpu_rez.mat", size);
@@ -245,14 +246,14 @@ int main(int argc, char *argv[])
 		printf("Ucitavanje matrice iz datoteke:\t");
 		fflush(stdout);
 
-		CUT_SAFE_CALL(cutCreateTimer(&t));
-		CUT_SAFE_CALL(cutStartTimer(t));
+		CUT_SAFE_CALL(cutCreateTimer(&t_mat_load));
+		CUT_SAFE_CALL(cutStartTimer(t_mat_load));
 	
 		loadMatrix(m_in, argv[2], size);
 		
-		CUT_SAFE_CALL(cutStopTimer(t));
+		CUT_SAFE_CALL(cutStopTimer(t_mat_load));
 
-		printf("%f\n", cutGetTimerValue(t));
+		printf("%f\n\n", cutGetTimerValue(t_mat_load));
 
 	}
 
@@ -268,21 +269,21 @@ int main(int argc, char *argv[])
 
 	printf("Kopiranje matrice na GPU:\t");
 
-	CUT_SAFE_CALL(cutCreateTimer(&t2));
-	CUT_SAFE_CALL(cutStartTimer(t2));
+	CUT_SAFE_CALL(cutCreateTimer(&t_h2d));
+	CUT_SAFE_CALL(cutStartTimer(t_h2d));
 
 	cudaMemcpy(device_m, m_in, n * n * sizeof(float), cudaMemcpyHostToDevice);
 
-	CUT_SAFE_CALL(cutStopTimer(t2));
+	CUT_SAFE_CALL(cutStopTimer(t_h2d));
 
-	printf("%f\n", cutGetTimerValue(t2));
+	printf("%f\n", cutGetTimerValue(t_h2d));
 
 	printf("GPU racuna:\t\t\t");
 
 	cudaThreadSynchronize();
 
-	CUT_SAFE_CALL(cutCreateTimer(&timer2));
-	CUT_SAFE_CALL(cutStartTimer(timer2));
+	CUT_SAFE_CALL(cutCreateTimer(&t_gpu));
+	CUT_SAFE_CALL(cutStartTimer(t_gpu));
 
 	int i;
 	int it = n / 16 - 1;
@@ -293,12 +294,12 @@ int main(int argc, char *argv[])
 		gpu_inv_l <<<it, 16>>> (device_m, size, i);
 
 		if(it % 2){
-			blokovaPoGridu.y = (it+1)/2;
+			blokovaPoGridu.y = (it + 1) / 2;
 			blokovaPoGridu.x = it;
 		}
 		else{
-			blokovaPoGridu.y = it/2;
-			blokovaPoGridu.x = it+1;
+			blokovaPoGridu.y = it / 2;
+			blokovaPoGridu.x = it + 1;
 		}
 
 		gpu_mm_a <<<blokovaPoGridu, thredovaPoBloku>>> (device_m, size, i, it);
@@ -310,22 +311,37 @@ int main(int argc, char *argv[])
 	
 	cudaThreadSynchronize();
 
-	CUT_SAFE_CALL(cutStopTimer(timer2));
+	CUT_SAFE_CALL(cutStopTimer(t_gpu));
 
-	printf("%f\n", cutGetTimerValue(timer2));
+	printf("%f\n", cutGetTimerValue(t_gpu));
 	
+
+	printf("Kopiranje matrice natrag:\t");
+	CUT_SAFE_CALL(cutCreateTimer(&t_d2h));
+	CUT_SAFE_CALL(cutStartTimer(t_d2h));
+
 	cudaMemcpy(m_out, device_m, 
 			n * n * sizeof(float), cudaMemcpyDeviceToHost);
-	
+	cudaThreadSynchronize();
+
+	CUT_SAFE_CALL(cutStopTimer(t_d2h));
+
+	printf("%f\n", cutGetTimerValue(t_d2h));
+	printf("----------------------------------------------\n");
+	printf("UKUPNO:\t\t\t\t%f\n\n", cutGetTimerValue(t_d2h) + 
+						   cutGetTimerValue(t_h2d) + 
+						   cutGetTimerValue(t_gpu));
 	if (argc == 2) {
-		printf("CPU %.20lf\n", cpu_rez[(size-1)*size+size-1]);
-		printf("GPU %.20lf\n", m_out[(size-1)*size+size-1]);
+		printf("CPU %.13f\n", cpu_rez[(size - 1) * size + size - 1]);
+		printf("GPU %.13f\n", m_out[(size - 1) * size + size - 1]);
 	}
 
 	saveMatrix(m_out, "rez.mat", n);
 
 	free(m_in);
 	free(m_out);
+	free(cpu_rez);
+	free(v);
 	cudaFree(device_m);
 	//cudaFree(device_m_out);
 
