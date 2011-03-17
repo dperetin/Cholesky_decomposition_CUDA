@@ -6,10 +6,10 @@
 
 using namespace std;
 
-void cpu_potrf(float *m_in, float *m_out, int size)
+void cpu_potrf(double *m_in, double *m_out, int size)
 {
 	for (int i = 0; i < size; i++) {
-		float sum = 0;
+		double sum = 0;
 		for (int k = 0; k < i; k++) {
 			sum += (m_out[k * size + i] * m_out[k * size + i]);
 		}
@@ -25,7 +25,7 @@ void cpu_potrf(float *m_in, float *m_out, int size)
 	}
 }
 
-void standard (float *A, float  *B, float *C, int size)
+void standard (double *A, double  *B, double *C, int size)
 {
 	int i, j, k;
 
@@ -38,15 +38,15 @@ void standard (float *A, float  *B, float *C, int size)
 			}
 }
 
-void init(float *v, int n)
+void init(double *v, int n)
 {
 	int i;
 	srand(time(NULL));
 	for (i = 0; i < n; i++)
-		v[i] = rand() / (float(RAND_MAX) + 1) - 1; 
+		v[i] = rand() / (double(RAND_MAX) + 1) - 1; 
 }
 
-void loadMatrix(float * matrix, char *s, int size)
+void loadMatrix(double * matrix, char *s, int size)
 {
 	fstream f;
 	int i = 0;
@@ -58,7 +58,7 @@ void loadMatrix(float * matrix, char *s, int size)
 	f.close();
 }
 
-void saveMatrix(float * matrix, char *s, int size)
+void saveMatrix(double * matrix, char *s, int size)
 {
 	fstream f;
 	f.open(s, ifstream::out);
@@ -71,17 +71,17 @@ void saveMatrix(float * matrix, char *s, int size)
 	f.close();
 }
 
-__global__ void gpu_potrf(float *m, int size, int p)
+__global__ void gpu_potrf(double *m, int size, int p)
 {
 	int tx = threadIdx.x;
     int ty = threadIdx.y;
 
-    __shared__ float a[16][16 + 1];
+    __shared__ double a[16][16 + 1];
     a[ty][tx] = m[(ty + 16 * p) * size + tx + 16 * p];
 
     __syncthreads();
 
-    float d;
+    double d;
 
 	#pragma unroll 16
     for (int k = 0; k < 16; k++) {
@@ -107,14 +107,14 @@ __global__ void gpu_potrf(float *m, int size, int p)
     
 }
 
-__global__ void gpu_inv_l(float *u, int size, int p)
+__global__ void gpu_inv_l(double *u, int size, int p)
 {
 	int i, j;
 
 	int tid = threadIdx.x;
 	int bx = blockIdx.x + 1;
 
-	__shared__ float b[16][16];
+	__shared__ double b[16][16];
 
 	for(i = 0; i < 16; i++)
 		b[i][tid] = u[(i + p * 16) * size + tid + (bx + p) * 16];
@@ -133,11 +133,11 @@ __global__ void gpu_inv_l(float *u, int size, int p)
 		u[(i + p * 16) * size + tid + (bx + p) * 16] = b[i][tid];
 }
 
-__global__ void gpu_mm_a(float *m, int size, int p, int it)
+__global__ void gpu_mm_a(double *m, int size, int p, int it)
 {
-	__shared__ float s_a[16][16];
-	__shared__ float s_b[16][16];
-	__shared__ float s_c[16][16];
+	__shared__ double s_a[16][16];
+	__shared__ double s_b[16][16];
+	__shared__ double s_c[16][16];
 	int tx = threadIdx.x;
 	int ty = threadIdx.y;
 	int bx_g = blockIdx.x;
@@ -192,16 +192,16 @@ int main(int argc, char *argv[])
 	unsigned int t_gpu = 0, t_mat_gen = 0, t_h2d = 0, 
 				 t_cpu = 0, t_mat_load = 0, t_d2h;
 
-	float *m_in, *m_out, *device_m, *v, *cpu_rez;
-	m_in = new float[size * size];
-	m_out = new float[size * size];
-	cpu_rez = new float[size * size];
-	v = new float[size * size];
+	double *m_in, *m_out, *device_m, *v, *cpu_rez;
+	m_in = new double[size * size];
+	m_out = new double[size * size];
+	cpu_rez = new double[size * size];
+	v = new double[size * size];
 	
 
-	memset(m_in, 0, size * size * sizeof(float));
-	memset(m_out, 0, size * size * sizeof(float));
-	memset(cpu_rez, 0, size * size * sizeof(float));
+	memset(m_in, 0, size * size * sizeof(double));
+	memset(m_out, 0, size * size * sizeof(double));
+	memset(cpu_rez, 0, size * size * sizeof(double));
 	
 
 	int deviceOrdinal = 0;
@@ -265,15 +265,16 @@ int main(int argc, char *argv[])
 	thredovaPoBloku.x = 16;
 	thredovaPoBloku.y = 16;
 
-	cudaMalloc((void **) &device_m, n * n * sizeof(float));
+	cudaMalloc((void **) &device_m, n * n * sizeof(double));
 
 	printf("Kopiranje matrice na GPU:\t");
 
 	CUT_SAFE_CALL(cutCreateTimer(&t_h2d));
 	CUT_SAFE_CALL(cutStartTimer(t_h2d));
 
-	cudaMemcpy(device_m, m_in, n * n * sizeof(float), cudaMemcpyHostToDevice);
+	cudaMemcpy(device_m, m_in, n * n * sizeof(double), cudaMemcpyHostToDevice);
 
+	cudaThreadSynchronize();
 	CUT_SAFE_CALL(cutStopTimer(t_h2d));
 
 	printf("%f\n", cutGetTimerValue(t_h2d));
@@ -321,7 +322,7 @@ int main(int argc, char *argv[])
 	CUT_SAFE_CALL(cutStartTimer(t_d2h));
 
 	cudaMemcpy(m_out, device_m, 
-			n * n * sizeof(float), cudaMemcpyDeviceToHost);
+			n * n * sizeof(double), cudaMemcpyDeviceToHost);
 	cudaThreadSynchronize();
 
 	CUT_SAFE_CALL(cutStopTimer(t_d2h));
@@ -333,8 +334,9 @@ int main(int argc, char *argv[])
 						   cutGetTimerValue(t_gpu));
 	if (argc == 2) {
 		printf("CPU %.13f\n", cpu_rez[(size - 1) * size + size - 1]);
-		printf("GPU %.13f\n", m_out[(size - 1) * size + size - 1]);
 	}
+	printf("GPU %.13f\n", m_out[(size - 1) * size + size - 1]);
+
 
 	saveMatrix(m_out, "rez.mat", n);
 
@@ -343,7 +345,7 @@ int main(int argc, char *argv[])
 	free(cpu_rez);
 	free(v);
 	cudaFree(device_m);
-	//cudaFree(device_m_out);
 
 	return 0;
 }
+

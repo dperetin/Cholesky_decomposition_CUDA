@@ -1,9 +1,9 @@
 Faktorizacija Choleskog u CUDA-i
 
 TODO:
+hdf5
+ubrzat inv
+ubrzat memcpy
 varijabilni N i BLOCK_SIZE
-radit s jednom matricom
-dat bolja imena funkcijama i varijablama
 PTX
 usporedit s MAGMA-om
-dodat generator matrice
