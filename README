@@ -4,6 +4,8 @@ TODO:
 hdf5
 ubrzat inv
 ubrzat memcpy
+posebno radit update na dijagonalnim blokovima
+skrit prijenos memorije
 varijabilni N i BLOCK_SIZE
 PTX
 usporedit s MAGMA-om
