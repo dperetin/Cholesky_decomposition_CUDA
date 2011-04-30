@@ -1,7 +1,7 @@
 #include <iostream>
 #include <fstream>
 #include <stdlib.h>
-#include <cutil.h>
+//#include <cutil.h>
 #include <math.h>
 #include <hdf5.h>
 
@@ -186,9 +186,6 @@ int main(int argc, char *argv[])
 
 	int size = atoi(argv[1]);
 
-	unsigned int t_gpu = 0, t_mat_gen = 0, t_h2d = 0, 
-				 t_cpu = 0, t_mat_load = 0, t_d2h;
-
 	hid_t       file_id, dataset_id;
     
 	double *m_in, *device_m, *v, *cpu_rez;
@@ -216,26 +213,26 @@ int main(int argc, char *argv[])
 		printf("Generiranje matrice:\t\t");
 		fflush(stdout);
 
-		CUT_SAFE_CALL(cutCreateTimer(&t_mat_gen));
-		CUT_SAFE_CALL(cutStartTimer(t_mat_gen));
+//		CUT_SAFE_CALL(cutCreateTimer(&t_mat_gen));
+//		CUT_SAFE_CALL(cutStartTimer(t_mat_gen));
 	
 		
 		init(v, size * size);
 		standard(v, v, m_in, size);
 
-		CUT_SAFE_CALL(cutStopTimer(t_mat_gen));
+//		CUT_SAFE_CALL(cutStopTimer(t_mat_gen));
 
-		printf("%f\n", cutGetTimerValue(t_mat_gen));
+//		printf("%f\n", cutGetTimerValue(t_mat_gen));
 
 		printf("CPU racuna:\t\t\t");
 
-		CUT_SAFE_CALL(cutCreateTimer(&t_cpu));
-		CUT_SAFE_CALL(cutStartTimer(t_cpu));
+//		CUT_SAFE_CALL(cutCreateTimer(&t_cpu));
+//		CUT_SAFE_CALL(cutStartTimer(t_cpu));
 	
 		cpu_potrf(m_in, cpu_rez, size);
-		CUT_SAFE_CALL(cutStopTimer(t_cpu));
+//		CUT_SAFE_CALL(cutStopTimer(t_cpu));
 
-		printf("%f\n\n", cutGetTimerValue(t_cpu));
+//		printf("%f\n\n", cutGetTimerValue(t_cpu));
 
 //		saveMatrix(m_in, "m.mat", size);
 //		saveMatrix(cpu_rez, "cpu_rez.mat", size);
@@ -246,8 +243,8 @@ int main(int argc, char *argv[])
 		printf("Ucitavanje matrice iz datoteke:\t");
 		fflush(stdout);
 
-		CUT_SAFE_CALL(cutCreateTimer(&t_mat_load));
-		CUT_SAFE_CALL(cutStartTimer(t_mat_load));
+//		CUT_SAFE_CALL(cutCreateTimer(&t_mat_load));
+//		CUT_SAFE_CALL(cutStartTimer(t_mat_load));
 	
 		file_id = H5Fopen(argv[2], H5F_ACC_RDWR, H5P_DEFAULT);
     	dataset_id = H5Dopen(file_id, "/16", H5P_DEFAULT);
@@ -256,15 +253,15 @@ int main(int argc, char *argv[])
         H5Dclose(dataset_id);
    		H5Fclose(file_id);
 		
-		CUT_SAFE_CALL(cutStopTimer(t_mat_load));
+//		CUT_SAFE_CALL(cutStopTimer(t_mat_load));
 
-		printf("%f\n\n", cutGetTimerValue(t_mat_load));
+//		printf("%f\n\n", cutGetTimerValue(t_mat_load));
 
 	}
 
 	// GPU //
 	int n = size;
-	
+	cudaEvent_t start, stop;
 	dim3 blokovaPoGridu, thredovaPoBloku;
 	
 	thredovaPoBloku.x = 16;
@@ -274,22 +271,25 @@ int main(int argc, char *argv[])
 
 	printf("Kopiranje matrice na GPU:\t");
 
-	CUT_SAFE_CALL(cutCreateTimer(&t_h2d));
-	CUT_SAFE_CALL(cutStartTimer(t_h2d));
-
+//	CUT_SAFE_CALL(cutCreateTimer(&t_h2d));
+//	CUT_SAFE_CALL(cutStartTimer(t_h2d));
+    
+    cudaEventCreate(&start);
+    cudaEventCreate(&stop);
+    cudaEventRecord(start, 0);
 	cudaMemcpy(device_m, m_in, n * n * sizeof(double), cudaMemcpyHostToDevice);
 
-	cudaThreadSynchronize();
-	CUT_SAFE_CALL(cutStopTimer(t_h2d));
 
-	printf("%f\n", cutGetTimerValue(t_h2d));
+//	CUT_SAFE_CALL(cutStopTimer(t_h2d));
+
+//	printf("%f\n", cutGetTimerValue(t_h2d));
 
 	printf("GPU racuna:\t\t\t");
 
-	cudaThreadSynchronize();
 
-	CUT_SAFE_CALL(cutCreateTimer(&t_gpu));
-	CUT_SAFE_CALL(cutStartTimer(t_gpu));
+
+//	CUT_SAFE_CALL(cutCreateTimer(&t_gpu));
+//	CUT_SAFE_CALL(cutStartTimer(t_gpu));
 
 	int i, o, e;
 	int it = n / 16 - 1;
@@ -319,28 +319,34 @@ int main(int argc, char *argv[])
 		it--;
 	}
 	
-	cudaThreadSynchronize();
 
-	CUT_SAFE_CALL(cutStopTimer(t_gpu));
 
-	printf("%f\n", cutGetTimerValue(t_gpu));
+//	CUT_SAFE_CALL(cutStopTimer(t_gpu));
+
+//	printf("%f\n", cutGetTimerValue(t_gpu));
 	
 
 	printf("Kopiranje matrice natrag:\t");
-	CUT_SAFE_CALL(cutCreateTimer(&t_d2h));
-	CUT_SAFE_CALL(cutStartTimer(t_d2h));
+//	CUT_SAFE_CALL(cutCreateTimer(&t_d2h));
+//	CUT_SAFE_CALL(cutStartTimer(t_d2h));
 
 	cudaMemcpy(m_in, device_m, 
 			n * n * sizeof(double), cudaMemcpyDeviceToHost);
-	cudaThreadSynchronize();
 
-	CUT_SAFE_CALL(cutStopTimer(t_d2h));
+    
+    cudaEventRecord(stop, 0);
+    cudaEventSynchronize(stop);
+    float vrijeme;
+    cudaEventElapsedTime(&vrijeme, start, stop);
+    
+//	CUT_SAFE_CALL(cutStopTimer(t_d2h));
 
-	printf("%f\n", cutGetTimerValue(t_d2h));
-	printf("----------------------------------------------\n");
-	printf("UKUPNO:\t\t\t\t%f\n\n", cutGetTimerValue(t_d2h) + 
-						   cutGetTimerValue(t_h2d) + 
-						   cutGetTimerValue(t_gpu));
+//	printf("%f\n", cutGetTimerValue(t_d2h));
+//	printf("----------------------------------------------\n");
+//	printf("UKUPNO:\t\t\t\t%f\n\n", cutGetTimerValue(t_d2h) + 
+//						   cutGetTimerValue(t_h2d) + 
+//						   cutGetTimerValue(t_gpu));
+    printf("\nUKUPNO: %f\n", vrijeme);
 	if (argc == 2) {
 		printf("CPU %.13f\n", cpu_rez[(size - 1) * size + size - 1]);
 	}
