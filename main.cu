@@ -7,10 +7,10 @@
 
 using namespace std;
 
-void cpu_potrf(double *m_in, double *m_out, int size)
+void cpu_potrf(float *m_in, float *m_out, int size)
 {
 	for (int i = 0; i < size; i++) {
-		double sum = 0;
+		float sum = 0;
 		for (int k = 0; k < i; k++) {
 			sum += (m_out[k * size + i] * m_out[k * size + i]);
 		}
@@ -26,7 +26,7 @@ void cpu_potrf(double *m_in, double *m_out, int size)
 	}
 }
 
-void standard (double *A, double  *B, double *C, int size)
+void standard (float *A, float  *B, float *C, int size)
 {
 	int i, j, k;
 
@@ -39,15 +39,15 @@ void standard (double *A, double  *B, double *C, int size)
 			}
 }
 
-void init(double *v, int n)
+void init(float *v, int n)
 {
 	int i;
 	srand(time(NULL));
 	for (i = 0; i < n; i++)
-		v[i] = rand() / (double(RAND_MAX) + 1) - 1; 
+		v[i] = rand() / (float(RAND_MAX) + 1) - 1; 
 }
 
-void loadMatrix(double * matrix, char *s, int size)
+void loadMatrix(float * matrix, char *s, int size)
 {
 	fstream f;
 	int i = 0;
@@ -59,7 +59,7 @@ void loadMatrix(double * matrix, char *s, int size)
 	f.close();
 }
 
-void saveMatrix(double * matrix, char *s, int size)
+void saveMatrix(float * matrix, char *s, int size)
 {
 	fstream f;
 	f.open(s, ifstream::out);
@@ -72,17 +72,17 @@ void saveMatrix(double * matrix, char *s, int size)
 	f.close();
 }
 
-__global__ void gpu_potrf(double *m, int size, int p)
+__global__ void gpu_potrf(float *m, int size, int p)
 {
 	int tx = threadIdx.x;
     int ty = threadIdx.y;
 
-    __shared__ double a[16][16 + 1];
+    __shared__ float a[16][16 + 1];
     a[ty][tx] = m[(ty + 16 * p) * size + tx + 16 * p];
 
     __syncthreads();
 
-    double d;
+    float d;
 
 	#pragma unroll 16
     for (int k = 0; k < 16; k++) {
@@ -108,14 +108,14 @@ __global__ void gpu_potrf(double *m, int size, int p)
     
 }
 
-__global__ void gpu_inv_l(double *u, int size, int p)
+__global__ void gpu_inv_l(float *u, int size, int p)
 {
 	int i, j;
 
 	int tid = threadIdx.x;
 	int bx = blockIdx.x + 1;
 
-	__shared__ double b[16][16];
+	__shared__ float b[16][16];
 
 	for(i = 0; i < 16; i++)
 		b[i][tid] = u[(i + p * 16) * size + tid + (bx + p) * 16];
@@ -134,12 +134,12 @@ __global__ void gpu_inv_l(double *u, int size, int p)
 		u[(i + p * 16) * size + tid + (bx + p) * 16] = b[i][tid];
 }
 
-__global__ void gpu_mm_a(double *m, int size, int p, int it, int o, int e)
+__global__ void gpu_mm_a(float *m, int size, int p, int it, int o, int e)
 {
-	__shared__ double s_a[16][16];
-	__shared__ double s_b[16][16];
-	//__shared__ double s_c[16][16];
-	double s_c = 0;
+	__shared__ float s_a[16][16];
+	__shared__ float s_b[16][16];
+	float s_c = 0;
+
 	int tx = threadIdx.x;
 	int ty = threadIdx.y;
 	int bx_g = blockIdx.x;
@@ -148,21 +148,20 @@ __global__ void gpu_mm_a(double *m, int size, int p, int it, int o, int e)
 
 	int bx=0, by=0;
 
-		int pi;
+    int pi;
 
-		pi = it - 1 - by_g;
-		if(bx_g <= pi){
-			by=by_g;
-			bx=by_g+bx_g;
-		}
-		else{
-			by=it-(by_g+o);
-			bx=(it-by_g)+bx_g-pi+e;
-		}
+    pi = it - 1 - by_g;
+    if (bx_g <= pi) {
+        by = by_g;
+        bx = by_g + bx_g;
+    }
+    else {
+        by = it - (by_g + o);
+        bx = (it - by_g) + bx_g - pi + e;
+    }
 
 	s_a[ty][tx] = m[(ty + p * 16) * size + tx + (p + 1 + by) * 16];
 	s_b[ty][tx] = m[(ty + p * 16) * size + tx + (p + 1 + bx) * 16];
-	//s_c[ty][tx] = 0;
 
 	__syncthreads();
 
@@ -188,12 +187,12 @@ int main(int argc, char *argv[])
 
 	hid_t       file_id, dataset_id;
     
-	double *m_in, *device_m, *v, *cpu_rez;
-	m_in = new double[size * size];
-//	m_out = new double[size * size];
+	float *m_in, *device_m, *v, *cpu_rez;
+	m_in = new float[size * size];
+//	m_out = new float[size * size];
 	
-	memset(m_in, 0, size * size * sizeof(double));
-//	memset(m_out, 0, size * size * sizeof(double));
+	memset(m_in, 0, size * size * sizeof(float));
+//	memset(m_out, 0, size * size * sizeof(float));
 	
 	
 
@@ -206,9 +205,9 @@ int main(int argc, char *argv[])
 
 	if (argc == 2) {
 
-		cpu_rez = new double[size * size];
-		v = new double[size * size];
-		memset(cpu_rez, 0, size * size * sizeof(double));
+		cpu_rez = new float[size * size];
+		v = new float[size * size];
+		memset(cpu_rez, 0, size * size * sizeof(float));
 
 		printf("Generiranje matrice:\t\t");
 		fflush(stdout);
@@ -248,7 +247,7 @@ int main(int argc, char *argv[])
 	
 		file_id = H5Fopen(argv[2], H5F_ACC_RDWR, H5P_DEFAULT);
     	dataset_id = H5Dopen(file_id, "/16", H5P_DEFAULT);
-    	H5Dread(dataset_id, H5T_IEEE_F64LE, 
+    	H5Dread(dataset_id, H5T_IEEE_F32LE, 
     					 H5S_ALL, H5S_ALL, H5P_DEFAULT, m_in);
         H5Dclose(dataset_id);
    		H5Fclose(file_id);
@@ -267,7 +266,7 @@ int main(int argc, char *argv[])
 	thredovaPoBloku.x = 16;
 	thredovaPoBloku.y = 16;
 
-	cudaMalloc((void **) &device_m, n * n * sizeof(double));
+	cudaMalloc((void **) &device_m, n * n * sizeof(float));
 
 	printf("Kopiranje matrice na GPU:\t");
 
@@ -277,7 +276,7 @@ int main(int argc, char *argv[])
     cudaEventCreate(&start);
     cudaEventCreate(&stop);
     cudaEventRecord(start, 0);
-	cudaMemcpy(device_m, m_in, n * n * sizeof(double), cudaMemcpyHostToDevice);
+	cudaMemcpy(device_m, m_in, n * n * sizeof(float), cudaMemcpyHostToDevice);
 
 
 //	CUT_SAFE_CALL(cutStopTimer(t_h2d));
@@ -331,7 +330,7 @@ int main(int argc, char *argv[])
 //	CUT_SAFE_CALL(cutStartTimer(t_d2h));
 
 	cudaMemcpy(m_in, device_m, 
-			n * n * sizeof(double), cudaMemcpyDeviceToHost);
+			n * n * sizeof(float), cudaMemcpyDeviceToHost);
 
     
     cudaEventRecord(stop, 0);
