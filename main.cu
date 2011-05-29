@@ -134,18 +134,34 @@ __global__ void gpu_inv_l(double *u, int size, int p)
 		u[(i + p * 16) * size + tid + (bx + p) * 16] = b[i][tid];
 }
 
-__global__ void gpu_mm_a(double *m, int size, int p, int s)
+__global__ void gpu_mm_a(double *m, int size, int p, int s, int mod)
 {
 	__shared__ double s_a[16][16];
 	__shared__ double s_b[16][16];
+	__shared__ double s_b2[16][16];
 	//__shared__ double s_c[16][16];
-	double s_c = 0;
+	double s_c = 0, s_c2 = 0;
 	int tx = threadIdx.x, i;
 	int ty = threadIdx.y;
 	int bx = blockIdx.x;
+	if (bx + 1 == gridDim.x && mod == 0) 
+	    return;
+	if (bx + 1 == gridDim.x && mod == 1) {
+	    s_a[ty][tx] = m[(ty + p * 16) * size + tx + (s) * 16];
+	    s_b[ty][tx] = m[(ty + p * 16) * size + tx + (s + bx * 2) * 16];
+	    __syncthreads();
+	    for (i = 0; i < 16; i++)
+	    {
+		    s_c += s_a[i][ty] * s_b[i][tx];
+		    
+	    }
+	    m[(ty + (s) * 16) * size + tx + (s + bx * 2) * 16] -= s_c;
+	    return;
+	}
 	
 	s_a[ty][tx] = m[(ty + p * 16) * size + tx + (s) * 16];
-	s_b[ty][tx] = m[(ty + p * 16) * size + tx + (s + bx) * 16];
+	s_b[ty][tx] = m[(ty + p * 16) * size + tx + (s + bx * 2) * 16];
+	s_b2[ty][tx] = m[(ty + p * 16) * size + tx + (s + (bx * 2) + 1) * 16];
 	//s_c[ty][tx] = 0;
 
 	__syncthreads();
@@ -154,9 +170,12 @@ __global__ void gpu_mm_a(double *m, int size, int p, int s)
 	for (i = 0; i < 16; i++)
 	{
 		s_c += s_a[i][ty] * s_b[i][tx];
+		s_c2 += s_a[i][ty] * s_b2[i][tx];
 	}
-
-	m[(ty + (s) * 16) * size + tx + (s + bx) * 16] -= s_c;
+    
+	
+	m[(ty + (s) * 16) * size + tx + (s + bx * 2) * 16] -= s_c;
+	m[(ty + (s) * 16) * size + tx + (s + (bx *2)+ 1) * 16] -= s_c2;
 }
 
 int main(int argc, char *argv[])
@@ -285,7 +304,8 @@ int main(int argc, char *argv[])
 		
 		for (j = i; j < n / 16 - 1; j++)
 		
-		    gpu_mm_a <<<n / 16 - 1 - j, thredovaPoBloku>>> (device_m, size, i, j+1);
+		    gpu_mm_a <<<(n / 16 - 1 - j) / 2 + 1, thredovaPoBloku>>> 
+		        (device_m, size, i, j+1, (n / 16 - 1 - j) % 2);
 	
 		gpu_potrf <<<1, thredovaPoBloku>>> (device_m, size, i + 1);
 	
