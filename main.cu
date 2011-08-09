@@ -7,44 +7,45 @@
 
 using namespace std;
 
-void cpu_potrf(float *m_in, float *m_out, int size)
+void cpu_potrf(float **m_in, float **m_out, int size)
 {
     for (int i = 0; i < size; i++) {
         float sum = 0;
         for (int k = 0; k < i; k++) {
-            sum += (m_out[k * size + i] * m_out[k * size + i]);
+            sum += (m_out[k][i] * m_out[k][i]);
         }
-        m_out[i * size + i] = sqrt(m_in[i * size + i] - sum);
+        m_out[i][i] = sqrt(m_in[i][i] - sum);
         for (int j = i + 1; j < size; j++ ) {
             sum = 0;
             for (int k = 0; k < i; k++) {
-                sum += (m_out[k * size + i] * m_out[k * size + j]);
+                sum += (m_out[k][i] * m_out[k][j]);
             }
-            m_out[i * size + j] = (m_in[i * size + j] - sum) / 
-                                   m_out[i * size + i];
+            m_out[i][j] = (m_in[i][j] - sum) / 
+                                   m_out[i][i];
         }
     }
 }
 
-void standard (float *A, float  *B, float *C, int size)
+void standard (float **A, float  **B, float **C, int size)
 {
     int i, j, k;
 
     for (i = 0; i < size; i++)
         for (j = 0; j < size; j++)
             for (k = 0; k < size; k++) {
-                C[i * size + j] += A[k * size + i] * B[k * size + j]; 
+                C[i][j] += A[k][i] * B[k][j]; 
                 if (i==j)
-                    C[i*size+j]+= 0.001;
+                    C[i][j]+= 0.001;
             }
 }
 
-void init(float *v, int n)
+void init(float **v, int n)
 {
-    int i;
+    int i, j;
     srand(time(NULL));
     for (i = 0; i < n; i++)
-        v[i] = rand() / (float(RAND_MAX) + 1) - 1; 
+      for (j = 0; j < n; j++)
+        v[i][j] = rand() / (float(RAND_MAX) + 1) - 1; 
 }
 
 void loadMatrix(float * matrix, char *s, int size)
@@ -72,13 +73,13 @@ void saveMatrix(float * matrix, char *s, int size)
     f.close();
 }
 
-__global__ void gpu_potrf(float *m, int size, int p)
+__global__ void gpu_potrf(float **m, int size, int p)
 {
     int tx = threadIdx.x;
     int ty = threadIdx.y;
 
     __shared__ float a[16][16 + 1];
-    a[ty][tx] = m[(ty + 16 * p) * size + tx + 16 * p];
+    a[ty][tx] = m[(ty + 16 * p)][tx + 16 * p];
 
     __syncthreads();
 
@@ -104,7 +105,7 @@ __global__ void gpu_potrf(float *m, int size, int p)
     __syncthreads();
 
     if (ty >= tx) 
-        m[(tx + 16 * p) * size + ty + 16 * p] = a[ty][tx];
+        m[(tx + 16 * p)][ty + 16 * p] = a[ty][tx];
     
 }
 
@@ -140,7 +141,7 @@ __global__ void gpu_mm_a(float *m, int size, int p, int s, int mod, int visina)
     __shared__ float s_a2[16][16];
     __shared__ float s_b1[16][16];
     __shared__ float s_b2[16][16];
-    //__shared__ float s_c[16][16];
+ 
     float s_c1 = 0, s_c2 = 0, s_c3 = 0, s_c4 = 0;
     int tx = threadIdx.x, i;
     int ty = threadIdx.y;
@@ -219,13 +220,16 @@ int main(int argc, char *argv[])
 
     hid_t       file_id, dataset_id;
     
-    float *m_in, *device_m, *v, *cpu_rez;
-    m_in = new float[size * size];
+    float **m_in, *device_m, **v, **cpu_rez;
+    m_in = new float * [size];
+    for (int i = 0; i < size; i++)
+      m_in[i] = new float [size];
 //  m_out = new float[size * size];
     
-    memset(m_in, 0, size * size * sizeof(float));
+    //memset(m_in, 0, size * size * sizeof(float));
 //  memset(m_out, 0, size * size * sizeof(float));
-    
+    for (int i = 0; i < size; i++)
+      memset(m_in[i], 0, size * sizeof(float));
     
 
     int deviceOrdinal = 0;
@@ -237,9 +241,16 @@ int main(int argc, char *argv[])
 
     if (argc == 2) {
 
-        cpu_rez = new float[size * size];
-        v = new float[size * size];
-        memset(cpu_rez, 0, size * size * sizeof(float));
+      v = new float * [size];
+      for (int i = 0; i < size; i++)
+        v[i] = new float [size];
+      
+      cpu_rez = new float * [size];
+      for (int i = 0; i < size; i++)
+        cpu_rez[i] = new float [size];
+      
+      for (int i = 0; i < size; i++)
+          memset(cpu_rez[i], 0, size * sizeof(float));
 
         printf("Generiranje matrice:\t\t");
         fflush(stdout);
@@ -248,7 +259,7 @@ int main(int argc, char *argv[])
 //      CUT_SAFE_CALL(cutStartTimer(t_mat_gen));
     
         
-        init(v, size * size);
+        init(v, size);
         standard(v, v, m_in, size);
 
 //      CUT_SAFE_CALL(cutStopTimer(t_mat_gen));
@@ -261,6 +272,7 @@ int main(int argc, char *argv[])
 //      CUT_SAFE_CALL(cutStartTimer(t_cpu));
     
         cpu_potrf(m_in, cpu_rez, size);
+	printf("CPU %.13f\n", cpu_rez[(size - 1)][ size - 1]);
 //      CUT_SAFE_CALL(cutStopTimer(t_cpu));
 
 //      printf("%f\n\n", cutGetTimerValue(t_cpu));
@@ -269,7 +281,7 @@ int main(int argc, char *argv[])
 //      saveMatrix(cpu_rez, "cpu_rez.mat", size);
     }
 
-    if (argc == 3) {
+    /*if (argc == 3) {
 
         printf("Ucitavanje matrice iz datoteke:\t");
         fflush(stdout);
@@ -288,8 +300,8 @@ int main(int argc, char *argv[])
 
 //      printf("%f\n\n", cutGetTimerValue(t_mat_load));
 
-    }
-
+    }*/
+//return;
     // GPU //
     int n = size;
     cudaEvent_t start, stop;
