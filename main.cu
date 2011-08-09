@@ -147,7 +147,8 @@ __global__ void gpu_mm_a(float *m, int size, int p, int s, int mod, int visina)
     int tx = threadIdx.x, i;
     int ty = threadIdx.y;
     int bx = blockIdx.x;
-    if (bx + 1 == gridDim.x && mod == 0) 
+    if (bx + 1 == gridDim.x) {
+    if (mod == 0) 
         return;
     
   /*  if (bx + 1 != gridDim.x)
@@ -156,7 +157,7 @@ __global__ void gpu_mm_a(float *m, int size, int p, int s, int mod, int visina)
     return;
     }*/
     
-    if (bx + 1 == gridDim.x && mod == 1 && visina == 1) {
+    if (mod == 1 && visina == 1) {
       
         s_a1[ty][tx] = m[(ty + p * 16) * size + tx + (s) * 16];
         s_b1[ty][tx] = m[(ty + p * 16) * size + tx + (s + bx * 3) * 16];
@@ -170,7 +171,7 @@ __global__ void gpu_mm_a(float *m, int size, int p, int s, int mod, int visina)
         m[(ty + (s) * 16) * size + tx + (s + bx * 3) * 16] -= s_c1;
         return;
     }
-    if (bx + 1 == gridDim.x && mod == 2 && visina == 2) {
+    if ( mod == 2 && visina == 2) {
       
         s_a1[ty][tx] = m[(ty + p * 16) * size + tx + (s) * 16];
         s_a2[ty][tx] = m[(ty + p * 16) * size + tx + (s + 1) * 16];
@@ -193,7 +194,7 @@ __global__ void gpu_mm_a(float *m, int size, int p, int s, int mod, int visina)
         m[(ty + (s+1) * 16) * size + tx + (s + (bx * 3)+ 1) * 16] -= s_c5;
         return;
     }
-    if (bx + 1 == gridDim.x && mod == 1 && visina >= 3) {
+    if ( mod == 1 && visina >= 3) {
       
         s_a1[ty][tx] = m[(ty + p * 16) * size + tx + (s) * 16];
         s_a2[ty][tx] = m[(ty + p * 16) * size + tx + (s + 1) * 16];
@@ -216,6 +217,8 @@ __global__ void gpu_mm_a(float *m, int size, int p, int s, int mod, int visina)
         m[(ty + (s+2) * 16) * size + tx + (s + (bx * 3)) * 16] -= s_c7;
         return;
     }
+    }
+
     s_a1[ty][tx] = m[(ty + p * 16) * size + tx + (s) * 16];
     s_a2[ty][tx] = m[(ty + p * 16) * size + tx + (s + 1) * 16];
     s_a3[ty][tx] = m[(ty + p * 16) * size + tx + (s + 2) * 16];
