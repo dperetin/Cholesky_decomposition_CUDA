@@ -72,7 +72,7 @@ void saveMatrix(float * matrix, char *s, int size)
     f.close();
 }
 
-__global__ void gpu_potrf(float (*m)[512], int size, int p)
+__global__ void gpu_potrf(float (*m)[10240], int size, int p)
 {
     int tx = threadIdx.x;
     int ty = threadIdx.y;
@@ -108,7 +108,7 @@ __global__ void gpu_potrf(float (*m)[512], int size, int p)
     
 }
 
-__global__ void gpu_inv_l(float (*u)[512], int size, int p)
+__global__ void gpu_inv_l(float (*u)[10240], int size, int p)
 {
     int i, j;
 
@@ -134,7 +134,7 @@ __global__ void gpu_inv_l(float (*u)[512], int size, int p)
         u[(i + p * 16) ][ tid + (bx + p) * 16] = b[i][tid];
 }
 
-__global__ void gpu_mm_a(float (*m)[512], int size, int p, int s, int mod, int visina)
+__global__ void gpu_mm_a(float (*m)[10240], int size, int p, int s, int mod, int visina)
 {
     __shared__ float s_a1[16][16];
     __shared__ float s_a2[16][16];
@@ -219,7 +219,7 @@ int main(int argc, char *argv[])
 
     hid_t       file_id, dataset_id;
     
-    float *m_in, (*device_m)[512], *v, *cpu_rez;
+    float *m_in, (*device_m)[10240], *v, *cpu_rez;
     m_in = new float[size * size];
 //  m_out = new float[size * size];
     
