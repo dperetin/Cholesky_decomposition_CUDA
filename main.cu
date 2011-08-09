@@ -72,13 +72,13 @@ void saveMatrix(float * matrix, char *s, int size)
     f.close();
 }
 
-__global__ void gpu_potrf(float *m, int size, int p)
+__global__ void gpu_potrf(float (*m)[512], int size, int p)
 {
     int tx = threadIdx.x;
     int ty = threadIdx.y;
 
     __shared__ float a[16][16 + 1];
-    a[ty][tx] = m[(ty + 16 * p) * size + tx + 16 * p];
+    a[ty][tx] = m[(ty + 16 * p)][tx + 16 * p];
 
     __syncthreads();
 
@@ -104,11 +104,11 @@ __global__ void gpu_potrf(float *m, int size, int p)
     __syncthreads();
 
     if (ty >= tx) 
-        m[(tx + 16 * p) * size + ty + 16 * p] = a[ty][tx];
+        m[(tx + 16 * p) ][ty + 16 * p] = a[ty][tx];
     
 }
 
-__global__ void gpu_inv_l(float *u, int size, int p)
+__global__ void gpu_inv_l(float (*u)[512], int size, int p)
 {
     int i, j;
 
@@ -118,23 +118,23 @@ __global__ void gpu_inv_l(float *u, int size, int p)
     __shared__ float b[16][16];
 
     for(i = 0; i < 16; i++)
-        b[i][tid] = u[(i + p * 16) * size + tid + (bx + p) * 16];
+        b[i][tid] = u[(i + p * 16) ][ tid + (bx + p) * 16];
 
-    b[0][tid] = b[0][tid] / u[(0 + p * 16) * size + (0 + 16 * p)];
+    b[0][tid] = b[0][tid] / u[(0 + p * 16) ][ + (0 + 16 * p)];
 
     for (i = 1; i < 16; i++){
         for (j = 0; j < i; j++) {
             b[i][tid] = b[i][tid] - 
-                u[(j + p * 16) * size + (i + p * 16)] * b[j][tid];
+                u[(j + p * 16) ][ (i + p * 16)] * b[j][tid];
         }
-        b[i][tid] = b[i][tid] / u[(i + p * 16) * size + (i + 16 *p)];
+        b[i][tid] = b[i][tid] / u[(i + p * 16) ][ + (i + 16 *p)];
     }
 
     for(i = 0; i < 16; i++)
-        u[(i + p * 16) * size + tid + (bx + p) * 16] = b[i][tid];
+        u[(i + p * 16) ][ tid + (bx + p) * 16] = b[i][tid];
 }
 
-__global__ void gpu_mm_a(float *m, int size, int p, int s, int mod, int visina)
+__global__ void gpu_mm_a(float (*m)[512], int size, int p, int s, int mod, int visina)
 {
     __shared__ float s_a1[16][16];
     __shared__ float s_a2[16][16];
@@ -148,10 +148,10 @@ __global__ void gpu_mm_a(float *m, int size, int p, int s, int mod, int visina)
     
     if (bx + 1 != gridDim.x)
     {
-      s_a1[ty][tx] = m[(ty + p * 16) * size + tx + (s) * 16];
-    s_a2[ty][tx] = m[(ty + p * 16) * size + tx + (s + 1) * 16];
-    s_b1[ty][tx] = m[(ty + p * 16) * size + tx + (s + bx * 2) * 16];
-    s_b2[ty][tx] = m[(ty + p * 16) * size + tx + (s + bx * 2 + 1) * 16];
+      s_a1[ty][tx] = m[(ty + p * 16) ][ tx + (s) * 16];
+    s_a2[ty][tx] = m[(ty + p * 16) ][ tx + (s + 1) * 16];
+    s_b1[ty][tx] = m[(ty + p * 16) ][ tx + (s + bx * 2) * 16];
+    s_b2[ty][tx] = m[(ty + p * 16) ][ tx + (s + bx * 2 + 1) * 16];
 
     __syncthreads();
 
@@ -165,15 +165,15 @@ __global__ void gpu_mm_a(float *m, int size, int p, int s, int mod, int visina)
     }
     
     
-    m[(ty + (s) * 16) * size + tx + (s + bx * 2) * 16] -= s_c1;
-    m[(ty + (s) * 16) * size + tx + (s + (bx *2)+ 1) * 16] -= s_c2;
-    m[(ty + (s+1) * 16) * size + tx + (s + (bx * 2)) * 16] -= s_c3;
-    m[(ty + (s+1) * 16) * size + tx + (s + (bx * 2)+ 1) * 16] -= s_c4;
+    m[(ty + (s) * 16) ][ tx + (s + bx * 2) * 16] -= s_c1;
+    m[(ty + (s) * 16) ][ tx + (s + (bx *2)+ 1) * 16] -= s_c2;
+    m[(ty + (s+1) * 16) ][ tx + (s + (bx * 2)) * 16] -= s_c3;
+    m[(ty + (s+1) * 16) ][ tx + (s + (bx * 2)+ 1) * 16] -= s_c4;
     return;
     }
     if (bx + 1 == gridDim.x && mod == 1 && visina == 1) {
-        s_a1[ty][tx] = m[(ty + p * 16) * size + tx + (s) * 16];
-        s_b1[ty][tx] = m[(ty + p * 16) * size + tx + (s + bx * 2) * 16];
+        s_a1[ty][tx] = m[(ty + p * 16) ][ tx + (s) * 16];
+        s_b1[ty][tx] = m[(ty + p * 16) ][ tx + (s + bx * 2) * 16];
         __syncthreads();
         #pragma unroll 16
         for (i = 0; i < 16; i++)
@@ -181,15 +181,15 @@ __global__ void gpu_mm_a(float *m, int size, int p, int s, int mod, int visina)
             s_c1 += s_a1[i][ty] * s_b1[i][tx];
             
         }
-        m[(ty + (s) * 16) * size + tx + (s + bx * 2) * 16] -= s_c1;
+        m[(ty + (s) * 16) ][ tx + (s + bx * 2) * 16] -= s_c1;
         return;
     }
     if (bx + 1 == gridDim.x && mod == 0) 
         return;
     if (bx + 1 == gridDim.x && mod == 1) {
-        s_a1[ty][tx] = m[(ty + p * 16) * size + tx + (s) * 16];
-        s_a2[ty][tx] = m[(ty + p * 16) * size + tx + (s + 1) * 16];
-        s_b1[ty][tx] = m[(ty + p * 16) * size + tx + (s + bx * 2) * 16];
+        s_a1[ty][tx] = m[(ty + p * 16) ][ tx + (s) * 16];
+        s_a2[ty][tx] = m[(ty + p * 16) ][ tx + (s + 1) * 16];
+        s_b1[ty][tx] = m[(ty + p * 16) ][ tx + (s + bx * 2) * 16];
         __syncthreads();
         #pragma unroll 16
         for (i = 0; i < 16; i++)
@@ -198,8 +198,8 @@ __global__ void gpu_mm_a(float *m, int size, int p, int s, int mod, int visina)
             s_c3 += s_a2[i][ty] * s_b1[i][tx];
             
         }
-        m[(ty + (s) * 16) * size + tx + (s + bx * 2) * 16] -= s_c1;
-        m[(ty + (s+1) * 16) * size + tx + (s + (bx * 2)) * 16] -= s_c3;
+        m[(ty + (s) * 16) ][tx + (s + bx * 2) * 16] -= s_c1;
+        m[(ty + (s+1) * 16) ][tx + (s + (bx * 2)) * 16] -= s_c3;
         return;
     }
     
@@ -219,7 +219,7 @@ int main(int argc, char *argv[])
 
     hid_t       file_id, dataset_id;
     
-    float *m_in, *device_m, *v, *cpu_rez;
+    float *m_in, (*device_m)[512], *v, *cpu_rez;
     m_in = new float[size * size];
 //  m_out = new float[size * size];
     
