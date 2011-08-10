@@ -150,81 +150,195 @@ __global__ void gpu_mm_a(float *m, int size, int p, int s, int mod, int visina)
     int tx = threadIdx.x, i;
     int ty = threadIdx.y;
     int bx = blockIdx.x;
-    if (bx + 1 == gridDim.x && mod == 0) 
-        return;
     
-  /*  if (bx + 1 != gridDim.x)
-    {
-      
-    return;
-    }*/
+    if (bx + 1 == gridDim.x) {
     
-    if (bx + 1 == gridDim.x && mod == 1 && visina == 1) {
-      
-        s_a1[ty][tx] = m[(ty + p * 16) * size + tx + (s) * 16];
-        s_b1[ty][tx] = m[(ty + p * 16) * size + tx + (s + bx * 4) * 16];
-        __syncthreads();
-        //#pragma unroll 16
-        for (i = 0; i < 16; i++)
-        {
-            s_c1 += s_a1[i][ty] * s_b1[i][tx];
-            
-        }
-        m[(ty + (s) * 16) * size + tx + (s + bx * 4) * 16] -= s_c1;
-        return;
-    }
-    if (bx + 1 == gridDim.x && mod == 2 && visina == 2) {
-      
-        s_a1[ty][tx] = m[(ty + p * 16) * size + tx + (s) * 16];
-        s_a2[ty][tx] = m[(ty + p * 16) * size + tx + (s + 1) * 16];
-        s_b1[ty][tx] = m[(ty + p * 16) * size + tx + (s + bx * 4) * 16];
-        s_b2[ty][tx] = m[(ty + p * 16) * size + tx + (s + bx * 4 + 1) * 16];
-        __syncthreads();
-        //#pragma unroll 16
-        for (i = 0; i < 16; i++)
-        {
-            s_c1 += s_a1[i][ty] * s_b1[i][tx];
-            s_c2 += s_a1[i][ty] * s_b2[i][tx];
-            s_c4 += s_a2[i][ty] * s_b1[i][tx];
-            s_c5 += s_a2[i][ty] * s_b2[i][tx];
-            
-            
-        }
-        m[(ty + (s) * 16) * size + tx + (s + bx * 4) * 16] -= s_c1;
-        m[(ty + (s) * 16) * size + tx + (s + (bx *4)+ 1) * 16] -= s_c2;
-        m[(ty + (s+1) * 16) * size + tx + (s + (bx * 4)) * 16] -= s_c4;
-        m[(ty + (s+1) * 16) * size + tx + (s + (bx * 4)+ 1) * 16] -= s_c5;
-        return;
-    }
-    if (bx + 1 == gridDim.x && mod == 1 && visina >= 3) {
-      
-        s_a1[ty][tx] = m[(ty + p * 16) * size + tx + (s) * 16];
-        s_a2[ty][tx] = m[(ty + p * 16) * size + tx + (s + 1) * 16];
-        s_a3[ty][tx] = m[(ty + p * 16) * size + tx + (s + 2) * 16];
-        s_b1[ty][tx] = m[(ty + p * 16) * size + tx + (s + bx * 3) * 16];
+        if (mod == 0) 
+            return;
+
         
-        __syncthreads();
-        //#pragma unroll 16
-        for (i = 0; i < 16; i++)
-        {
-            s_c1 += s_a1[i][ty] * s_b1[i][tx];      
-            s_c4 += s_a2[i][ty] * s_b1[i][tx];
-            s_c7 += s_a3[i][ty] * s_b1[i][tx];
-            
-            
-            
+        if ( mod == 1 && visina == 1) {
+        
+            s_a1[ty][tx] = m[(ty + p * 16) * size + tx + (s) * 16];
+            s_b1[ty][tx] = m[(ty + p * 16) * size + tx + (s + bx * 4) * 16];
+            __syncthreads();
+            //#pragma unroll 16
+            for (i = 0; i < 16; i++)
+            {
+                s_c1 += s_a1[i][ty] * s_b1[i][tx];
+                
+            }
+            m[(ty + (s) * 16) * size + tx + (s + bx * 4) * 16] -= s_c1;
+            return;
         }
-        m[(ty + (s) * 16) * size + tx + (s + bx * 3) * 16] -= s_c1;
-        m[(ty + (s+1) * 16) * size + tx + (s + (bx * 3)) * 16] -= s_c4;
-        m[(ty + (s+2) * 16) * size + tx + (s + (bx * 3)) * 16] -= s_c7;
+        if (mod == 2 && visina == 2) {
+        
+            s_a1[ty][tx] = m[(ty + p * 16) * size + tx + (s) * 16];
+            s_a2[ty][tx] = m[(ty + p * 16) * size + tx + (s + 1) * 16];
+            s_b1[ty][tx] = m[(ty + p * 16) * size + tx + (s + bx * 4) * 16];
+            s_b2[ty][tx] = m[(ty + p * 16) * size + tx + (s + bx * 4 + 1) * 16];
+            __syncthreads();
+            //#pragma unroll 16
+            for (i = 0; i < 16; i++)
+            {
+                s_c1 += s_a1[i][ty] * s_b1[i][tx];
+                s_c2 += s_a1[i][ty] * s_b2[i][tx];
+                s_c4 += s_a2[i][ty] * s_b1[i][tx];
+                s_c5 += s_a2[i][ty] * s_b2[i][tx];
+                
+                
+            }
+            m[(ty + (s) * 16) * size + tx + (s + bx * 4) * 16] -= s_c1;
+            m[(ty + (s) * 16) * size + tx + (s + (bx *4)+ 1) * 16] -= s_c2;
+            m[(ty + (s+1) * 16) * size + tx + (s + (bx * 4)) * 16] -= s_c4;
+            m[(ty + (s+1) * 16) * size + tx + (s + (bx * 4)+ 1) * 16] -= s_c5;
+            return;
+        }
+        if (mod == 3 && visina == 3) {
+        
+            s_a1[ty][tx] = m[(ty + p * 16) * size + tx + (s) * 16];
+            s_a2[ty][tx] = m[(ty + p * 16) * size + tx + (s + 1) * 16];
+            s_a3[ty][tx] = m[(ty + p * 16) * size + tx + (s + 2) * 16];
+            s_b1[ty][tx] = m[(ty + p * 16) * size + tx + (s + bx * 4) * 16];
+            s_b2[ty][tx] = m[(ty + p * 16) * size + tx + (s + bx * 4 + 1) * 16];
+            s_b3[ty][tx] = m[(ty + p * 16) * size + tx + (s + bx * 4 + 2) * 16];
+            __syncthreads();
+            //#pragma unroll 16
+            for (i = 0; i < 16; i++)
+            {
+                s_c1 += s_a1[i][ty] * s_b1[i][tx];
+                s_c2 += s_a1[i][ty] * s_b2[i][tx];
+                s_c3 += s_a1[i][ty] * s_b3[i][tx];
+                s_c5 += s_a2[i][ty] * s_b1[i][tx];
+                s_c6 += s_a2[i][ty] * s_b2[i][tx];
+                s_c7 += s_a2[i][ty] * s_b3[i][tx];
+                s_c9 += s_a3[i][ty] * s_b1[i][tx];
+                s_c10 += s_a3[i][ty] * s_b2[i][tx];
+                s_c11 += s_a3[i][ty] * s_b3[i][tx];
+                
+                
+            }
+            m[(ty + (s) * 16) * size + tx + (s + bx * 4) * 16] -= s_c1;
+            m[(ty + (s) * 16) * size + tx + (s + (bx * 4) + 1) * 16] -= s_c2;
+            m[(ty + (s) * 16) * size + tx + (s + (bx * 4) + 2) * 16] -= s_c3;
+            m[(ty + (s+1) * 16) * size + tx + (s + (bx * 4)) * 16] -= s_c5;
+            m[(ty + (s+1) * 16) * size + tx + (s + (bx * 4)+ 1) * 16] -= s_c6;
+            m[(ty + (s+1) * 16) * size + tx + (s + (bx * 4)+2) * 16] -= s_c7;
+            m[(ty + (s+2) * 16) * size + tx + (s + (bx * 4)) * 16] -= s_c9;
+            m[(ty + (s+2) * 16) * size + tx + (s + (bx * 4)+ 1) * 16] -= s_c10;
+            m[(ty + (s+2) * 16) * size + tx + (s + (bx * 4)+2) * 16] -= s_c11;
+    
+            return;
+        }
+        if (mod == 1 && visina >= 4) {
+        
+            s_a1[ty][tx] = m[(ty + p * 16) * size + tx + (s) * 16];
+            s_a2[ty][tx] = m[(ty + p * 16) * size + tx + (s + 1) * 16];
+            s_a3[ty][tx] = m[(ty + p * 16) * size + tx + (s + 2) * 16];
+            s_a4[ty][tx] = m[(ty + p * 16) * size + tx + (s + 3) * 16];
+            s_b1[ty][tx] = m[(ty + p * 16) * size + tx + (s + bx * 4) * 16];
+            
+            __syncthreads();
+            //#pragma unroll 16
+            for (i = 0; i < 16; i++)
+            {
+                s_c1 += s_a1[i][ty] * s_b1[i][tx];   
+                s_c5 += s_a2[i][ty] * s_b1[i][tx];
+                s_c9 += s_a3[i][ty] * s_b1[i][tx];
+                s_c13 += s_a4[i][ty] * s_b1[i][tx];
+                
+                
+                
+            }
+            m[(ty + (s) * 16) * size + tx + (s + bx * 4) * 16] -= s_c1;
+            m[(ty + (s+1) * 16) * size + tx + (s + (bx * 4)) * 16] -= s_c5;
+            m[(ty + (s+2) * 16) * size + tx + (s + (bx * 4)) * 16] -= s_c9;
+            m[(ty + (s+3) * 16) * size + tx + (s + (bx * 4)) * 16] -= s_c13;
+            return;
+        }
+        if (mod == 2 && visina >= 4) {
+        
+            s_a1[ty][tx] = m[(ty + p * 16) * size + tx + (s) * 16];
+            s_a2[ty][tx] = m[(ty + p * 16) * size + tx + (s + 1) * 16];
+            s_a3[ty][tx] = m[(ty + p * 16) * size + tx + (s + 2) * 16];
+            s_a4[ty][tx] = m[(ty + p * 16) * size + tx + (s + 3) * 16];
+            s_b1[ty][tx] = m[(ty + p * 16) * size + tx + (s + bx * 4) * 16];
+            s_b2[ty][tx] = m[(ty + p * 16) * size + tx + (s + bx * 4 + 1) * 16];
+            
+            __syncthreads();
+            //#pragma unroll 16
+            for (i = 0; i < 16; i++)
+            {
+                s_c1 += s_a1[i][ty] * s_b1[i][tx];   
+                s_c5 += s_a2[i][ty] * s_b1[i][tx];
+                s_c9 += s_a3[i][ty] * s_b1[i][tx];
+                s_c13 += s_a4[i][ty] * s_b1[i][tx];
+                s_c2 += s_a1[i][ty] * s_b2[i][tx];
+                s_c6 += s_a2[i][ty] * s_b2[i][tx];
+                s_c10 += s_a3[i][ty] * s_b2[i][tx];
+                s_c14 += s_a4[i][ty] * s_b2[i][tx];
+            }
+            m[(ty + (s) * 16) * size + tx + (s + bx * 4) * 16] -= s_c1;
+            m[(ty + (s+1) * 16) * size + tx + (s + (bx * 4)) * 16] -= s_c5;
+            m[(ty + (s+2) * 16) * size + tx + (s + (bx * 4)) * 16] -= s_c9;
+            m[(ty + (s+3) * 16) * size + tx + (s + (bx * 4)) * 16] -= s_c13;
+            m[(ty + (s) * 16) * size + tx + (s + (bx * 4) + 1) * 16] -= s_c2;
+            m[(ty + (s+1) * 16) * size + tx + (s + (bx * 4)+ 1) * 16] -= s_c6;
+            m[(ty + (s+2) * 16) * size + tx + (s + (bx * 4)+ 1) * 16] -= s_c10;
+            m[(ty + (s+3) * 16) * size + tx + (s + (bx * 4)+ 1) * 16] -= s_c14;
+            return;
+        }
+        if (mod == 3 && visina >= 4) {
+        
+            s_a1[ty][tx] = m[(ty + p * 16) * size + tx + (s) * 16];
+            s_a2[ty][tx] = m[(ty + p * 16) * size + tx + (s + 1) * 16];
+            s_a3[ty][tx] = m[(ty + p * 16) * size + tx + (s + 2) * 16];
+            s_a4[ty][tx] = m[(ty + p * 16) * size + tx + (s + 3) * 16];
+            s_b1[ty][tx] = m[(ty + p * 16) * size + tx + (s + bx * 4) * 16];
+            s_b2[ty][tx] = m[(ty + p * 16) * size + tx + (s + bx * 4 + 1) * 16];
+            s_b3[ty][tx] = m[(ty + p * 16) * size + tx + (s + bx * 4 + 2) * 16];
+            __syncthreads();
+            //#pragma unroll 16
+            for (i = 0; i < 16; i++)
+            {
+                s_c1 += s_a1[i][ty] * s_b1[i][tx];   
+                s_c5 += s_a2[i][ty] * s_b1[i][tx];
+                s_c9 += s_a3[i][ty] * s_b1[i][tx];
+                s_c13 += s_a4[i][ty] * s_b1[i][tx];
+                s_c2 += s_a1[i][ty] * s_b2[i][tx];
+                s_c6 += s_a2[i][ty] * s_b2[i][tx];
+                s_c10 += s_a3[i][ty] * s_b2[i][tx];
+                s_c14 += s_a4[i][ty] * s_b2[i][tx];
+                s_c3 += s_a1[i][ty] * s_b3[i][tx];
+                s_c7 += s_a2[i][ty] * s_b3[i][tx];
+                s_c11 += s_a3[i][ty] * s_b3[i][tx];
+                s_c15 += s_a4[i][ty] * s_b3[i][tx];
+            }
+            m[(ty + (s) * 16) * size + tx + (s + bx * 4) * 16] -= s_c1;
+            m[(ty + (s+1) * 16) * size + tx + (s + (bx * 4)) * 16] -= s_c5;
+            m[(ty + (s+2) * 16) * size + tx + (s + (bx * 4)) * 16] -= s_c9;
+            m[(ty + (s+3) * 16) * size + tx + (s + (bx * 4)) * 16] -= s_c13;
+            m[(ty + (s) * 16) * size + tx + (s + (bx * 4) + 1) * 16] -= s_c2;
+            m[(ty + (s+1) * 16) * size + tx + (s + (bx * 4)+ 1) * 16] -= s_c6;
+            m[(ty + (s+2) * 16) * size + tx + (s + (bx * 4)+ 1) * 16] -= s_c10;
+            m[(ty + (s+3) * 16) * size + tx + (s + (bx * 4)+ 1) * 16] -= s_c14;
+            m[(ty + (s) * 16) * size + tx + (s + (bx * 4) + 2) * 16] -= s_c3;
+            m[(ty + (s+1) * 16) * size + tx + (s + (bx * 4)+2) * 16] -= s_c7;
+             m[(ty + (s+2) * 16) * size + tx + (s + (bx * 4)+2) * 16] -= s_c11;
+             m[(ty + (s+3) * 16) * size + tx + (s + (bx * 4)+2) * 16] -= s_c15;
+            return;
+        }
         return;
     }
     s_a1[ty][tx] = m[(ty + p * 16) * size + tx + (s) * 16];
     s_a2[ty][tx] = m[(ty + p * 16) * size + tx + (s + 1) * 16];
     s_a3[ty][tx] = m[(ty + p * 16) * size + tx + (s + 2) * 16];
-    s_b1[ty][tx] = m[(ty + p * 16) * size + tx + (s + bx * 3) * 16];
-    s_b2[ty][tx] = m[(ty + p * 16) * size + tx + (s + bx * 3 + 1) * 16];
-    s_b3[ty][tx] = m[(ty + p * 16) * size + tx + (s + bx * 3 + 2) * 16];
+    s_a4[ty][tx] = m[(ty + p * 16) * size + tx + (s + 3) * 16];
+    
+    s_b1[ty][tx] = m[(ty + p * 16) * size + tx + (s + bx * 4) * 16];
+    s_b2[ty][tx] = m[(ty + p * 16) * size + tx + (s + bx * 4 + 1) * 16];
+    s_b3[ty][tx] = m[(ty + p * 16) * size + tx + (s + bx * 4 + 2) * 16];
+    s_b4[ty][tx] = m[(ty + p * 16) * size + tx + (s + bx * 4 + 3) * 16];
 
     __syncthreads();
 
@@ -234,24 +348,41 @@ __global__ void gpu_mm_a(float *m, int size, int p, int s, int mod, int visina)
         s_c1 += s_a1[i][ty] * s_b1[i][tx];
         s_c2 += s_a1[i][ty] * s_b2[i][tx];
         s_c3 += s_a1[i][ty] * s_b3[i][tx];
-        s_c4 += s_a2[i][ty] * s_b1[i][tx];
-        s_c5 += s_a2[i][ty] * s_b2[i][tx];
-        s_c6 += s_a2[i][ty] * s_b3[i][tx];
-        s_c7 += s_a3[i][ty] * s_b1[i][tx];
-        s_c8 += s_a3[i][ty] * s_b2[i][tx];
-        s_c9 += s_a3[i][ty] * s_b3[i][tx];
+        s_c4 += s_a1[i][ty] * s_b4[i][tx];
+        s_c5 += s_a2[i][ty] * s_b1[i][tx];
+        s_c6 += s_a2[i][ty] * s_b2[i][tx];
+        s_c7 += s_a2[i][ty] * s_b3[i][tx];
+        s_c8 += s_a2[i][ty] * s_b4[i][tx];
+        s_c9 += s_a3[i][ty] * s_b1[i][tx];
+        s_c10 += s_a3[i][ty] * s_b2[i][tx];
+        s_c11 += s_a3[i][ty] * s_b3[i][tx];
+        s_c12 += s_a3[i][ty] * s_b4[i][tx];
+        s_c13 += s_a4[i][ty] * s_b1[i][tx];
+        s_c14 += s_a4[i][ty] * s_b2[i][tx];
+        s_c15 += s_a4[i][ty] * s_b3[i][tx];
+        s_c16 += s_a4[i][ty] * s_b4[i][tx];
     }
     
     
-    m[(ty + (s) * 16) * size + tx + (s + bx * 3) * 16] -= s_c1;
-    m[(ty + (s) * 16) * size + tx + (s + (bx *3)+ 1) * 16] -= s_c2;
-    m[(ty + (s) * 16) * size + tx + (s + (bx *3)+ 2) * 16] -= s_c3;
-    m[(ty + (s+1) * 16) * size + tx + (s + (bx * 3)) * 16] -= s_c4;
-    m[(ty + (s+1) * 16) * size + tx + (s + (bx * 3)+ 1) * 16] -= s_c5;
-    m[(ty + (s+1) * 16) * size + tx + (s + (bx * 3)+2) * 16] -= s_c6;
-    m[(ty + (s+2) * 16) * size + tx + (s + (bx * 3)) * 16] -= s_c7;
-    m[(ty + (s+2) * 16) * size + tx + (s + (bx * 3)+ 1) * 16] -= s_c8;
-    m[(ty + (s+2) * 16) * size + tx + (s + (bx * 3)+2) * 16] -= s_c9;
+    m[(ty + (s) * 16) * size + tx + (s + bx * 4) * 16] -= s_c1;
+    m[(ty + (s) * 16) * size + tx + (s + (bx * 4) + 1) * 16] -= s_c2;
+    m[(ty + (s) * 16) * size + tx + (s + (bx * 4) + 2) * 16] -= s_c3;
+    m[(ty + (s) * 16) * size + tx + (s + (bx * 4) + 3) * 16] -= s_c4;
+    
+    m[(ty + (s+1) * 16) * size + tx + (s + (bx * 4)) * 16] -= s_c5;
+    m[(ty + (s+1) * 16) * size + tx + (s + (bx * 4)+ 1) * 16] -= s_c6;
+    m[(ty + (s+1) * 16) * size + tx + (s + (bx * 4)+2) * 16] -= s_c7;
+    m[(ty + (s+1) * 16) * size + tx + (s + (bx * 4)+3) * 16] -= s_c8;
+    
+    m[(ty + (s+2) * 16) * size + tx + (s + (bx * 4)) * 16] -= s_c9;
+    m[(ty + (s+2) * 16) * size + tx + (s + (bx * 4)+ 1) * 16] -= s_c10;
+    m[(ty + (s+2) * 16) * size + tx + (s + (bx * 4)+2) * 16] -= s_c11;
+    m[(ty + (s+2) * 16) * size + tx + (s + (bx * 4)+3) * 16] -= s_c12;
+    
+    m[(ty + (s+3) * 16) * size + tx + (s + (bx * 4)) * 16] -= s_c13;
+    m[(ty + (s+3) * 16) * size + tx + (s + (bx * 4)+ 1) * 16] -= s_c14;
+    m[(ty + (s+3) * 16) * size + tx + (s + (bx * 4)+2) * 16] -= s_c15;
+    m[(ty + (s+3) * 16) * size + tx + (s + (bx * 4)+3) * 16] -= s_c16;
     
     
 }
@@ -381,7 +512,7 @@ int main(int argc, char *argv[])
         gpu_inv_l <<<it, 16>>> (device_m, size, i);
         
         for (j = i; j < n / 16 - 1; j += 4){
-            //printf("\n%d %d %d\n",(n / 16 - 1 - j) / 3 + 1, (n / 16 - 1 - j) % 3, n/16 - (j+1));
+            //printf("\n%d %d %d\n",(n / 16 - 1 - j) / 4 + 1, (n / 16 - 1 - j) % 4, n/16 - (j+1));
             gpu_mm_a <<<(n / 16 - 1 - j) / 4 + 1, thredovaPoBloku>>> 
                 (device_m, size, i, j + 1, (n / 16 - 1 - j) % 4, n/16 - (j+1));
         }
