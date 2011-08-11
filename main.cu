@@ -119,9 +119,9 @@ __global__ void gpu_inv_l(float *u, int size, int p)
 
     for(i = 0; i < 16; i++)
         b[i][tid] = u[(i + p * 16) * size + tid + (bx + p) * 16];
-
+//    __syncthreads();
     b[0][tid] = b[0][tid] / u[(0 + p * 16) * size + (0 + 16 * p)];
-
+//__syncthreads();
     for (i = 1; i < 16; i++){
         for (j = 0; j < i; j++) {
             b[i][tid] = b[i][tid] - 
@@ -129,7 +129,7 @@ __global__ void gpu_inv_l(float *u, int size, int p)
         }
         b[i][tid] = b[i][tid] / u[(i + p * 16) * size + (i + 16 *p)];
     }
-
+//__syncthreads();
     for(i = 0; i < 16; i++)
         u[(i + p * 16) * size + tid + (bx + p) * 16] = b[i][tid];
 }
@@ -142,37 +142,44 @@ __global__ void gpu_mm_a(float *m, int size, int p, int s, int mod, int visina)
     __shared__ float s_b1[16][16];
     __shared__ float s_b2[16][16];
     __shared__ float s_b3[16][16];
-
+    
+    
     float s_c1 = 0, s_c2 = 0, s_c3 = 0, s_c4 = 0, s_c5 = 0, s_c6 = 0, s_c7 = 0, s_c8 = 0, s_c9 = 0;
     int tx = threadIdx.x, i;
     int ty = threadIdx.y;
     int bx = blockIdx.x;
+    
+    int z1 = (ty + p * 16) * size + tx + (s) * 16;
+    int z2 = (ty + p * 16) * size + tx + (s + bx * 3) * 16;
+    int z3 = (ty + (s) * 16) * size + tx + (s + bx * 3) * 16;
+    int z4 = (ty + (s+1) * 16) * size + tx + (s + (bx * 3)) * 16;
+    int z5 = (ty + (s+2) * 16) * size + tx + (s + (bx * 3)) * 16;
     if (bx + 1 == gridDim.x) {
         if (mod == 0) 
             return;
         
         if (mod == 1 && visina == 1) {
         
-            s_a1[ty][tx] = m[(ty + p * 16) * size + tx + (s) * 16];
-            s_b1[ty][tx] = m[(ty + p * 16) * size + tx + (s + bx * 3) * 16];
+            s_a1[ty][tx] = m[z1];
+            s_b1[ty][tx] = m[z2];
             __syncthreads();
-            //#pragma unroll 16
+           // #pragma unroll 16
             for (i = 0; i < 16; i++)
             {
                 s_c1 += s_a1[i][ty] * s_b1[i][tx];
                 
             }
-            m[(ty + (s) * 16) * size + tx + (s + bx * 3) * 16] -= s_c1;
+            m[z3] -= s_c1;
             return;
         }
         if ( mod == 2 && visina == 2) {
         
-            s_a1[ty][tx] = m[(ty + p * 16) * size + tx + (s) * 16];
-            s_a2[ty][tx] = m[(ty + p * 16) * size + tx + (s + 1) * 16];
-            s_b1[ty][tx] = m[(ty + p * 16) * size + tx + (s + bx * 3) * 16];
-            s_b2[ty][tx] = m[(ty + p * 16) * size + tx + (s + bx * 3 + 1) * 16];
+            s_a1[ty][tx] = m[z1];
+            s_a2[ty][tx] = m[z1+16];
+            s_b1[ty][tx] = m[z2];
+            s_b2[ty][tx] = m[z2+16];
             __syncthreads();
-            //#pragma unroll 16
+            #pragma unroll 16
             for (i = 0; i < 16; i++)
             {
                 s_c1 += s_a1[i][ty] * s_b1[i][tx];
@@ -182,21 +189,21 @@ __global__ void gpu_mm_a(float *m, int size, int p, int s, int mod, int visina)
                 
                 
             }
-            m[(ty + (s) * 16) * size + tx + (s + bx * 3) * 16] -= s_c1;
-            m[(ty + (s) * 16) * size + tx + (s + (bx *3)+ 1) * 16] -= s_c2;
-            m[(ty + (s+1) * 16) * size + tx + (s + (bx * 3)) * 16] -= s_c4;
-            m[(ty + (s+1) * 16) * size + tx + (s + (bx * 3)+ 1) * 16] -= s_c5;
+            m[z3] -= s_c1;
+            m[z3+16] -= s_c2;
+            m[z4] -= s_c4;
+            m[z4+16] -= s_c5;
             return;
         }
         if ( mod == 1 && visina >= 3) {
         
-            s_a1[ty][tx] = m[(ty + p * 16) * size + tx + (s) * 16];
-            s_a2[ty][tx] = m[(ty + p * 16) * size + tx + (s + 1) * 16];
-            s_a3[ty][tx] = m[(ty + p * 16) * size + tx + (s + 2) * 16];
-            s_b1[ty][tx] = m[(ty + p * 16) * size + tx + (s + bx * 3) * 16];
+            s_a1[ty][tx] = m[z1];
+            s_a2[ty][tx] = m[z1+16];
+            s_a3[ty][tx] = m[z1+32];
+            s_b1[ty][tx] = m[z2];
             
             __syncthreads();
-            //#pragma unroll 16
+            #pragma unroll 16
             for (i = 0; i < 16; i++)
             {
                 s_c1 += s_a1[i][ty] * s_b1[i][tx];      
@@ -206,20 +213,20 @@ __global__ void gpu_mm_a(float *m, int size, int p, int s, int mod, int visina)
                 
                 
             }
-            m[(ty + (s) * 16) * size + tx + (s + bx * 3) * 16] -= s_c1;
-            m[(ty + (s+1) * 16) * size + tx + (s + (bx * 3)) * 16] -= s_c4;
-            m[(ty + (s+2) * 16) * size + tx + (s + (bx * 3)) * 16] -= s_c7;
+            m[z3] -= s_c1;
+            m[z4] -= s_c4;
+            m[z5] -= s_c7;
             return;
         }
     }
 
-    s_a1[ty][tx] = m[(ty + p * 16) * size + tx + (s) * 16];
-    s_a2[ty][tx] = m[(ty + p * 16) * size + tx + (s + 1) * 16];
-    s_a3[ty][tx] = m[(ty + p * 16) * size + tx + (s + 2) * 16];
-    s_b1[ty][tx] = m[(ty + p * 16) * size + tx + (s + bx * 3) * 16];
-    s_b2[ty][tx] = m[(ty + p * 16) * size + tx + (s + bx * 3 + 1) * 16];
-    s_b3[ty][tx] = m[(ty + p * 16) * size + tx + (s + bx * 3 + 2) * 16];
-
+    s_a1[ty][tx] = m[z1];
+    s_a2[ty][tx] = m[z1+16];
+    s_a3[ty][tx] = m[z1+32];
+    s_b1[ty][tx] = m[z2];
+    s_b2[ty][tx] = m[z2+16];
+    s_b3[ty][tx] = m[z2+32];
+    
     __syncthreads();
 
     #pragma unroll 16
@@ -237,15 +244,15 @@ __global__ void gpu_mm_a(float *m, int size, int p, int s, int mod, int visina)
     }
     
     
-    m[(ty + (s) * 16) * size + tx + (s + bx * 3) * 16] -= s_c1;
-    m[(ty + (s) * 16) * size + tx + (s + (bx *3)+ 1) * 16] -= s_c2;
-    m[(ty + (s) * 16) * size + tx + (s + (bx *3)+ 2) * 16] -= s_c3;
-    m[(ty + (s+1) * 16) * size + tx + (s + (bx * 3)) * 16] -= s_c4;
-    m[(ty + (s+1) * 16) * size + tx + (s + (bx * 3)+ 1) * 16] -= s_c5;
-    m[(ty + (s+1) * 16) * size + tx + (s + (bx * 3)+2) * 16] -= s_c6;
-    m[(ty + (s+2) * 16) * size + tx + (s + (bx * 3)) * 16] -= s_c7;
-    m[(ty + (s+2) * 16) * size + tx + (s + (bx * 3)+ 1) * 16] -= s_c8;
-    m[(ty + (s+2) * 16) * size + tx + (s + (bx * 3)+2) * 16] -= s_c9;
+    m[z3] -= s_c1;
+    m[z3+16] -= s_c2;
+    m[z3+32] -= s_c3;
+    m[z4] -= s_c4;
+    m[z4+16] -= s_c5;
+    m[z4+32] -= s_c6;
+    m[z5] -= s_c7;
+    m[z5+ 16] -= s_c8;
+    m[z5+32] -= s_c9;
     
     
 }
@@ -365,7 +372,7 @@ int main(int argc, char *argv[])
 
 //  CUT_SAFE_CALL(cutCreateTimer(&t_gpu));
 //  CUT_SAFE_CALL(cutStartTimer(t_gpu));
-
+    
     int i, j;
     int it = n / 16 - 1;
     gpu_potrf <<<1, thredovaPoBloku>>> (device_m, size, 0);
