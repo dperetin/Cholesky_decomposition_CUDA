@@ -341,6 +341,11 @@ int main(int argc, char *argv[])
 
     }
 
+    cudaStream_t stream0;
+    cudaStreamCreate(&stream0);
+    cudaStream_t stream1;
+    cudaStreamCreate(&stream1);
+
     // GPU //
     int n = size;
     cudaEvent_t start, stop;
@@ -381,10 +386,14 @@ int main(int argc, char *argv[])
 
         gpu_inv_l <<<it, 16>>> (device_m, size, i);
         
-        for (j = i; j < n / 16 - 1; j += 3){
+        for (j = i; j < n / 16 - 1; j += 6){
             //printf("\n%d %d %d\n",(n / 16 - 1 - j) / 3 + 1, (n / 16 - 1 - j) % 3, n/16 - (j+1));
-            gpu_mm_a <<<(n / 16 - 1 - j) / 3 + 1, thredovaPoBloku>>> 
+            gpu_mm_a <<<(n / 16 - 1 - j) / 3 + 1, thredovaPoBloku, 16*16*16, stream0>>> 
                 (device_m, size, i, j + 1, (n / 16 - 1 - j) % 3, n/16 - (j+1));
+            if (j+3 < n / 16 - 1)    
+            gpu_mm_a <<<(n / 16 - 1 - j-3) / 3 + 1, thredovaPoBloku, 16*16*16, stream1>>> 
+                (device_m, size, i, j+3 + 1, (n / 16 - 1 - j-3) % 3, n/16 - (j+3+1));
+            
         }
     
         gpu_potrf <<<1, thredovaPoBloku>>> (device_m, size, i + 1);
