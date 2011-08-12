@@ -72,12 +72,12 @@ void saveMatrix(float * matrix, char *s, int size)
     f.close();
 }
 
-__global__ void gpu_potrf(float *m, int size, int p)
+__global__ void GPU_SPOTRF(float *m, int size, int p)
 {
     int tx = threadIdx.x;
     int ty = threadIdx.y;
 
-    __shared__ float a[16][16 + 1];
+    __shared__ float a[16][16+1];
     a[ty][tx] = m[(ty + 16 * p) * size + tx + 16 * p];
 
     __syncthreads();
@@ -101,14 +101,11 @@ __global__ void gpu_potrf(float *m, int size, int p)
             a[ty][tx] = a[ty][tx] - a[tx][k] * a[ty][k]; 
     }
 
-    __syncthreads();
-
     if (ty >= tx) 
         m[(tx + 16 * p) * size + ty + 16 * p] = a[ty][tx];
-    
 }
 
-__global__ void gpu_inv_l(float *u, int size, int p)
+__global__ void GPU_STRSM(float *u, int size, int p)
 {
     int i, j;
 
@@ -116,12 +113,14 @@ __global__ void gpu_inv_l(float *u, int size, int p)
     int bx = blockIdx.x + 1;
 
     __shared__ float b[16][16];
+    __shared__ float c[16][16];
 
-    for(i = 0; i < 16; i++)
+    for(i = 0; i < 16; i++) {
         b[i][tid] = u[(i + p * 16) * size + tid + (bx + p) * 16];
-//    __syncthreads();
+    }
+
     b[0][tid] = b[0][tid] / u[(0 + p * 16) * size + (0 + 16 * p)];
-//__syncthreads();
+
     for (i = 1; i < 16; i++){
         for (j = 0; j < i; j++) {
             b[i][tid] = b[i][tid] - 
@@ -129,7 +128,7 @@ __global__ void gpu_inv_l(float *u, int size, int p)
         }
         b[i][tid] = b[i][tid] / u[(i + p * 16) * size + (i + 16 *p)];
     }
-//__syncthreads();
+
     for(i = 0; i < 16; i++)
         u[(i + p * 16) * size + tid + (bx + p) * 16] = b[i][tid];
 }
@@ -380,11 +379,11 @@ int main(int argc, char *argv[])
     
     int i, j;
     int it = n / 16 - 1;
-    gpu_potrf <<<1, thredovaPoBloku>>> (device_m, size, 0);
+    GPU_SPOTRF <<<1, thredovaPoBloku>>> (device_m, size, 0);
 
     for (i = 0; i < n / 16 - 1; i++) {
 
-        gpu_inv_l <<<it, 16>>> (device_m, size, i);
+        GPU_STRSM <<<it, 16>>> (device_m, size, i);
         
         for (j = i; j < n / 16 - 1; j += 6){
             //printf("\n%d %d %d\n",(n / 16 - 1 - j) / 3 + 1, (n / 16 - 1 - j) % 3, n/16 - (j+1));
@@ -396,7 +395,7 @@ int main(int argc, char *argv[])
             
         }
     
-        gpu_potrf <<<1, thredovaPoBloku>>> (device_m, size, i + 1);
+        GPU_SPOTRF <<<1, thredovaPoBloku>>> (device_m, size, i + 1);
     
         it--;
     }
