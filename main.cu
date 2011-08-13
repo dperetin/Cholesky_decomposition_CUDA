@@ -105,7 +105,7 @@ __global__ void GPU_SPOTRF(float *m, int size, int p)
         m[(tx + 16 * p) * size + ty + 16 * p] = a[ty][tx];
 }
 
-__global__ void GPU_STRSM(float *u, int size, int p)
+__global__ void GPU_STRSM(float *m, int size, int p)
 {
     int i, j;
 
@@ -113,24 +113,24 @@ __global__ void GPU_STRSM(float *u, int size, int p)
     int bx = blockIdx.x + 1;
 
     __shared__ float b[16][16];
-    __shared__ float c[16][16];
 
     for(i = 0; i < 16; i++) {
-        b[i][tid] = u[(i + p * 16) * size + tid + (bx + p) * 16];
+        b[i][tid] = m[(i + p * 16) * size + tid + (bx + p) * 16];
     }
 
-    b[0][tid] = b[0][tid] / u[(0 + p * 16) * size + (0 + 16 * p)];
+    b[0][tid] = b[0][tid] / m[(0 + p * 16) * size + (0 + 16 * p)];
 
-    for (i = 1; i < 16; i++){
+    for (i = 1; i < 16; i++) {
+        float d = 0;
         for (j = 0; j < i; j++) {
-            b[i][tid] = b[i][tid] - 
-                u[(j + p * 16) * size + (i + p * 16)] * b[j][tid];
+             d +=  m[(j + p * 16) * size + (i + p * 16)] * b[j][tid];
         }
-        b[i][tid] = b[i][tid] / u[(i + p * 16) * size + (i + 16 *p)];
+        b[i][tid] = (b[i][tid] - d) / m[(i + p * 16) * size + (i + 16 *p)];
     }
-
-    for(i = 0; i < 16; i++)
-        u[(i + p * 16) * size + tid + (bx + p) * 16] = b[i][tid];
+    __syncthreads();
+    for(i = 0; i < 16; i++) {
+        m[(i + p * 16) * size + tid + (bx + p) * 16] = b[i][tid];
+    }
 }
 
 __global__ void gpu_mm_a(float *m, int size, int p, int s, int mod, int visina)
