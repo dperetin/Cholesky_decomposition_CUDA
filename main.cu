@@ -133,7 +133,7 @@ __global__ void GPU_STRSM(float *m, int size, int p)
     }
 }
 
-__global__ void gpu_mm_a(float *m, int size, int p, int s, int mod, int visina)
+__global__ void GPU_SGEMM(float *m, int size, int p, int s, int mod, int visina)
 {
     __shared__ float s_a1[16][16];
     __shared__ float s_a2[16][16];
@@ -387,10 +387,10 @@ int main(int argc, char *argv[])
         
         for (j = i; j < n / 16 - 1; j += 6){
             //printf("\n%d %d %d\n",(n / 16 - 1 - j) / 3 + 1, (n / 16 - 1 - j) % 3, n/16 - (j+1));
-            gpu_mm_a <<<(n / 16 - 1 - j) / 3 + 1, thredovaPoBloku, 16*16*16, stream0>>> 
+            GPU_SGEMM <<<(n / 16 - 1 - j) / 3 + 1, thredovaPoBloku, 16*16*16, stream0>>> 
                 (device_m, size, i, j + 1, (n / 16 - 1 - j) % 3, n/16 - (j+1));
             if (j+3 < n / 16 - 1)    
-            gpu_mm_a <<<(n / 16 - 1 - j-3) / 3 + 1, thredovaPoBloku, 16*16*16, stream1>>> 
+            GPU_SGEMM <<<(n / 16 - 1 - j-3) / 3 + 1, thredovaPoBloku, 16*16*16, stream1>>> 
                 (device_m, size, i, j+3 + 1, (n / 16 - 1 - j-3) % 3, n/16 - (j+3+1));
             
         }
