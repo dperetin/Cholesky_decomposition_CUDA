@@ -1,0 +1,3803 @@
+(* Content-type: application/vnd.wolfram.mathematica *)
+
+(*** Wolfram Notebook File ***)
+(* http://www.wolfram.com/nb *)
+
+(* CreatedBy='Mathematica 8.0' *)
+
+(*CacheID: 234*)
+(* Internal cache information:
+NotebookFileLineBreakTest
+NotebookFileLineBreakTest
+NotebookDataPosition[       157,          7]
+NotebookDataLength[    154192,       3794]
+NotebookOptionsPosition[    150671,       3677]
+NotebookOutlinePosition[    151015,       3692]
+CellTagsIndexPosition[    150972,       3689]
+WindowFrame->Normal*)
+
+(* Beginning of Notebook Content *)
+Notebook[{
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"x", "=", 
+   RowBox[{"{", 
+    RowBox[{"3.2", ",", "1.41", ",", "1.01", ",", "1.11"}], "}"}]}], 
+  ";"}]], "Input",
+ CellChangeTimes->{{3.5221782481367188`*^9, 3.5221782698603516`*^9}, 
+   3.5229339575273438`*^9}],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"BarChart", "[", 
+  RowBox[{"x", ",", 
+   RowBox[{"ChartLegends", "\[Rule]", 
+    RowBox[{"{", 
+     RowBox[{
+     "\"\<Kori\[SHacek]tenje djeljene memorije\>\"", ",", 
+      "\"\<Izbjegavanje bank konflikata\>\"", ",", 
+      "\"\<Stapanje memorije\>\"", ",", "\"\<Odmotavanje petlji\>\""}], 
+     "}"}]}], ",", 
+   RowBox[{"ChartStyle", "\[Rule]", "\"\<DarkRainbow\>\""}], ",", 
+   RowBox[{"ChartLabels", "\[Rule]", 
+    RowBox[{"Placed", "[", 
+     RowBox[{"x", ",", 
+      RowBox[{"{", 
+       RowBox[{
+        RowBox[{"1", "/", "2"}], ",", 
+        RowBox[{"1", "/", "2"}]}], "}"}]}], "]"}]}]}], "]"}]], "Input",
+ CellChangeTimes->{{3.5221782833964844`*^9, 3.5221783981464844`*^9}, {
+  3.522178474794922*^9, 3.522178549758789*^9}}],
+
+Cell[BoxData[
+ TemplateBox[{GraphicsBox[{{
+      Opacity[0], 
+      PointBox[{{0.4545454545454546, 0.}}]}, {
+      RGBColor[0.798413061722744, 0.824719615472648, 0.968322270542458], 
+      EdgeForm[
+       Opacity[0.7]], {}, {
+       RGBColor[0.798413061722744, 0.824719615472648, 0.968322270542458], 
+       EdgeForm[
+        Opacity[0.7]], {
+        RGBColor[0.237736, 0.340215, 0.575113], 
+        EdgeForm[
+         Opacity[0.7]], 
+        TagBox[
+         TooltipBox[
+          TagBox[
+           DynamicBox[{
+             FEPrivate`If[
+              CurrentValue["MouseOver"], 
+              EdgeForm[{
+                GrayLevel[0.5], 
+                AbsoluteThickness[1.5], 
+                Opacity[0.66]}], {}, {}], 
+             
+             RectangleBox[{0.5454545454545454, 0.}, {1.4545454545454546`, 
+              3.2}, "RoundingRadius" -> 0]}, 
+            ImageSizeCache -> {{23.134137291280133`, 
+             100.47551020408162`}, {-107.07502337260532`, 
+             101.52385474233891`}}], StatusArea[#, 3.2]& , TagBoxNote -> 
+           "3.2"], 
+          StyleBox["3.2`", {
+            GrayLevel[0]}, StripOnInput -> False]], Annotation[#, 
+          Style[3.2, {
+            GrayLevel[0]}], "Tooltip"]& ]}, {
+        RGBColor[
+        0.33311066666666667`, 0.5032283333333333, 0.26154733333333335`], 
+        EdgeForm[
+         Opacity[0.7]], 
+        TagBox[
+         TooltipBox[
+          TagBox[
+           DynamicBox[{
+             FEPrivate`If[
+              CurrentValue["MouseOver"], 
+              EdgeForm[{
+                GrayLevel[0.5], 
+                AbsoluteThickness[1.5], 
+                Opacity[0.66]}], {}, {}], 
+             
+             RectangleBox[{1.5454545454545454`, 0.}, {2.4545454545454546`, 
+              1.41}, "RoundingRadius" -> 0]}, 
+            ImageSizeCache -> {{107.10964749536178`, 184.4510204081633}, {
+             9.050599072941623, 101.52385474233891`}}], StatusArea[#, 1.41]& ,
+            TagBoxNote -> "1.41"], 
+          StyleBox["1.41`", {
+            GrayLevel[0]}, StripOnInput -> False]], Annotation[#, 
+          Style[1.41, {
+            GrayLevel[0]}], "Tooltip"]& ]}, {
+        RGBColor[0.8562609999999999, 0.742794, 0.31908333333333333`], 
+        EdgeForm[
+         Opacity[0.7]], 
+        TagBox[
+         TooltipBox[
+          TagBox[
+           DynamicBox[{
+             FEPrivate`If[
+              CurrentValue["MouseOver"], 
+              EdgeForm[{
+                GrayLevel[0.5], 
+                AbsoluteThickness[1.5], 
+                Opacity[0.66]}], {}, {}], 
+             
+             RectangleBox[{2.5454545454545454`, 0.}, {3.4545454545454546`, 
+              1.01}, "RoundingRadius" -> 0]}, 
+            ImageSizeCache -> {{191.0851576994434, 268.42653061224496`}, {
+             35.00045883730964, 101.52385474233891`}}], StatusArea[#, 1.01]& ,
+            TagBoxNote -> "1.01"], 
+          StyleBox["1.01`", {
+            GrayLevel[0]}, StripOnInput -> False]], Annotation[#, 
+          Style[1.01, {
+            GrayLevel[0]}], "Tooltip"]& ]}, {
+        RGBColor[0.72987, 0.239399, 0.230961], 
+        EdgeForm[
+         Opacity[0.7]], 
+        TagBox[
+         TooltipBox[
+          TagBox[
+           DynamicBox[{
+             FEPrivate`If[
+              CurrentValue["MouseOver"], 
+              EdgeForm[{
+                GrayLevel[0.5], 
+                AbsoluteThickness[1.5], 
+                Opacity[0.66]}], {}, {}], 
+             
+             RectangleBox[{3.5454545454545454`, 0.}, {4.454545454545454, 
+              1.11}, "RoundingRadius" -> 0]}, 
+            ImageSizeCache -> {{275.0606679035251, 352.4020408163265}, {
+             28.512993896217623`, 101.52385474233891`}}], 
+           StatusArea[#, 1.11]& , TagBoxNote -> "1.11"], 
+          StyleBox["1.11`", {
+            GrayLevel[0]}, StripOnInput -> False]], Annotation[#, 
+          Style[1.11, {
+            GrayLevel[0]}], "Tooltip"]& ]}}, {}, {}}, {}, {{{{{{{}, {{}, 
+            InsetBox[
+             StyleBox[
+             "3.2`", StripOnInput -> False, LineColor -> GrayLevel[0], 
+              FrontFaceColor -> GrayLevel[0], BackFaceColor -> GrayLevel[0], 
+              GraphicsColor -> GrayLevel[0], FontColor -> GrayLevel[0]], {1., 
+             1.6}]}}, {}}, {{{}, {{}, 
+            InsetBox[
+             StyleBox[
+             "1.41`", StripOnInput -> False, LineColor -> GrayLevel[0], 
+              FrontFaceColor -> GrayLevel[0], BackFaceColor -> GrayLevel[0], 
+              GraphicsColor -> GrayLevel[0], FontColor -> GrayLevel[0]], {2., 
+             0.705}]}}, {}}, {{{}, {{}, 
+            InsetBox[
+             StyleBox[
+             "1.01`", StripOnInput -> False, LineColor -> GrayLevel[0], 
+              FrontFaceColor -> GrayLevel[0], BackFaceColor -> GrayLevel[0], 
+              GraphicsColor -> GrayLevel[0], FontColor -> GrayLevel[0]], {3., 
+             0.505}]}}, {}}, {{{}, {{}, 
+            InsetBox[
+             StyleBox[
+             "1.11`", StripOnInput -> False, LineColor -> GrayLevel[0], 
+              FrontFaceColor -> GrayLevel[0], BackFaceColor -> GrayLevel[0], 
+              GraphicsColor -> GrayLevel[0], FontColor -> GrayLevel[0]], {4., 
+             0.555}]}}, {}}}, {}}, {}}, {}}, 
+     GraphicsGroupBox[{
+       GrayLevel[0], 
+       StyleBox[
+        LineBox[{{{0.5454545454545454, 0.}, 
+           Offset[{0, -4}, {0.5454545454545454, 0.}]}, {{4.454545454545454, 
+           0.}, 
+           Offset[{0, -4}, {4.454545454545454, 0.}]}}], Antialiasing -> 
+        False]}]}, AspectRatio -> 
+    NCache[GoldenRatio^(-1), 0.6180339887498948], Axes -> {True, True}, 
+    AxesOrigin -> {0.4545454545454546, 0}, 
+    FrameTicks -> {{Automatic, Automatic}, {Automatic, Automatic}}, 
+    GridLines -> {None, None}, PlotRangePadding -> Scaled[0.02], 
+    Ticks -> {None, Automatic}],FrameBox[
+    StyleBox[
+     TagBox[
+      GridBox[{{
+         TagBox[
+          GridBox[{{
+             GraphicsBox[{
+               RGBColor[0.237736, 0.340215, 0.575113], 
+               EdgeForm[
+                Opacity[0.7]], 
+               RectangleBox[{0, 0}]}, ImageSize -> 10], 
+             "\"Kori\[SHacek]tenje djeljene memorije\""}}, AutoDelete -> 
+           False, GridBoxItemSize -> {
+            "Columns" -> {{Automatic}}, "Rows" -> {{Automatic}}}], "Grid"]}, {
+         TagBox[
+          GridBox[{{
+             GraphicsBox[{
+               RGBColor[
+               0.33311066666666667`, 0.5032283333333333, 
+                0.26154733333333335`], 
+               EdgeForm[
+                Opacity[0.7]], 
+               RectangleBox[{0, 0}]}, ImageSize -> 10], 
+             "\"Izbjegavanje bank konflikata\""}}, AutoDelete -> False, 
+           GridBoxItemSize -> {
+            "Columns" -> {{Automatic}}, "Rows" -> {{Automatic}}}], "Grid"]}, {
+         TagBox[
+          GridBox[{{
+             GraphicsBox[{
+               RGBColor[0.8562609999999999, 0.742794, 0.31908333333333333`], 
+               EdgeForm[
+                Opacity[0.7]], 
+               RectangleBox[{0, 0}]}, ImageSize -> 10], 
+             "\"Stapanje memorije\""}}, AutoDelete -> False, 
+           GridBoxItemSize -> {
+            "Columns" -> {{Automatic}}, "Rows" -> {{Automatic}}}], "Grid"]}, {
+         TagBox[
+          GridBox[{{
+             GraphicsBox[{
+               RGBColor[0.72987, 0.239399, 0.230961], 
+               EdgeForm[
+                Opacity[0.7]], 
+               RectangleBox[{0, 0}]}, ImageSize -> 10], 
+             "\"Odmotavanje petlji\""}}, AutoDelete -> False, 
+           GridBoxItemSize -> {
+            "Columns" -> {{Automatic}}, "Rows" -> {{Automatic}}}], "Grid"]}}, 
+       GridBoxAlignment -> {"Columns" -> {{Left}}}, 
+       GridBoxItemSize -> {
+        "Columns" -> {{Automatic}}, "Rows" -> {{Automatic}}}], "Column"], 
+     "TR", StripOnInput -> False, ShowStringCharacters -> False], 
+    StripOnInput -> False]},
+  "Labeled",
+  DisplayFunction->(GridBox[{{
+      TagBox[
+       ItemBox[
+        PaneBox[
+         TagBox[#, "SkipImageSizeLevel"], Alignment -> {Center, Baseline}, 
+         BaselinePosition -> Baseline], DefaultBaseStyle -> "Labeled"], 
+       "SkipImageSizeLevel"], 
+      ItemBox[#2, DefaultBaseStyle -> "LabeledLabel"]}}, 
+    GridBoxAlignment -> {"Columns" -> {{Center}}, "Rows" -> {{Center}}}, 
+    AutoDelete -> False, 
+    GridBoxItemSize -> {"Columns" -> {{Automatic}}, "Rows" -> {{Automatic}}}, 
+    BaselinePosition -> {1, 1}]& ),
+  InterpretationFunction->(RowBox[{"Labeled", "[", 
+     RowBox[{#, ",", #2, ",", "Right"}], "]"}]& )]], "Output",
+ CellChangeTimes->{{3.5221782876933594`*^9, 3.5221783289658203`*^9}, 
+   3.5221783987714844`*^9, {3.522178513397461*^9, 3.522178550368164*^9}, 
+   3.5229339600742188`*^9}]
+}, Open  ]],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"t", "=", 
+   RowBox[{"{", 
+    RowBox[{"4590", ",", "4162", ",", "4127", ",", "4202", ",", "4310"}], 
+    "}"}]}], ";"}]], "Input",
+ CellChangeTimes->{{3.5222626631933594`*^9, 3.5222627135214844`*^9}, 
+   3.522330106973633*^9, 3.5229339623085938`*^9}],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"l1", "=", 
+  RowBox[{"ListPlot", "[", 
+   RowBox[{"t", ",", " ", 
+    RowBox[{"PlotRange", "\[Rule]", 
+     RowBox[{"{", 
+      RowBox[{"4000", ",", "4650"}], "}"}]}], ",", 
+    RowBox[{"FrameTicks", "\[Rule]", 
+     RowBox[{"{", 
+      RowBox[{
+       RowBox[{"{", 
+        RowBox[{
+         RowBox[{"{", 
+          RowBox[{"1", ",", "\"\<1x1\>\""}], "}"}], ",", 
+         RowBox[{"{", 
+          RowBox[{"1", ",", "\"\<1x1\>\""}], "}"}], ",", 
+         RowBox[{"{", 
+          RowBox[{"2", ",", "\"\<2x2\>\""}], "}"}], ",", 
+         RowBox[{"{", 
+          RowBox[{"3", ",", "\"\<3x3\>\""}], "}"}], ",", 
+         RowBox[{"{", 
+          RowBox[{"4", ",", "\"\<4x4\>\""}], "}"}], ",", 
+         RowBox[{"{", 
+          RowBox[{"5", ",", "\"\<5x5\>\""}], "}"}]}], "}"}], ",", 
+       "Automatic"}], "}"}]}], ",", 
+    RowBox[{"FrameLabel", "\[Rule]", 
+     RowBox[{"{", 
+      RowBox[{"\"\<Broj blokova\>\"", ",", "\"\<Vrijeme (ms)\>\""}], "}"}]}], 
+    ",", 
+    RowBox[{"Frame", "\[Rule]", 
+     RowBox[{"{", 
+      RowBox[{
+       RowBox[{"{", 
+        RowBox[{"True", ",", " ", "False"}], "}"}], ",", " ", 
+       RowBox[{"{", 
+        RowBox[{"True", ",", " ", "False"}], "}"}]}], "}"}]}], ",", 
+    RowBox[{"Joined", "\[Rule]", "True"}], ",", 
+    RowBox[{"Mesh", "->", "All"}], ",", 
+    RowBox[{"GridLines", "\[Rule]", "Automatic"}], ",", 
+    RowBox[{"PlotMarkers", "\[Rule]", 
+     RowBox[{"{", 
+      RowBox[{"Automatic", ",", "Small"}], "}"}]}]}], "]"}]}]], "Input",
+ CellChangeTimes->{{3.5222627278027344`*^9, 3.5222628230214844`*^9}, {
+  3.5222629221464844`*^9, 3.5222629594902344`*^9}, {3.5222629970683594`*^9, 
+  3.5222630076308594`*^9}, {3.5222630383964844`*^9, 3.5222631109902344`*^9}, {
+  3.522330113192383*^9, 3.522330119286133*^9}, {3.522330196504883*^9, 
+  3.522330337411133*^9}, {3.522330368708008*^9, 3.522330403129883*^9}, {
+  3.522330493583008*^9, 3.522330493770508*^9}, {3.522330541895508*^9, 
+  3.522330563208008*^9}, {3.522330664051758*^9, 3.522330664786133*^9}, {
+  3.522330761301758*^9, 3.522330765333008*^9}, {3.522330836973633*^9, 
+  3.522330845458008*^9}}],
+
+Cell[BoxData[
+ GraphicsBox[
+  GraphicsComplexBox[{{1., 4590.}, {2., 4162.}, {3., 4127.}, {4., 4202.}, {5.,
+    4310.}}, {{{}, {}, 
+     {Hue[0.67, 0.6, 0.6], LineBox[{1, 2, 3, 4, 5}]}}, {
+     {Hue[0.67, 0.6, 0.6], InsetBox[
+       StyleBox["\<\"\[FilledCircle]\"\>",
+        StripOnInput->False,
+        FontSize->Small], 1], InsetBox[
+       StyleBox["\<\"\[FilledCircle]\"\>",
+        StripOnInput->False,
+        FontSize->Small], 2], InsetBox[
+       StyleBox["\<\"\[FilledCircle]\"\>",
+        StripOnInput->False,
+        FontSize->Small], 3], InsetBox[
+       StyleBox["\<\"\[FilledCircle]\"\>",
+        StripOnInput->False,
+        FontSize->Small], 4], InsetBox[
+       StyleBox["\<\"\[FilledCircle]\"\>",
+        StripOnInput->False,
+        FontSize->Small], 5]}, {}}}],
+  AspectRatio->NCache[GoldenRatio^(-1), 0.6180339887498948],
+  Axes->True,
+  AxesOrigin->{0, 4000.},
+  Frame->{{True, False}, {True, False}},
+  FrameLabel->{
+    FormBox["\"Broj blokova\"", TraditionalForm], 
+    FormBox["\"Vrijeme (ms)\"", TraditionalForm]},
+  FrameTicks->{{{1, 
+      FormBox["\"1x1\"", TraditionalForm]}, {1, 
+      FormBox["\"1x1\"", TraditionalForm]}, {2, 
+      FormBox["\"2x2\"", TraditionalForm]}, {3, 
+      FormBox["\"3x3\"", TraditionalForm]}, {4, 
+      FormBox["\"4x4\"", TraditionalForm]}, {5, 
+      FormBox["\"5x5\"", TraditionalForm]}}, Automatic},
+  GridLines->Automatic,
+  PlotRange->{{0, 5.}, {4000, 4650}},
+  PlotRangeClipping->True,
+  PlotRangePadding->{
+    Scaled[0.02], Automatic}]], "Output",
+ CellChangeTimes->{
+  3.522330864879883*^9, {3.5223325432285156`*^9, 3.5223325552441406`*^9}, 
+   3.5229339641367188`*^9}]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"Export", "[", 
+  RowBox[{"\"\<blokovi.pdf\>\"", ",", "l1"}], "]"}]], "Input",
+ CellChangeTimes->{{3.522330911083008*^9, 3.522330924629883*^9}, {
+  3.522330996395508*^9, 3.522331010786133*^9}, {3.5223325388691406`*^9, 
+  3.5223325398066406`*^9}}],
+
+Cell[BoxData["\<\"blokovi.pdf\"\>"], "Output",
+ CellChangeTimes->{3.522330926129883*^9, 3.522331002114258*^9, 
+  3.5223325616035156`*^9}]
+}, Open  ]],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"gemm", "=", 
+   RowBox[{"{", 
+    RowBox[{"5.44", ",", "2.52", ",", "2.49", ",", "  ", "1.15", ",", "1"}], 
+    " ", "}"}]}], ";"}]], "Input",
+ CellChangeTimes->{{3.522329973645508*^9, 3.522330045364258*^9}, {
+   3.5223319364941406`*^9, 3.5223319400722656`*^9}, {3.5223319811191406`*^9, 
+   3.5223319908066406`*^9}, 3.5223324121347656`*^9, 3.5229339808085938`*^9}],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"l2", "=", 
+  RowBox[{"BarChart", "[", 
+   RowBox[{"gemm", ",", 
+    RowBox[{"ChartStyle", "\[Rule]", "\"\<DarkRainbow\>\""}], ",", 
+    RowBox[{"ChartLabels", "\[Rule]", 
+     RowBox[{"Placed", "[", 
+      RowBox[{"gemm", ",", "Above"}], "]"}]}], ",", 
+    RowBox[{"Frame", "\[Rule]", 
+     RowBox[{"{", 
+      RowBox[{
+       RowBox[{"{", 
+        RowBox[{"True", ",", " ", "False"}], "}"}], ",", " ", 
+       RowBox[{"{", 
+        RowBox[{"True", ",", " ", "False"}], "}"}]}], "}"}]}], ",", 
+    RowBox[{"FrameTicks", "\[Rule]", 
+     RowBox[{"{", 
+      RowBox[{
+       RowBox[{"{", 
+        RowBox[{
+         RowBox[{"{", 
+          RowBox[{"1", ",", "\"\<dijeljena memorija\>\""}], "}"}], ",", 
+         RowBox[{"{", 
+          RowBox[{"2", ",", "\"\<coalescing\>\""}], "}"}], ",", 
+         RowBox[{"{", 
+          RowBox[{"3", ",", "\"\<konflikti unutar banki\>\""}], "}"}], ",", 
+         RowBox[{"{", 
+          RowBox[{"4", ",", "\"\<stream\>\""}], "}"}], ",", 
+         RowBox[{"{", 
+          RowBox[{"5", ",", "\"\<odmotavanje petlji\>\""}], "}"}]}], "}"}], 
+       ",", "Automatic"}], "}"}]}], ",", 
+    RowBox[{"FrameLabel", "\[Rule]", 
+     RowBox[{"{", 
+      RowBox[{"\"\<\>\"", ",", "\"\<Usporenje\>\""}], "}"}]}]}], 
+   "]"}]}]], "Input",
+ CellChangeTimes->{{3.5223320129316406`*^9, 3.5223320716660156`*^9}, {
+  3.5223321169785156`*^9, 3.5223321235878906`*^9}, {3.5223321957128906`*^9, 
+  3.5223322156191406`*^9}, {3.5223322484941406`*^9, 3.5223322765566406`*^9}, {
+  3.5223323081035156`*^9, 3.5223323783222656`*^9}, {3.5223324244160156`*^9, 
+  3.5223324379628906`*^9}, {3.5223324895722656`*^9, 3.5223325183535156`*^9}, {
+  3.5223325889785156`*^9, 3.5223325899941406`*^9}, {3.5227426714160156`*^9, 
+  3.5227426971347656`*^9}}],
+
+Cell[BoxData[
+ GraphicsBox[{
+   {Opacity[0], PointBox[{{0.4545454545454546, 0.}}]}, 
+   {RGBColor[0.798413061722744, 0.824719615472648, 0.968322270542458], 
+    EdgeForm[Opacity[0.7]], {}, 
+    {RGBColor[0.798413061722744, 0.824719615472648, 0.968322270542458], 
+     EdgeForm[Opacity[0.7]], 
+     {RGBColor[0.237736, 0.340215, 0.575113], EdgeForm[Opacity[0.7]], 
+      TagBox[
+       TooltipBox[
+        TagBox[
+         DynamicBox[{
+           FEPrivate`If[
+            CurrentValue["MouseOver"], 
+            EdgeForm[{
+              GrayLevel[0.5], 
+              AbsoluteThickness[1.5], 
+              Opacity[0.66]}], {}, {}], 
+           
+           RectangleBox[{0.5454545454545454, 0.}, {1.4545454545454546`, 5.44},
+             "RoundingRadius" -> 0]},
+          
+          ImageSizeCache->{{42.388254545454544`, 
+           122.0908}, {-147.50000000000006`, 121.02466450623444`}}],
+         StatusArea[#, 5.44]& ,
+         TagBoxNote->"5.44"],
+        StyleBox["5.44`", {
+          GrayLevel[0]}, StripOnInput -> False]],
+       Annotation[#, 
+        Style[5.44, {
+          GrayLevel[0]}], "Tooltip"]& ]}, 
+     {RGBColor[0.277947, 0.45009699999999997`, 0.32815550000000004`], 
+      EdgeForm[Opacity[0.7]], 
+      TagBox[
+       TooltipBox[
+        TagBox[
+         DynamicBox[{
+           FEPrivate`If[
+            CurrentValue["MouseOver"], 
+            EdgeForm[{
+              GrayLevel[0.5], 
+              AbsoluteThickness[1.5], 
+              Opacity[0.66]}], {}, {}], 
+           
+           RectangleBox[{1.5454545454545454`, 0.}, {2.4545454545454546`, 
+            2.52}, "RoundingRadius" -> 0]},
+          
+          ImageSizeCache->{{128.96105454545454`, 
+           208.66360000000003`}, {-3.9022021400359534`, 121.02466450623443`}}],
+         StatusArea[#, 2.52]& ,
+         TagBoxNote->"2.52"],
+        StyleBox["2.52`", {
+          GrayLevel[0]}, StripOnInput -> False]],
+       Annotation[#, 
+        Style[2.52, {
+          GrayLevel[0]}], "Tooltip"]& ]}, 
+     {RGBColor[0.624866, 0.673302, 0.264296], EdgeForm[Opacity[0.7]], 
+      TagBox[
+       TooltipBox[
+        TagBox[
+         DynamicBox[{
+           FEPrivate`If[
+            CurrentValue["MouseOver"], 
+            EdgeForm[{
+              GrayLevel[0.5], 
+              AbsoluteThickness[1.5], 
+              Opacity[0.66]}], {}, {}], 
+           
+           RectangleBox[{2.5454545454545454`, 0.}, {3.4545454545454546`, 
+            2.49}, "RoundingRadius" -> 0]},
+          
+          ImageSizeCache->{{215.53385454545452`, 
+           295.2364}, {-2.4268822990089376`, 121.02466450623443`}}],
+         StatusArea[#, 2.49]& ,
+         TagBoxNote->"2.49"],
+        StyleBox["2.49`", {
+          GrayLevel[0]}, StripOnInput -> False]],
+       Annotation[#, 
+        Style[2.49, {
+          GrayLevel[0]}], "Tooltip"]& ]}, 
+     {RGBColor[0.8453409999999999, 0.6248695, 0.3151775], EdgeForm[Opacity[
+      0.7]], 
+      TagBox[
+       TooltipBox[
+        TagBox[
+         DynamicBox[{
+           FEPrivate`If[
+            CurrentValue["MouseOver"], 
+            EdgeForm[{
+              GrayLevel[0.5], 
+              AbsoluteThickness[1.5], 
+              Opacity[0.66]}], {}, {}], 
+           
+           RectangleBox[{3.5454545454545454`, 0.}, {4.454545454545454, 1.15}, 
+            "RoundingRadius" -> 0]},
+          
+          ImageSizeCache->{{302.10665454545455`, 381.8092}, {
+           63.470737266865015`, 121.02466450623443`}}],
+         StatusArea[#, 1.15]& ,
+         TagBoxNote->"1.15"],
+        StyleBox["1.15`", {
+          GrayLevel[0]}, StripOnInput -> False]],
+       Annotation[#, 
+        Style[1.15, {
+          GrayLevel[0]}], "Tooltip"]& ]}, 
+     {RGBColor[0.72987, 0.239399, 0.230961], EdgeForm[Opacity[0.7]], 
+      TagBox[
+       TooltipBox[
+        TagBox[
+         DynamicBox[{
+           FEPrivate`If[
+            CurrentValue["MouseOver"], 
+            EdgeForm[{
+              GrayLevel[0.5], 
+              AbsoluteThickness[1.5], 
+              Opacity[0.66]}], {}, {}], 
+           
+           RectangleBox[{4.545454545454545, 0.}, {5.454545454545454, 1.}, 
+            "RoundingRadius" -> 0]},
+          
+          ImageSizeCache->{{388.6794545454545, 468.38199999999995`}, {
+           70.84733647200015, 121.02466450623443`}}],
+         StatusArea[#, 1]& ,
+         TagBoxNote->"1"],
+        StyleBox["1", {
+          GrayLevel[0]}, StripOnInput -> False]],
+       Annotation[#, 
+        Style[1, {
+          GrayLevel[0]}], 
+        "Tooltip"]& ]}}, {}, {}}, {}, {{{{{{{}, {{}, InsetBox[
+           StyleBox["5.44`",
+            StripOnInput->False,
+            LineColor->GrayLevel[0],
+            FrontFaceColor->GrayLevel[0],
+            BackFaceColor->GrayLevel[0],
+            GraphicsColor->GrayLevel[0],
+            FontColor->GrayLevel[0]], Offset[{0, 4}, {1., 5.44}], 
+           ImageScaled[{0.5, 0}]]}}, {}}, {{{}, {{}, InsetBox[
+           StyleBox["2.52`",
+            StripOnInput->False,
+            LineColor->GrayLevel[0],
+            FrontFaceColor->GrayLevel[0],
+            BackFaceColor->GrayLevel[0],
+            GraphicsColor->GrayLevel[0],
+            FontColor->GrayLevel[0]], Offset[{0, 4}, {2., 2.52}], 
+           ImageScaled[{0.5, 0}]]}}, {}}, {{{}, {{}, InsetBox[
+           StyleBox["2.49`",
+            StripOnInput->False,
+            LineColor->GrayLevel[0],
+            FrontFaceColor->GrayLevel[0],
+            BackFaceColor->GrayLevel[0],
+            GraphicsColor->GrayLevel[0],
+            FontColor->GrayLevel[0]], Offset[{0, 4}, {3., 2.49}], 
+           ImageScaled[{0.5, 0}]]}}, {}}, {{{}, {{}, InsetBox[
+           StyleBox["1.15`",
+            StripOnInput->False,
+            LineColor->GrayLevel[0],
+            FrontFaceColor->GrayLevel[0],
+            BackFaceColor->GrayLevel[0],
+            GraphicsColor->GrayLevel[0],
+            FontColor->GrayLevel[0]], Offset[{0, 4}, {4., 1.15}], 
+           ImageScaled[{0.5, 0}]]}}, {}}, {{{}, {{}, InsetBox[
+           StyleBox["1",
+            StripOnInput->False,
+            LineColor->GrayLevel[0],
+            FrontFaceColor->GrayLevel[0],
+            BackFaceColor->GrayLevel[0],
+            GraphicsColor->GrayLevel[0],
+            FontColor->GrayLevel[0]], Offset[{0, 4}, {5., 1.}], 
+           ImageScaled[{0.5, 0}]]}}, {}}}, {}}, {}}, {}}, GraphicsGroupBox[
+    {GrayLevel[0], 
+     StyleBox[
+      LineBox[{{{0.5454545454545454, 0.}, 
+         Offset[{0, -4}, {0.5454545454545454, 0.}]}, {{5.454545454545454, 0.},
+          Offset[{0, -4}, {5.454545454545454, 0.}]}}],
+      Antialiasing->False]}]},
+  AspectRatio->NCache[GoldenRatio^(-1), 0.6180339887498948],
+  Axes->{True, True},
+  AxesOrigin->{0.4545454545454546, 0},
+  Frame->{{True, False}, {True, False}},
+  FrameLabel->{
+    FormBox["\"\"", TraditionalForm], 
+    FormBox["\"Usporenje\"", TraditionalForm]},
+  FrameTicks->{{Automatic, Automatic}, {{{1, 
+       FormBox["\"dijeljena memorija\"", TraditionalForm]}, {2, 
+       FormBox["\"coalescing\"", TraditionalForm]}, {3, 
+       FormBox["\"konflikti unutar banki\"", TraditionalForm]}, {4, 
+       FormBox["\"stream\"", TraditionalForm]}, {5, 
+       FormBox["\"odmotavanje petlji\"", TraditionalForm]}}, {{1, 
+       FormBox["\"dijeljena memorija\"", TraditionalForm]}, {2, 
+       FormBox["\"coalescing\"", TraditionalForm]}, {3, 
+       FormBox["\"konflikti unutar banki\"", TraditionalForm]}, {4, 
+       FormBox["\"stream\"", TraditionalForm]}, {5, 
+       FormBox["\"odmotavanje petlji\"", TraditionalForm]}}}},
+  GridLines->{None, None},
+  ImageSize->{478., Automatic},
+  PlotRangePadding->Scaled[0.02],
+  Ticks->{None, Automatic}]], "Output",
+ CellChangeTimes->{{3.5223320076347656`*^9, 3.5223320722910156`*^9}, {
+   3.5223321181972656`*^9, 3.5223321243222656`*^9}, {3.5223321967910156`*^9, 
+   3.5223322103535156`*^9}, 3.5223322771816406`*^9, {3.5223323109941406`*^9, 
+   3.5223323790566406`*^9}, {3.5223324153066406`*^9, 3.5223324289472656`*^9}, 
+   3.5223325210878906`*^9, 3.5223325908066406`*^9, 3.5227426989316406`*^9, 
+   3.5229339827148438`*^9}]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"Export", "[", 
+  RowBox[{"\"\<usporenja.pdf\>\"", ",", "l2"}], "]"}]], "Input",
+ CellChangeTimes->{{3.5223325933066406`*^9, 3.5223325976503906`*^9}}],
+
+Cell[BoxData["\<\"usporenja.pdf\"\>"], "Output",
+ CellChangeTimes->{3.5223325985410156`*^9, 3.5227428172441406`*^9}]
+}, Open  ]],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"i5Single", "=", 
+   RowBox[{"Import", "[", 
+    RowBox[{
+    "\"\<C:\\\\Users\\\\Dejan\\\\Documents\\\\single_rez.txt\>\"", ",", 
+     "\"\<Table\>\""}], "]"}]}], ";"}]], "Input",
+ CellChangeTimes->{{3.5223543878095703`*^9, 3.5223544240878906`*^9}, {
+  3.5223544559628906`*^9, 3.522354467279297*^9}, {3.522354642178711*^9, 
+  3.5223546447070312`*^9}, {3.5224828653125*^9, 3.522482870859375*^9}, {
+  3.522485811807617*^9, 3.522485813026367*^9}, {3.522911907942383*^9, 
+  3.522911930270508*^9}, {3.522912018723633*^9, 3.522912023551758*^9}, {
+  3.522982684821289*^9, 3.522982685665039*^9}}],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"gfSingle", "=", 
+   RowBox[{"Import", "[", 
+    RowBox[{
+    "\"\<C:\\\\Users\\\\Dejan\\\\Documents\\\\single_gpu_rez.txt\>\"", ",", 
+     "\"\<Table\>\""}], "]"}]}], ";"}]], "Input",
+ CellChangeTimes->{{3.5223544699101562`*^9, 3.5223544775214844`*^9}, {
+  3.5223545207851562`*^9, 3.522354528359375*^9}, {3.5223546262734375`*^9, 
+  3.522354631698242*^9}, {3.52248287696875*^9, 3.522482884375*^9}, {
+  3.522912010192383*^9, 3.522912027083008*^9}, {3.522982695055664*^9, 
+  3.522982697586914*^9}}],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"teslaSingle", "=", 
+   RowBox[{"Import", "[", 
+    RowBox[{
+    "\"\<C:\\\\Users\\\\Dejan\\\\Documents\\\\tesla_single.txt\>\"", ",", 
+     "\"\<Table\>\""}], "]"}]}], ";"}]], "Input",
+ CellChangeTimes->{{3.522912042973633*^9, 3.522912052145508*^9}}],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"xeonSingle", "=", 
+   RowBox[{"Import", "[", 
+    RowBox[{
+    "\"\<C:\\\\Users\\\\Dejan\\\\Documents\\\\xeon_single.txt\>\"", ",", 
+     "\"\<Table\>\""}], "]"}]}], ";"}]], "Input",
+ CellChangeTimes->{{3.522912064176758*^9, 3.522912070879883*^9}}],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"x", "=", 
+   RowBox[{"Range", "[", "35", "]"}]}], ";"}]], "Input",
+ CellChangeTimes->{{3.5224829388125*^9, 3.522482949703125*^9}, {
+  3.522912185567383*^9, 3.522912185629883*^9}, {3.5229336203242188`*^9, 
+  3.5229336203710938`*^9}}],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"<<", "PlotLegends`"}], ";"}]], "Input",
+ CellChangeTimes->{{3.5224871188251953`*^9, 3.5224871188408203`*^9}, 
+   3.5224871509658203`*^9}],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"sBrzina", "=", 
+  RowBox[{"ListPlot", "[", 
+   RowBox[{
+    RowBox[{"{", 
+     RowBox[{
+      RowBox[{"cpuSingle", "[", 
+       RowBox[{"[", 
+        RowBox[{"All", ",", "2"}], "]"}], "]"}], ",", 
+      RowBox[{"xeonSingle", "[", 
+       RowBox[{"[", 
+        RowBox[{"All", ",", "2"}], "]"}], "]"}], ",", 
+      RowBox[{"gpuSingle", "[", 
+       RowBox[{"[", 
+        RowBox[{"All", ",", "2"}], "]"}], "]"}], ",", " ", 
+      RowBox[{"teslaSingle", "[", 
+       RowBox[{"[", 
+        RowBox[{"All", ",", "2"}], "]"}], "]"}]}], "}"}], ",", " ", 
+    RowBox[{"PlotRange", "\[Rule]", 
+     RowBox[{"{", 
+      RowBox[{"0", ",", "41000"}], "}"}]}], ",", 
+    RowBox[{"Joined", "->", "True"}], ",", 
+    RowBox[{"Mesh", "->", "All"}], ",", 
+    RowBox[{"GridLines", "\[Rule]", "Automatic"}], ",", 
+    RowBox[{"PlotMarkers", "\[Rule]", 
+     RowBox[{"{", 
+      RowBox[{"Automatic", ",", "Small"}], "}"}]}], ",", 
+    RowBox[{"FrameTicks", "\[Rule]", 
+     RowBox[{"{", 
+      RowBox[{
+       RowBox[{"Map", "[", 
+        RowBox[{
+         RowBox[{
+          RowBox[{"{", 
+           RowBox[{
+            RowBox[{"x", "[", 
+             RowBox[{"[", "#", "]"}], "]"}], ",", 
+            RowBox[{"teslaSingle", "[", 
+             RowBox[{"[", 
+              RowBox[{"#", ",", "1"}], "]"}], "]"}]}], "}"}], "&"}], ",", 
+         RowBox[{"Range", "[", 
+          RowBox[{"1", ",", "31", ",", "3"}], "]"}]}], "]"}], ",", 
+       "Automatic"}], "}"}]}], ",", 
+    RowBox[{"Frame", "\[Rule]", 
+     RowBox[{"{", 
+      RowBox[{
+       RowBox[{"{", 
+        RowBox[{"True", ",", " ", "False"}], "}"}], ",", " ", 
+       RowBox[{"{", 
+        RowBox[{"True", ",", " ", "False"}], "}"}]}], "}"}]}], ",", 
+    RowBox[{"FrameLabel", "\[Rule]", 
+     RowBox[{"{", 
+      RowBox[{"\"\<Red matrice\>\"", ",", "\"\<Vrijeme (ms)\>\""}], "}"}]}], 
+    ",", 
+    RowBox[{"PlotLegend", "\[Rule]", 
+     RowBox[{"{", 
+      RowBox[{
+      "\"\<Intel Core i5-760 (MATLAB - 4 dretve)\>\"", ",", 
+       "\"\<Intel Xeon E5620 (MATLAB - 8 dretvi)\>\"", ",", 
+       "\"\<Nvidia GeForce GTX 460\>\"", ",", "\"\<Nvidia Tesla M2050\>\""}], 
+      "}"}]}], ",", 
+    RowBox[{"LegendShadow", "\[Rule]", "None"}], ",", 
+    RowBox[{"LegendPosition", "\[Rule]", 
+     RowBox[{"{", 
+      RowBox[{
+       RowBox[{"-", "0.67"}], ",", "0.28"}], "}"}]}], ",", 
+    RowBox[{"LegendSize", "\[Rule]", 
+     RowBox[{"{", 
+      RowBox[{"1", ",", "0.3"}], "}"}]}], ",", 
+    RowBox[{"LegendTextSpace", "\[Rule]", "6"}]}], "]"}]}]], "Input",
+ CellChangeTimes->{{3.5223547233339844`*^9, 3.5223547365878906`*^9}, {
+   3.522354777897461*^9, 3.5223548465439453`*^9}, {3.5223552799316406`*^9, 
+   3.522355282008789*^9}, {3.522482918390625*^9, 3.522483009234375*^9}, {
+   3.522486815729492*^9, 3.522486816057617*^9}, {3.522486872104492*^9, 
+   3.522486920995117*^9}, {3.522486956870117*^9, 3.522486966870117*^9}, {
+   3.522487030526367*^9, 3.522487045745117*^9}, {3.522487082879883*^9, 
+   3.522487085301758*^9}, {3.5224871706064453`*^9, 3.5224871918720703`*^9}, {
+   3.5224872492851562`*^9, 3.522487419647461*^9}, {3.522488064455078*^9, 
+   3.522488099294922*^9}, {3.522488155169922*^9, 3.522488163451172*^9}, {
+   3.522488254473633*^9, 3.522488258864258*^9}, {3.5224882913671875`*^9, 
+   3.522488361901367*^9}, {3.522488402665039*^9, 3.522488535876953*^9}, {
+   3.522488568114258*^9, 3.522488581333008*^9}, {3.5224886658535156`*^9, 
+   3.5224886731660156`*^9}, 3.5224887305029297`*^9, {3.522912085208008*^9, 
+   3.522912101786133*^9}, {3.522912135942383*^9, 3.522912158458008*^9}, {
+   3.522912195567383*^9, 3.522912271379883*^9}, {3.5229335545273438`*^9, 
+   3.5229336097929688`*^9}, {3.5229336592617188`*^9, 
+   3.5229336657460938`*^9}, {3.522934047834961*^9, 3.5229340517597656`*^9}, {
+   3.5229342081816406`*^9, 3.5229342266083984`*^9}, {3.522934259513672*^9, 
+   3.522934264741211*^9}, {3.5229343136757812`*^9, 3.5229343811992188`*^9}, 
+   3.5229344893623047`*^9, {3.5229347509589844`*^9, 3.5229347560371094`*^9}}],
+
+Cell[BoxData[
+ RowBox[{
+  StyleBox[
+   RowBox[{"Symbol", "::", "argx"}], "MessageName"], 
+  RowBox[{
+  ":", " "}], "\<\"\[NoBreak]\\!\\(Symbol\\)\[NoBreak] called with \[NoBreak]\
+\\!\\(0\\)\[NoBreak] arguments; 1 argument is expected. \\!\\(\\*ButtonBox[\\\
+\"\[RightSkeleton]\\\", ButtonStyle->\\\"Link\\\", ButtonFrame->None, \
+ButtonData:>\\\"paclet:ref/message/General/argx\\\", ButtonNote -> \
+\\\"Symbol::argx\\\"]\\)\"\>"}]], "Message", "MSG",
+ CellChangeTimes->{3.522982673618164*^9}],
+
+Cell[BoxData[
+ RowBox[{
+  StyleBox[
+   RowBox[{"Symbol", "::", "argx"}], "MessageName"], 
+  RowBox[{
+  ":", " "}], "\<\"\[NoBreak]\\!\\(Symbol\\)\[NoBreak] called with \[NoBreak]\
+\\!\\(0\\)\[NoBreak] arguments; 1 argument is expected. \\!\\(\\*ButtonBox[\\\
+\"\[RightSkeleton]\\\", ButtonStyle->\\\"Link\\\", ButtonFrame->None, \
+ButtonData:>\\\"paclet:ref/message/General/argx\\\", ButtonNote -> \
+\\\"Symbol::argx\\\"]\\)\"\>"}]], "Message", "MSG",
+ CellChangeTimes->{3.522982673618164*^9}],
+
+Cell[BoxData[
+ RowBox[{
+  StyleBox[
+   RowBox[{"Symbol", "::", "argx"}], "MessageName"], 
+  RowBox[{
+  ":", " "}], "\<\"\[NoBreak]\\!\\(Symbol\\)\[NoBreak] called with \[NoBreak]\
+\\!\\(0\\)\[NoBreak] arguments; 1 argument is expected. \\!\\(\\*ButtonBox[\\\
+\"\[RightSkeleton]\\\", ButtonStyle->\\\"Link\\\", ButtonFrame->None, \
+ButtonData:>\\\"paclet:ref/message/General/argx\\\", ButtonNote -> \
+\\\"Symbol::argx\\\"]\\)\"\>"}]], "Message", "MSG",
+ CellChangeTimes->{3.522982673618164*^9}],
+
+Cell[BoxData[
+ RowBox[{
+  StyleBox[
+   RowBox[{"General", "::", "stop"}], "MessageName"], 
+  RowBox[{
+  ":", " "}], "\<\"Further output of \[NoBreak]\\!\\(\\*StyleBox[\\(Symbol :: \
+argx\\), \\\"MessageName\\\"]\\)\[NoBreak] will be suppressed during this \
+calculation. \\!\\(\\*ButtonBox[\\\"\[RightSkeleton]\\\", \
+ButtonStyle->\\\"Link\\\", ButtonFrame->None, \
+ButtonData:>\\\"paclet:ref/message/General/stop\\\", ButtonNote -> \
+\\\"General::stop\\\"]\\)\"\>"}]], "Message", "MSG",
+ CellChangeTimes->{3.522982673649414*^9}],
+
+Cell[BoxData[
+ RowBox[{
+  StyleBox[
+   RowBox[{"Part", "::", "partd"}], "MessageName"], 
+  RowBox[{
+  ":", " "}], "\<\"Part specification \[NoBreak]\\!\\(teslaSingle \
+\[LeftDoubleBracket] \\(\\(1, 1\\)\\) \[RightDoubleBracket]\\)\[NoBreak] is \
+longer than depth of object. \\!\\(\\*ButtonBox[\\\"\[RightSkeleton]\\\", \
+ButtonStyle->\\\"Link\\\", ButtonFrame->None, \
+ButtonData:>\\\"paclet:ref/message/General/partd\\\", ButtonNote -> \
+\\\"Part::partd\\\"]\\)\"\>"}]], "Message", "MSG",
+ CellChangeTimes->{3.522982673680664*^9}],
+
+Cell[BoxData[
+ RowBox[{
+  StyleBox[
+   RowBox[{"Part", "::", "partd"}], "MessageName"], 
+  RowBox[{
+  ":", " "}], "\<\"Part specification \[NoBreak]\\!\\(teslaSingle \
+\[LeftDoubleBracket] \\(\\(4, 1\\)\\) \[RightDoubleBracket]\\)\[NoBreak] is \
+longer than depth of object. \\!\\(\\*ButtonBox[\\\"\[RightSkeleton]\\\", \
+ButtonStyle->\\\"Link\\\", ButtonFrame->None, \
+ButtonData:>\\\"paclet:ref/message/General/partd\\\", ButtonNote -> \
+\\\"Part::partd\\\"]\\)\"\>"}]], "Message", "MSG",
+ CellChangeTimes->{3.522982673696289*^9}],
+
+Cell[BoxData[
+ RowBox[{
+  StyleBox[
+   RowBox[{"Part", "::", "partd"}], "MessageName"], 
+  RowBox[{
+  ":", " "}], "\<\"Part specification \[NoBreak]\\!\\(teslaSingle \
+\[LeftDoubleBracket] \\(\\(7, 1\\)\\) \[RightDoubleBracket]\\)\[NoBreak] is \
+longer than depth of object. \\!\\(\\*ButtonBox[\\\"\[RightSkeleton]\\\", \
+ButtonStyle->\\\"Link\\\", ButtonFrame->None, \
+ButtonData:>\\\"paclet:ref/message/General/partd\\\", ButtonNote -> \
+\\\"Part::partd\\\"]\\)\"\>"}]], "Message", "MSG",
+ CellChangeTimes->{3.522982673696289*^9}],
+
+Cell[BoxData[
+ RowBox[{
+  StyleBox[
+   RowBox[{"General", "::", "stop"}], "MessageName"], 
+  RowBox[{
+  ":", " "}], "\<\"Further output of \[NoBreak]\\!\\(\\*StyleBox[\\(Part :: \
+partd\\), \\\"MessageName\\\"]\\)\[NoBreak] will be suppressed during this \
+calculation. \\!\\(\\*ButtonBox[\\\"\[RightSkeleton]\\\", \
+ButtonStyle->\\\"Link\\\", ButtonFrame->None, \
+ButtonData:>\\\"paclet:ref/message/General/stop\\\", ButtonNote -> \
+\\\"General::stop\\\"]\\)\"\>"}]], "Message", "MSG",
+ CellChangeTimes->{3.522982673696289*^9}],
+
+Cell[BoxData[
+ GraphicsBox[{InsetBox[
+    GraphicsBox[{},
+     AspectRatio->NCache[GoldenRatio^(-1), 0.6180339887498948],
+     Axes->True,
+     AxesOrigin->{0, 0},
+     DisplayFunction:>$DisplayFunction,
+     FormatType->TraditionalForm,
+     Frame->{{True, False}, {True, False}},
+     FrameLabel->{
+       FormBox["\"Red matrice\"", TraditionalForm], 
+       FormBox["\"Vrijeme (ms)\"", TraditionalForm]},
+     FrameTicks->{{{1, 
+         FormBox[
+          RowBox[{"teslaSingle", "\[LeftDoubleBracket]", 
+            RowBox[{"1", ",", "1"}], "\[RightDoubleBracket]"}], 
+          TraditionalForm]}, {4, 
+         FormBox[
+          RowBox[{"teslaSingle", "\[LeftDoubleBracket]", 
+            RowBox[{"4", ",", "1"}], "\[RightDoubleBracket]"}], 
+          TraditionalForm]}, {7, 
+         FormBox[
+          RowBox[{"teslaSingle", "\[LeftDoubleBracket]", 
+            RowBox[{"7", ",", "1"}], "\[RightDoubleBracket]"}], 
+          TraditionalForm]}, {10, 
+         FormBox[
+          RowBox[{"teslaSingle", "\[LeftDoubleBracket]", 
+            RowBox[{"10", ",", "1"}], "\[RightDoubleBracket]"}], 
+          TraditionalForm]}, {13, 
+         FormBox[
+          RowBox[{"teslaSingle", "\[LeftDoubleBracket]", 
+            RowBox[{"13", ",", "1"}], "\[RightDoubleBracket]"}], 
+          TraditionalForm]}, {16, 
+         FormBox[
+          RowBox[{"teslaSingle", "\[LeftDoubleBracket]", 
+            RowBox[{"16", ",", "1"}], "\[RightDoubleBracket]"}], 
+          TraditionalForm]}, {19, 
+         FormBox[
+          RowBox[{"teslaSingle", "\[LeftDoubleBracket]", 
+            RowBox[{"19", ",", "1"}], "\[RightDoubleBracket]"}], 
+          TraditionalForm]}, {22, 
+         FormBox[
+          RowBox[{"teslaSingle", "\[LeftDoubleBracket]", 
+            RowBox[{"22", ",", "1"}], "\[RightDoubleBracket]"}], 
+          TraditionalForm]}, {25, 
+         FormBox[
+          RowBox[{"teslaSingle", "\[LeftDoubleBracket]", 
+            RowBox[{"25", ",", "1"}], "\[RightDoubleBracket]"}], 
+          TraditionalForm]}, {28, 
+         FormBox[
+          RowBox[{"teslaSingle", "\[LeftDoubleBracket]", 
+            RowBox[{"28", ",", "1"}], "\[RightDoubleBracket]"}], 
+          TraditionalForm]}, {31, 
+         FormBox[
+          RowBox[{"teslaSingle", "\[LeftDoubleBracket]", 
+            RowBox[{"31", ",", "1"}], "\[RightDoubleBracket]"}], 
+          TraditionalForm]}}, Automatic},
+     GridLines->Automatic,
+     PlotRange->{{0., 0.}, {0, 41000}},
+     PlotRangeClipping->True,
+     PlotRangePadding->{
+       Scaled[0.02], Automatic}], {-1, -0.6180339887498948}, {
+    Left, Bottom}, {2, 1.2360679774997896`}], GraphicsGroupBox[{
+     {GrayLevel[0], 
+      RectangleBox[{-0.67, 0.28}, \
+{0.32999999999999996`, 0.5800000000000001}]}, 
+     {GrayLevel[1], EdgeForm[{GrayLevel[0], Thickness[0.001]}], 
+      GraphicsGroupBox[{
+        RectangleBox[{-0.67, 0.28}, \
+{0.32999999999999996`, 0.5800000000000001}], InsetBox[
+         GraphicsBox[{{InsetBox[
+             GraphicsBox[{
+               {Hue[0.67, 0.6, 0.6], LineBox[{{0, 0.5}, {1, 0.5}}]}, InsetBox[
+                StyleBox["\<\"\[FilledCircle]\"\>",
+                 StripOnInput->False,
+                 LineColor->Hue[0.67, 0.6, 0.6],
+                 FrontFaceColor->Hue[0.67, 0.6, 0.6],
+                 BackFaceColor->Hue[0.67, 0.6, 0.6],
+                 GraphicsColor->Hue[0.67, 0.6, 0.6],
+                 FontSize->Small,
+                 FontColor->Hue[0.67, 0.6, 0.6]], {0.5, 0.5}]},
+              PlotRange->{{0, 1}, {0, 1}}], {0.08, 0.08}, {
+             Left, Bottom}, {1, 1}], 
+            InsetBox["\<\"Intel Core i5-760 (MATLAB - 4 dretve)\"\>", \
+{1.2100000000000002`, 0.58}, {-1, 0}, Automatic, {1, 0}]}, {}},
+          AspectRatio->0.3,
+          FormatType->TraditionalForm,
+          PlotRange->{{-0.1, 7.26}, {-0.1, 1.26}}], {-0.67, 0.28}, {
+         Left, Bottom}, {1, 0.3}]}]}}]},
+  AspectRatio->Automatic,
+  Background->None,
+  ColorOutput->Automatic,
+  ImageSize->Automatic,
+  PlotRange->All]], "Output",
+ CellChangeTimes->{{3.522488354979492*^9, 3.522488362291992*^9}, {
+   3.5224884219492188`*^9, 3.5224885833867188`*^9}, {3.5224886664785156`*^9, 
+   3.5224886734941406`*^9}, 3.5224887320029297`*^9, 3.522912104989258*^9, {
+   3.522912159692383*^9, 3.522912271989258*^9}, {3.5229335369648438`*^9, 
+   3.5229336225742188`*^9}, {3.5229336599492188`*^9, 3.5229336664179688`*^9}, 
+   3.5229342302285156`*^9, {3.5229342658447266`*^9, 3.522934342935547*^9}, 
+   3.522934382807617*^9, 3.5229344900527344`*^9, 3.5229347575546875`*^9, 
+   3.522982673758789*^9}]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"Dimensions", "[", "teslaSingle", "]"}]], "Input",
+ CellChangeTimes->{{3.522912475614258*^9, 3.522912486114258*^9}, {
+  3.5229335891835938`*^9, 3.5229335936210938`*^9}}],
+
+Cell[BoxData[
+ RowBox[{"{", 
+  RowBox[{"31", ",", "3"}], "}"}]], "Output",
+ CellChangeTimes->{
+  3.522912486661133*^9, {3.5229335908242188`*^9, 3.5229335940742188`*^9}}]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"sUbrzanje", "=", 
+  RowBox[{"ListPlot", "[", 
+   RowBox[{
+    RowBox[{"{", 
+     RowBox[{
+      RowBox[{
+       RowBox[{"cpuSingle", "[", 
+        RowBox[{"[", 
+         RowBox[{"All", ",", "2"}], "]"}], "]"}], "/", 
+       RowBox[{"gpuSingle", "[", 
+        RowBox[{"[", 
+         RowBox[{"All", ",", "2"}], "]"}], "]"}]}], ",", 
+      RowBox[{
+       RowBox[{"xeonSingle", "[", 
+        RowBox[{"[", 
+         RowBox[{
+          RowBox[{"1", ";;", "18"}], ",", "2"}], "]"}], "]"}], "/", 
+       RowBox[{"gpuSingle", "[", 
+        RowBox[{"[", 
+         RowBox[{"All", ",", "2"}], "]"}], "]"}]}], ",", 
+      RowBox[{
+       RowBox[{"xeonSingle", "[", 
+        RowBox[{"[", 
+         RowBox[{"All", ",", "2"}], "]"}], "]"}], "/", 
+       RowBox[{"teslaSingle", "[", 
+        RowBox[{"[", 
+         RowBox[{"All", ",", "2"}], "]"}], "]"}]}], ",", 
+      RowBox[{
+       RowBox[{"cpuSingle", "[", 
+        RowBox[{"[", 
+         RowBox[{"All", ",", "2"}], "]"}], "]"}], "/", 
+       RowBox[{"teslaSingle", "[", 
+        RowBox[{"[", 
+         RowBox[{
+          RowBox[{"1", ";;", "18"}], ",", "2"}], "]"}], "]"}]}]}], "}"}], ",",
+     " ", 
+    RowBox[{"PlotRange", "\[Rule]", 
+     RowBox[{"{", 
+      RowBox[{"0", ",", "3.5"}], "}"}]}], ",", 
+    RowBox[{"Joined", "->", "True"}], ",", 
+    RowBox[{"Mesh", "->", "All"}], ",", 
+    RowBox[{"GridLines", "\[Rule]", "Automatic"}], ",", 
+    RowBox[{"PlotMarkers", "\[Rule]", 
+     RowBox[{"{", 
+      RowBox[{"Automatic", ",", "Small"}], "}"}]}], ",", " ", 
+    RowBox[{"FrameTicks", "\[Rule]", 
+     RowBox[{"{", 
+      RowBox[{
+       RowBox[{"Map", "[", 
+        RowBox[{
+         RowBox[{
+          RowBox[{"{", 
+           RowBox[{
+            RowBox[{"x", "[", 
+             RowBox[{"[", "#", "]"}], "]"}], ",", 
+            RowBox[{"teslaSingle", "[", 
+             RowBox[{"[", 
+              RowBox[{"#", ",", "1"}], "]"}], "]"}]}], "}"}], "&"}], ",", 
+         RowBox[{"Range", "[", 
+          RowBox[{"1", ",", "31", ",", "3"}], "]"}]}], "]"}], ",", 
+       RowBox[{"{", 
+        RowBox[{
+         RowBox[{"{", 
+          RowBox[{"1", ",", "\"\<1x\>\""}], "}"}], ",", 
+         RowBox[{"{", 
+          RowBox[{"2", ",", "\"\<2x\>\""}], "}"}], ",", 
+         RowBox[{"{", 
+          RowBox[{"3", ",", "\"\<3x\>\""}], "}"}]}], "}"}]}], "}"}]}], ",", 
+    RowBox[{"Frame", "\[Rule]", 
+     RowBox[{"{", 
+      RowBox[{
+       RowBox[{"{", 
+        RowBox[{"True", ",", " ", "False"}], "}"}], ",", " ", 
+       RowBox[{"{", 
+        RowBox[{"True", ",", " ", "False"}], "}"}]}], "}"}]}], ",", 
+    RowBox[{"FrameLabel", "\[Rule]", 
+     RowBox[{"{", 
+      RowBox[{"\"\<Red matrice\>\"", ",", "\"\<Ubrzanje\>\""}], "}"}]}], ",", 
+    RowBox[{"PlotLegend", "\[Rule]", 
+     RowBox[{"{", 
+      RowBox[{
+      "\"\<GeForce GTX 460 - Core i5-760 (4 dretve)\>\"", ",", " ", 
+       "\"\<GeForce GTX 460 - Xeon E5620 (8 dretvi)\>\"", ",", " ", 
+       "\"\<Tesla M2050 - Xeon E5620 (8 dretvi)\>\"", ",", 
+       "\"\<Tesla M2050 - Core i5-760 (4 dretve)\>\""}], "}"}]}], ",", 
+    RowBox[{"LegendShadow", "\[Rule]", "None"}], ",", 
+    RowBox[{"LegendPosition", "\[Rule]", 
+     RowBox[{"{", 
+      RowBox[{
+       RowBox[{"-", "0.4"}], ",", 
+       RowBox[{"-", "0.43"}]}], "}"}]}], ",", 
+    RowBox[{"LegendSize", "\[Rule]", 
+     RowBox[{"{", 
+      RowBox[{"1", ",", "0.3"}], "}"}]}], ",", 
+    RowBox[{"LegendTextSpace", "\[Rule]", "6"}]}], "]"}]}]], "Input",
+ CellChangeTimes->{{3.5223548878789062`*^9, 3.5223548967148438`*^9}, {
+   3.5223549500634766`*^9, 3.522355057017578*^9}, {3.5223551754746094`*^9, 
+   3.5223551937421875`*^9}, 3.522355249823242*^9, {3.522483023546875*^9, 
+   3.52248303409375*^9}, {3.522487461459961*^9, 3.5224876304121094`*^9}, {
+   3.522488168748047*^9, 3.522488172326172*^9}, {3.522912334301758*^9, 
+   3.522912373411133*^9}, {3.522912404426758*^9, 3.522912447864258*^9}, {
+   3.522912489051758*^9, 3.522912491114258*^9}, {3.522912530848633*^9, 
+   3.522912552020508*^9}, {3.522912601411133*^9, 3.522912711114258*^9}, {
+   3.522934522928711*^9, 3.522934547178711*^9}, {3.522934588272461*^9, 
+   3.522934667524414*^9}, {3.522934728770508*^9, 3.5229347294453125`*^9}, {
+   3.5229347733603516`*^9, 3.522934805125*^9}, {3.522934842107422*^9, 
+   3.5229349360820312`*^9}, {3.5229349774277344`*^9, 
+   3.5229350335195312`*^9}, {3.522935074770508*^9, 3.5229351596914062`*^9}, {
+   3.5229353284189453`*^9, 3.5229353383535156`*^9}}],
+
+Cell[BoxData[
+ GraphicsBox[{InsetBox[
+    GraphicsBox[GraphicsComplexBox[CompressedData["
+1:eJw9lHtQTHEUx9dm1ztRKTttbbVl27LVooh1T4URlh6KLQzrMeuxlDwmj2Rs
++ifGlrYmoTyGTKitWcMa1ngtS1LJY0zYiUo7VJO0lbff+f1m7tz53HPPnXs/
+39+53spt8evZLBYr8c/x9/x/dTLBydX7HvJrGHIBFKbiRRVhNwgPB+M83yRt
+zxPCTqCVbE2wvm8i7AIdG+5ERxe9JewOK/ySlu73bCHsASGXw+Xz+78SFoD7
+rubB08x3wj7gnMePOlUwSFgI8Yzg+O08FvxnfzB6DylWLxlCWAROw2rvd9Qj
+i0EsDyw7pWUTDoKg82lu4+c4EJbAa77qzEbhUMIhYLHFeOYwHMKhUBKtyf80
+k0tYChs++rboMpE7mRP/1l3qJ+p5jEBRbaJ+uiakHmwdUUf9fGpOnetxzUr9
+TBGVVErn9FI/OVkBll+RfdRPyYHWJL0a318A+nZJm5dlOKAf15rJmUcNA9RP
+ubDNXH4d/fmDuy5QmbIEny8CaAjgWHjIYtizeY2frvsbg37Ox162rmrDfgkY
+xC78UjvWQ6BE6beQq8T+UJhRF7dTqUGWwjFehrydh/2dTGlkhbZSWU79aFWK
+L7kT9dTPg931vOzeMupneV/RuorqN9QPU2TTFrp3Uz9VcWlZLVU91I9pWfDh
+jm2YtwDYKdx6Y/JI6udx/xX5hVc/qB9b8rsAi9VO/ajGZRfAWjv188DnXH5u
+rZ362Z6Qxi/X2KmfsgDXcZb0H9QPx/GAkRsxQP0kTnLozGzop37Gy8yPVroN
+UD++wRFZfWdxP0+BI8JJ3qVOWJ8KK7wUHk3hWJ8GYo0tRtGA9TDozTDdvLHm
+J+FwEBRt1TcZ8P7pcMtTduZRBvIM8G96kR4bhP0R8DH2pC3HjDwTRr/OEu5V
+I8+CTc3LHU6zsV8GWxZ332p0QZ4NC9Sjtfec8fsZkLclXx2pGqR5Py18Vhk+
+qpjm7TRWF/hZVUHzbt/RKOsJK6V5GxbX1wri62jeh/g7+iNkL2nedZfyxCzx
+B5r3NH4Oxxb5hf4vmr9FqxMNOC8+sPo757jV/JPm3cLNZvu6sgHzXi/qcr6j
+x/kXweo4hdXnGc6/GHiOKdvtOpz/INCM8Te3GocRloDbxdz8Kz04fyGQEdrg
+krh7BOFQaKxip4tMuP+kwI+Ea1LrKPgNBbJmgw==
+      "], {{{}, {}, 
+        {Hue[0.67, 0.6, 0.6], 
+         LineBox[{1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 
+          18}]}, 
+        {Hue[0.9060679774997897, 0.6, 0.6], 
+         LineBox[{19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 
+          34, 35, 36}]}, 
+        {Hue[0.1421359549995791, 0.6, 0.6], 
+         LineBox[{37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50, 51, 
+          52, 53, 54, 55, 56, 57, 58, 59, 60, 61, 62, 63, 64, 65, 66, 67}]}, 
+        {Hue[0.37820393249936934`, 0.6, 0.6], 
+         LineBox[{68, 69, 70, 71, 72, 73, 74, 75, 76, 77, 78, 79, 80, 81, 82, 
+          83, 84, 85}]}}, {
+        {Hue[0.67, 0.6, 0.6], InsetBox[
+          StyleBox["\<\"\[FilledCircle]\"\>",
+           StripOnInput->False,
+           FontSize->Small], 1], InsetBox[
+          StyleBox["\<\"\[FilledCircle]\"\>",
+           StripOnInput->False,
+           FontSize->Small], 2], InsetBox[
+          StyleBox["\<\"\[FilledCircle]\"\>",
+           StripOnInput->False,
+           FontSize->Small], 3], InsetBox[
+          StyleBox["\<\"\[FilledCircle]\"\>",
+           StripOnInput->False,
+           FontSize->Small], 4], InsetBox[
+          StyleBox["\<\"\[FilledCircle]\"\>",
+           StripOnInput->False,
+           FontSize->Small], 5], InsetBox[
+          StyleBox["\<\"\[FilledCircle]\"\>",
+           StripOnInput->False,
+           FontSize->Small], 6], InsetBox[
+          StyleBox["\<\"\[FilledCircle]\"\>",
+           StripOnInput->False,
+           FontSize->Small], 7], InsetBox[
+          StyleBox["\<\"\[FilledCircle]\"\>",
+           StripOnInput->False,
+           FontSize->Small], 8], InsetBox[
+          StyleBox["\<\"\[FilledCircle]\"\>",
+           StripOnInput->False,
+           FontSize->Small], 9], InsetBox[
+          StyleBox["\<\"\[FilledCircle]\"\>",
+           StripOnInput->False,
+           FontSize->Small], 10], InsetBox[
+          StyleBox["\<\"\[FilledCircle]\"\>",
+           StripOnInput->False,
+           FontSize->Small], 11], InsetBox[
+          StyleBox["\<\"\[FilledCircle]\"\>",
+           StripOnInput->False,
+           FontSize->Small], 12], InsetBox[
+          StyleBox["\<\"\[FilledCircle]\"\>",
+           StripOnInput->False,
+           FontSize->Small], 13], InsetBox[
+          StyleBox["\<\"\[FilledCircle]\"\>",
+           StripOnInput->False,
+           FontSize->Small], 14], InsetBox[
+          StyleBox["\<\"\[FilledCircle]\"\>",
+           StripOnInput->False,
+           FontSize->Small], 15], InsetBox[
+          StyleBox["\<\"\[FilledCircle]\"\>",
+           StripOnInput->False,
+           FontSize->Small], 16], InsetBox[
+          StyleBox["\<\"\[FilledCircle]\"\>",
+           StripOnInput->False,
+           FontSize->Small], 17], InsetBox[
+          StyleBox["\<\"\[FilledCircle]\"\>",
+           StripOnInput->False,
+           FontSize->Small], 18]}, 
+        {Hue[0.9060679774997897, 0.6, 0.6], InsetBox[
+          StyleBox["\<\"\[FilledSquare]\"\>",
+           StripOnInput->False,
+           FontSize->Small], 19], InsetBox[
+          StyleBox["\<\"\[FilledSquare]\"\>",
+           StripOnInput->False,
+           FontSize->Small], 20], InsetBox[
+          StyleBox["\<\"\[FilledSquare]\"\>",
+           StripOnInput->False,
+           FontSize->Small], 21], InsetBox[
+          StyleBox["\<\"\[FilledSquare]\"\>",
+           StripOnInput->False,
+           FontSize->Small], 22], InsetBox[
+          StyleBox["\<\"\[FilledSquare]\"\>",
+           StripOnInput->False,
+           FontSize->Small], 23], InsetBox[
+          StyleBox["\<\"\[FilledSquare]\"\>",
+           StripOnInput->False,
+           FontSize->Small], 24], InsetBox[
+          StyleBox["\<\"\[FilledSquare]\"\>",
+           StripOnInput->False,
+           FontSize->Small], 25], InsetBox[
+          StyleBox["\<\"\[FilledSquare]\"\>",
+           StripOnInput->False,
+           FontSize->Small], 26], InsetBox[
+          StyleBox["\<\"\[FilledSquare]\"\>",
+           StripOnInput->False,
+           FontSize->Small], 27], InsetBox[
+          StyleBox["\<\"\[FilledSquare]\"\>",
+           StripOnInput->False,
+           FontSize->Small], 28], InsetBox[
+          StyleBox["\<\"\[FilledSquare]\"\>",
+           StripOnInput->False,
+           FontSize->Small], 29], InsetBox[
+          StyleBox["\<\"\[FilledSquare]\"\>",
+           StripOnInput->False,
+           FontSize->Small], 30], InsetBox[
+          StyleBox["\<\"\[FilledSquare]\"\>",
+           StripOnInput->False,
+           FontSize->Small], 31], InsetBox[
+          StyleBox["\<\"\[FilledSquare]\"\>",
+           StripOnInput->False,
+           FontSize->Small], 32], InsetBox[
+          StyleBox["\<\"\[FilledSquare]\"\>",
+           StripOnInput->False,
+           FontSize->Small], 33], InsetBox[
+          StyleBox["\<\"\[FilledSquare]\"\>",
+           StripOnInput->False,
+           FontSize->Small], 34], InsetBox[
+          StyleBox["\<\"\[FilledSquare]\"\>",
+           StripOnInput->False,
+           FontSize->Small], 35], InsetBox[
+          StyleBox["\<\"\[FilledSquare]\"\>",
+           StripOnInput->False,
+           FontSize->Small], 36]}, 
+        {Hue[0.1421359549995791, 0.6, 0.6], InsetBox[
+          StyleBox["\<\"\[FilledDiamond]\"\>",
+           StripOnInput->False,
+           FontSize->Small], 37], InsetBox[
+          StyleBox["\<\"\[FilledDiamond]\"\>",
+           StripOnInput->False,
+           FontSize->Small], 38], InsetBox[
+          StyleBox["\<\"\[FilledDiamond]\"\>",
+           StripOnInput->False,
+           FontSize->Small], 39], InsetBox[
+          StyleBox["\<\"\[FilledDiamond]\"\>",
+           StripOnInput->False,
+           FontSize->Small], 40], InsetBox[
+          StyleBox["\<\"\[FilledDiamond]\"\>",
+           StripOnInput->False,
+           FontSize->Small], 41], InsetBox[
+          StyleBox["\<\"\[FilledDiamond]\"\>",
+           StripOnInput->False,
+           FontSize->Small], 42], InsetBox[
+          StyleBox["\<\"\[FilledDiamond]\"\>",
+           StripOnInput->False,
+           FontSize->Small], 43], InsetBox[
+          StyleBox["\<\"\[FilledDiamond]\"\>",
+           StripOnInput->False,
+           FontSize->Small], 44], InsetBox[
+          StyleBox["\<\"\[FilledDiamond]\"\>",
+           StripOnInput->False,
+           FontSize->Small], 45], InsetBox[
+          StyleBox["\<\"\[FilledDiamond]\"\>",
+           StripOnInput->False,
+           FontSize->Small], 46], InsetBox[
+          StyleBox["\<\"\[FilledDiamond]\"\>",
+           StripOnInput->False,
+           FontSize->Small], 47], InsetBox[
+          StyleBox["\<\"\[FilledDiamond]\"\>",
+           StripOnInput->False,
+           FontSize->Small], 48], InsetBox[
+          StyleBox["\<\"\[FilledDiamond]\"\>",
+           StripOnInput->False,
+           FontSize->Small], 49], InsetBox[
+          StyleBox["\<\"\[FilledDiamond]\"\>",
+           StripOnInput->False,
+           FontSize->Small], 50], InsetBox[
+          StyleBox["\<\"\[FilledDiamond]\"\>",
+           StripOnInput->False,
+           FontSize->Small], 51], InsetBox[
+          StyleBox["\<\"\[FilledDiamond]\"\>",
+           StripOnInput->False,
+           FontSize->Small], 52], InsetBox[
+          StyleBox["\<\"\[FilledDiamond]\"\>",
+           StripOnInput->False,
+           FontSize->Small], 53], InsetBox[
+          StyleBox["\<\"\[FilledDiamond]\"\>",
+           StripOnInput->False,
+           FontSize->Small], 54], InsetBox[
+          StyleBox["\<\"\[FilledDiamond]\"\>",
+           StripOnInput->False,
+           FontSize->Small], 55], InsetBox[
+          StyleBox["\<\"\[FilledDiamond]\"\>",
+           StripOnInput->False,
+           FontSize->Small], 56], InsetBox[
+          StyleBox["\<\"\[FilledDiamond]\"\>",
+           StripOnInput->False,
+           FontSize->Small], 57], InsetBox[
+          StyleBox["\<\"\[FilledDiamond]\"\>",
+           StripOnInput->False,
+           FontSize->Small], 58], InsetBox[
+          StyleBox["\<\"\[FilledDiamond]\"\>",
+           StripOnInput->False,
+           FontSize->Small], 59], InsetBox[
+          StyleBox["\<\"\[FilledDiamond]\"\>",
+           StripOnInput->False,
+           FontSize->Small], 60], InsetBox[
+          StyleBox["\<\"\[FilledDiamond]\"\>",
+           StripOnInput->False,
+           FontSize->Small], 61], InsetBox[
+          StyleBox["\<\"\[FilledDiamond]\"\>",
+           StripOnInput->False,
+           FontSize->Small], 62], InsetBox[
+          StyleBox["\<\"\[FilledDiamond]\"\>",
+           StripOnInput->False,
+           FontSize->Small], 63], InsetBox[
+          StyleBox["\<\"\[FilledDiamond]\"\>",
+           StripOnInput->False,
+           FontSize->Small], 64], InsetBox[
+          StyleBox["\<\"\[FilledDiamond]\"\>",
+           StripOnInput->False,
+           FontSize->Small], 65], InsetBox[
+          StyleBox["\<\"\[FilledDiamond]\"\>",
+           StripOnInput->False,
+           FontSize->Small], 66], InsetBox[
+          StyleBox["\<\"\[FilledDiamond]\"\>",
+           StripOnInput->False,
+           FontSize->Small], 67]}, 
+        {Hue[0.37820393249936934`, 0.6, 0.6], InsetBox[
+          StyleBox["\<\"\[FilledUpTriangle]\"\>",
+           StripOnInput->False,
+           FontSize->Small], 68], InsetBox[
+          StyleBox["\<\"\[FilledUpTriangle]\"\>",
+           StripOnInput->False,
+           FontSize->Small], 69], InsetBox[
+          StyleBox["\<\"\[FilledUpTriangle]\"\>",
+           StripOnInput->False,
+           FontSize->Small], 70], InsetBox[
+          StyleBox["\<\"\[FilledUpTriangle]\"\>",
+           StripOnInput->False,
+           FontSize->Small], 71], InsetBox[
+          StyleBox["\<\"\[FilledUpTriangle]\"\>",
+           StripOnInput->False,
+           FontSize->Small], 72], InsetBox[
+          StyleBox["\<\"\[FilledUpTriangle]\"\>",
+           StripOnInput->False,
+           FontSize->Small], 73], InsetBox[
+          StyleBox["\<\"\[FilledUpTriangle]\"\>",
+           StripOnInput->False,
+           FontSize->Small], 74], InsetBox[
+          StyleBox["\<\"\[FilledUpTriangle]\"\>",
+           StripOnInput->False,
+           FontSize->Small], 75], InsetBox[
+          StyleBox["\<\"\[FilledUpTriangle]\"\>",
+           StripOnInput->False,
+           FontSize->Small], 76], InsetBox[
+          StyleBox["\<\"\[FilledUpTriangle]\"\>",
+           StripOnInput->False,
+           FontSize->Small], 77], InsetBox[
+          StyleBox["\<\"\[FilledUpTriangle]\"\>",
+           StripOnInput->False,
+           FontSize->Small], 78], InsetBox[
+          StyleBox["\<\"\[FilledUpTriangle]\"\>",
+           StripOnInput->False,
+           FontSize->Small], 79], InsetBox[
+          StyleBox["\<\"\[FilledUpTriangle]\"\>",
+           StripOnInput->False,
+           FontSize->Small], 80], InsetBox[
+          StyleBox["\<\"\[FilledUpTriangle]\"\>",
+           StripOnInput->False,
+           FontSize->Small], 81], InsetBox[
+          StyleBox["\<\"\[FilledUpTriangle]\"\>",
+           StripOnInput->False,
+           FontSize->Small], 82], InsetBox[
+          StyleBox["\<\"\[FilledUpTriangle]\"\>",
+           StripOnInput->False,
+           FontSize->Small], 83], InsetBox[
+          StyleBox["\<\"\[FilledUpTriangle]\"\>",
+           StripOnInput->False,
+           FontSize->Small], 84], InsetBox[
+          StyleBox["\<\"\[FilledUpTriangle]\"\>",
+           StripOnInput->False,
+           FontSize->Small], 85]}, {}}}],
+     AspectRatio->NCache[GoldenRatio^(-1), 0.6180339887498948],
+     Axes->True,
+     AxesOrigin->{0, 0},
+     DisplayFunction:>$DisplayFunction,
+     FormatType->TraditionalForm,
+     Frame->{{True, False}, {True, False}},
+     FrameLabel->{
+       FormBox["\"Red matrice\"", TraditionalForm], 
+       FormBox["\"Ubrzanje\"", TraditionalForm]},
+     FrameTicks->{{{1, 
+         FormBox["16", TraditionalForm]}, {4, 
+         FormBox["128", TraditionalForm]}, {7, 
+         FormBox["1024", TraditionalForm]}, {10, 
+         FormBox["4096", TraditionalForm]}, {13, 
+         FormBox["7168", TraditionalForm]}, {16, 
+         FormBox["10240", TraditionalForm]}, {19, 
+         FormBox["13312", TraditionalForm]}, {22, 
+         FormBox["16384", TraditionalForm]}, {25, 
+         FormBox["19456", TraditionalForm]}, {28, 
+         FormBox["22528", TraditionalForm]}, {31, 
+         FormBox["25600", TraditionalForm]}}, {{1, 
+         FormBox["\"1x\"", TraditionalForm]}, {2, 
+         FormBox["\"2x\"", TraditionalForm]}, {3, 
+         FormBox["\"3x\"", TraditionalForm]}}},
+     GridLines->Automatic,
+     PlotRange->{{0, 31.}, {0, 3.5}},
+     PlotRangeClipping->True,
+     PlotRangePadding->{
+       Scaled[0.02], Automatic}], {-1, -0.6180339887498948}, {
+    Left, Bottom}, {2, 1.2360679774997896`}], GraphicsGroupBox[{
+     {GrayLevel[0], RectangleBox[{-0.4, -0.43}, {0.6, -0.13}]}, 
+     {GrayLevel[1], EdgeForm[{GrayLevel[0], Thickness[0.001]}], 
+      GraphicsGroupBox[{RectangleBox[{-0.4, -0.43}, {0.6, -0.13}], InsetBox[
+         GraphicsBox[{{{InsetBox[
+              GraphicsBox[{
+                {Hue[0.37820393249936846`, 0.6, 0.6], 
+                 LineBox[{{0, 0.5}, {1, 0.5}}]}, InsetBox[
+                 StyleBox["\<\"\[FilledUpTriangle]\"\>",
+                  StripOnInput->False,
+                  LineColor->Hue[0.37820393249936846`, 0.6, 0.6],
+                  FrontFaceColor->Hue[0.37820393249936846`, 0.6, 0.6],
+                  BackFaceColor->Hue[0.37820393249936846`, 0.6, 0.6],
+                  GraphicsColor->Hue[0.37820393249936846`, 0.6, 0.6],
+                  FontSize->Small,
+                  
+                  FontColor->Hue[
+                   0.37820393249936846`, 0.6, 0.6]], {0.5, 0.5}]},
+               PlotRange->{{0, 1}, {0, 1}}], {0.08, 0.08}, {
+              Left, Bottom}, {1, 1}], 
+             InsetBox["\<\"Tesla M2050 - Core i5-760 (4 dretve)\"\>", \
+{1.2100000000000002`, 0.58}, {-1, 0}, Automatic, {1, 0}]}, {InsetBox[
+              GraphicsBox[{
+                {Hue[0.1421359549995791, 0.6, 0.6], 
+                 LineBox[{{0, 0.5}, {1, 0.5}}]}, InsetBox[
+                 StyleBox["\<\"\[FilledDiamond]\"\>",
+                  StripOnInput->False,
+                  LineColor->Hue[0.1421359549995791, 0.6, 0.6],
+                  FrontFaceColor->Hue[0.1421359549995791, 0.6, 0.6],
+                  BackFaceColor->Hue[0.1421359549995791, 0.6, 0.6],
+                  GraphicsColor->Hue[0.1421359549995791, 0.6, 0.6],
+                  FontSize->Small,
+                  FontColor->Hue[0.1421359549995791, 0.6, 0.6]], {0.5, 0.5}]},
+               PlotRange->{{0, 1}, {0, 1}}], {0.08, 1.24}, {
+              Left, Bottom}, {1, 1}], 
+             InsetBox["\<\"Tesla M2050 - Xeon E5620 (8 dretvi)\"\>", \
+{1.2100000000000002`, 1.74}, {-1, 0}, Automatic, {1, 0}]}, {InsetBox[
+              GraphicsBox[{
+                {Hue[0.9060679774997897, 0.6, 0.6], 
+                 LineBox[{{0, 0.5}, {1, 0.5}}]}, InsetBox[
+                 StyleBox["\<\"\[FilledSquare]\"\>",
+                  StripOnInput->False,
+                  LineColor->Hue[0.9060679774997897, 0.6, 0.6],
+                  FrontFaceColor->Hue[0.9060679774997897, 0.6, 0.6],
+                  BackFaceColor->Hue[0.9060679774997897, 0.6, 0.6],
+                  GraphicsColor->Hue[0.9060679774997897, 0.6, 0.6],
+                  FontSize->Small,
+                  FontColor->Hue[0.9060679774997897, 0.6, 0.6]], {0.5, 0.5}]},
+               PlotRange->{{0, 1}, {0, 1}}], {0.08, 2.4}, {
+              Left, Bottom}, {1, 1}], 
+             InsetBox["\<\"GeForce GTX 460 - Xeon E5620 (8 dretvi)\"\>", \
+{1.2100000000000002`, 2.9}, {-1, 0}, Automatic, {1, 0}]}, {InsetBox[
+              GraphicsBox[{
+                {Hue[0.67, 0.6, 0.6], LineBox[{{0, 0.5}, {1, 0.5}}]}, InsetBox[
+                 StyleBox["\<\"\[FilledCircle]\"\>",
+                  StripOnInput->False,
+                  LineColor->Hue[0.67, 0.6, 0.6],
+                  FrontFaceColor->Hue[0.67, 0.6, 0.6],
+                  BackFaceColor->Hue[0.67, 0.6, 0.6],
+                  GraphicsColor->Hue[0.67, 0.6, 0.6],
+                  FontSize->Small,
+                  FontColor->Hue[0.67, 0.6, 0.6]], {0.5, 0.5}]},
+               PlotRange->{{0, 1}, {0, 1}}], {0.08, 3.56}, {
+              Left, Bottom}, {1, 1}], 
+             InsetBox["\<\"GeForce GTX 460 - Core i5-760 (4 dretve)\"\>", \
+{1.2100000000000002`, 4.0600000000000005`}, {-1, 0}, Automatic, {1, 0}]}}, {}},
+          AspectRatio->0.3,
+          FormatType->TraditionalForm,
+          
+          PlotRange->{{-0.1, 7.26}, {-0.1, 
+           4.739999999999999}}], {-0.4, -0.43}, {
+         Left, Bottom}, {1, 0.3}]}]}}]},
+  AspectRatio->Automatic,
+  Background->None,
+  ColorOutput->Automatic,
+  ImageSize->{471., Automatic},
+  PlotRange->All]], "Output",
+ CellChangeTimes->{{3.522912344348633*^9, 3.522912373958008*^9}, {
+   3.522912425942383*^9, 3.522912448489258*^9}, 3.522912491708008*^9, 
+   3.522912553036133*^9, 3.522912614879883*^9, {3.522912646629883*^9, 
+   3.522912711614258*^9}, 3.5229337164023438`*^9, {3.522934539564453*^9, 
+   3.5229345482109375`*^9}, {3.5229346571835938`*^9, 
+   3.5229346686533203`*^9}, {3.5229347848896484`*^9, 
+   3.5229348077773438`*^9}, {3.522934842786133*^9, 3.5229349365820312`*^9}, {
+   3.5229349779345703`*^9, 3.522935034044922*^9}, {3.522935108091797*^9, 
+   3.522935160225586*^9}, {3.522935329790039*^9, 3.52293533928125*^9}}]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"sTocnost", "=", 
+  RowBox[{"ListPlot", "[", 
+   RowBox[{
+    RowBox[{"{", 
+     RowBox[{
+      RowBox[{"cpuSingle", "[", 
+       RowBox[{"[", 
+        RowBox[{"All", ",", "4"}], "]"}], "]"}], ",", 
+      RowBox[{"cpuSingle", "[", 
+       RowBox[{"[", 
+        RowBox[{"All", ",", "5"}], "]"}], "]"}]}], "}"}], ",", 
+    RowBox[{"Joined", "->", "True"}], ",", 
+    RowBox[{"Mesh", "->", "All"}], ",", 
+    RowBox[{"GridLines", "\[Rule]", "Automatic"}], ",", 
+    RowBox[{"PlotMarkers", "\[Rule]", 
+     RowBox[{"{", 
+      RowBox[{"Automatic", ",", "Small"}], "}"}]}], ",", 
+    RowBox[{"FrameTicks", "\[Rule]", 
+     RowBox[{"{", 
+      RowBox[{
+       RowBox[{"Map", "[", 
+        RowBox[{
+         RowBox[{
+          RowBox[{"{", 
+           RowBox[{
+            RowBox[{"x", "[", 
+             RowBox[{"[", "#", "]"}], "]"}], ",", 
+            RowBox[{"cpuSingle", "[", 
+             RowBox[{"[", 
+              RowBox[{"#", ",", "1"}], "]"}], "]"}]}], "}"}], "&"}], ",", 
+         RowBox[{"Range", "[", 
+          RowBox[{"2", ",", "18", ",", "2"}], "]"}]}], "]"}], ",", 
+       "Automatic"}], "}"}]}], ",", 
+    RowBox[{"Frame", "\[Rule]", 
+     RowBox[{"{", 
+      RowBox[{
+       RowBox[{"{", 
+        RowBox[{"True", ",", " ", "False"}], "}"}], ",", " ", 
+       RowBox[{"{", 
+        RowBox[{"True", ",", " ", "False"}], "}"}]}], "}"}]}], ",", 
+    RowBox[{"FrameLabel", "\[Rule]", 
+     RowBox[{"{", 
+      RowBox[{"\"\<Red matrice\>\"", ",", "\"\<To\[CHacek]nost\>\""}], 
+      "}"}]}], ",", 
+    RowBox[{"PlotLegend", "\[Rule]", 
+     RowBox[{"{", 
+      RowBox[{
+      "\"\<Intel Core i5-760 (MATLAB)\>\"", ",", "\"\<GeForce GTX 460\>\""}], 
+      "}"}]}], ",", 
+    RowBox[{"LegendShadow", "\[Rule]", "None"}], ",", 
+    RowBox[{"LegendPosition", "\[Rule]", 
+     RowBox[{"{", 
+      RowBox[{
+       RowBox[{"-", "0.7"}], ",", "0.2"}], "}"}]}], ",", 
+    RowBox[{"LegendSize", "\[Rule]", 
+     RowBox[{"{", 
+      RowBox[{"0.9", ",", "0.25"}], "}"}]}], ",", 
+    RowBox[{"LegendTextSpace", "\[Rule]", "6"}]}], "]"}]}]], "Input",
+ CellChangeTimes->{{3.5224833264375*^9, 3.5224833343125*^9}, {
+   3.52248336503125*^9, 3.522483384859375*^9}, 3.5224876732246094`*^9, {
+   3.5224877208652344`*^9, 3.5224877392089844`*^9}, {3.522488054330078*^9, 
+   3.522488057830078*^9}, {3.522488176607422*^9, 3.5224881794277344`*^9}, 
+   3.5224882787421875`*^9, {3.522488608913086*^9, 3.5224887093916016`*^9}}],
+
+Cell[BoxData[
+ GraphicsBox[{InsetBox[
+    GraphicsBox[GraphicsComplexBox[CompressedData["
+1:eJxTTMoPSmViYGBQAWIQDQEf7P9+YWJkYNhgBxVw2GqXDZS+AOVzOFzgOfv3
+///7UL6AQ8w0VXYGhh9QvogDk8aCf///C9tD+BIOf9bvB+rXgPJlHJhtPgD1
+20L5Cg6MIgH////3hPKVHH5mqrMyMIRC+SoOTEYeQPMSoHw1h9+z85kZGNKg
+fA0H1pQJf/7/z4TytdD4Og7/zm4H+qcYyteD8uuhfAOoeXVQviHUvgYo38gB
+QsP4H+zN5hz+9v//fnj4HFKVAVI34OFjs8kZaP4TePhA3MNoDwufmb2ZQFoK
+Hj7MbjOA4WEEDx9I+DnDw4frhMLP//+D4eHzzfw+GwNDDDx8IPLJ8PCB0AVo
+4VMJDx/H68au24ybEOFzpeKlmmELPHyKS0yOyrH2wMMHQvfAw+cL63QOBoZ+
+tPDpsQcAScyGNA==
+      "], {{{}, {}, 
+        {Hue[0.67, 0.6, 0.6], 
+         LineBox[{1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 
+          18}]}, 
+        {Hue[0.9060679774997897, 0.6, 0.6], 
+         LineBox[{19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 
+          34, 35, 36}]}}, {
+        {Hue[0.67, 0.6, 0.6], InsetBox[
+          StyleBox["\<\"\[FilledCircle]\"\>",
+           StripOnInput->False,
+           FontSize->Small], 1], InsetBox[
+          StyleBox["\<\"\[FilledCircle]\"\>",
+           StripOnInput->False,
+           FontSize->Small], 2], InsetBox[
+          StyleBox["\<\"\[FilledCircle]\"\>",
+           StripOnInput->False,
+           FontSize->Small], 3], InsetBox[
+          StyleBox["\<\"\[FilledCircle]\"\>",
+           StripOnInput->False,
+           FontSize->Small], 4], InsetBox[
+          StyleBox["\<\"\[FilledCircle]\"\>",
+           StripOnInput->False,
+           FontSize->Small], 5], InsetBox[
+          StyleBox["\<\"\[FilledCircle]\"\>",
+           StripOnInput->False,
+           FontSize->Small], 6], InsetBox[
+          StyleBox["\<\"\[FilledCircle]\"\>",
+           StripOnInput->False,
+           FontSize->Small], 7], InsetBox[
+          StyleBox["\<\"\[FilledCircle]\"\>",
+           StripOnInput->False,
+           FontSize->Small], 8], InsetBox[
+          StyleBox["\<\"\[FilledCircle]\"\>",
+           StripOnInput->False,
+           FontSize->Small], 9], InsetBox[
+          StyleBox["\<\"\[FilledCircle]\"\>",
+           StripOnInput->False,
+           FontSize->Small], 10], InsetBox[
+          StyleBox["\<\"\[FilledCircle]\"\>",
+           StripOnInput->False,
+           FontSize->Small], 11], InsetBox[
+          StyleBox["\<\"\[FilledCircle]\"\>",
+           StripOnInput->False,
+           FontSize->Small], 12], InsetBox[
+          StyleBox["\<\"\[FilledCircle]\"\>",
+           StripOnInput->False,
+           FontSize->Small], 13], InsetBox[
+          StyleBox["\<\"\[FilledCircle]\"\>",
+           StripOnInput->False,
+           FontSize->Small], 14], InsetBox[
+          StyleBox["\<\"\[FilledCircle]\"\>",
+           StripOnInput->False,
+           FontSize->Small], 15], InsetBox[
+          StyleBox["\<\"\[FilledCircle]\"\>",
+           StripOnInput->False,
+           FontSize->Small], 16], InsetBox[
+          StyleBox["\<\"\[FilledCircle]\"\>",
+           StripOnInput->False,
+           FontSize->Small], 17], InsetBox[
+          StyleBox["\<\"\[FilledCircle]\"\>",
+           StripOnInput->False,
+           FontSize->Small], 18]}, 
+        {Hue[0.9060679774997897, 0.6, 0.6], InsetBox[
+          StyleBox["\<\"\[FilledSquare]\"\>",
+           StripOnInput->False,
+           FontSize->Small], 19], InsetBox[
+          StyleBox["\<\"\[FilledSquare]\"\>",
+           StripOnInput->False,
+           FontSize->Small], 20], InsetBox[
+          StyleBox["\<\"\[FilledSquare]\"\>",
+           StripOnInput->False,
+           FontSize->Small], 21], InsetBox[
+          StyleBox["\<\"\[FilledSquare]\"\>",
+           StripOnInput->False,
+           FontSize->Small], 22], InsetBox[
+          StyleBox["\<\"\[FilledSquare]\"\>",
+           StripOnInput->False,
+           FontSize->Small], 23], InsetBox[
+          StyleBox["\<\"\[FilledSquare]\"\>",
+           StripOnInput->False,
+           FontSize->Small], 24], InsetBox[
+          StyleBox["\<\"\[FilledSquare]\"\>",
+           StripOnInput->False,
+           FontSize->Small], 25], InsetBox[
+          StyleBox["\<\"\[FilledSquare]\"\>",
+           StripOnInput->False,
+           FontSize->Small], 26], InsetBox[
+          StyleBox["\<\"\[FilledSquare]\"\>",
+           StripOnInput->False,
+           FontSize->Small], 27], InsetBox[
+          StyleBox["\<\"\[FilledSquare]\"\>",
+           StripOnInput->False,
+           FontSize->Small], 28], InsetBox[
+          StyleBox["\<\"\[FilledSquare]\"\>",
+           StripOnInput->False,
+           FontSize->Small], 29], InsetBox[
+          StyleBox["\<\"\[FilledSquare]\"\>",
+           StripOnInput->False,
+           FontSize->Small], 30], InsetBox[
+          StyleBox["\<\"\[FilledSquare]\"\>",
+           StripOnInput->False,
+           FontSize->Small], 31], InsetBox[
+          StyleBox["\<\"\[FilledSquare]\"\>",
+           StripOnInput->False,
+           FontSize->Small], 32], InsetBox[
+          StyleBox["\<\"\[FilledSquare]\"\>",
+           StripOnInput->False,
+           FontSize->Small], 33], InsetBox[
+          StyleBox["\<\"\[FilledSquare]\"\>",
+           StripOnInput->False,
+           FontSize->Small], 34], InsetBox[
+          StyleBox["\<\"\[FilledSquare]\"\>",
+           StripOnInput->False,
+           FontSize->Small], 35], InsetBox[
+          StyleBox["\<\"\[FilledSquare]\"\>",
+           StripOnInput->False,
+           FontSize->Small], 36]}, {}}}],
+     AspectRatio->NCache[GoldenRatio^(-1), 0.6180339887498948],
+     Axes->True,
+     AxesOrigin->{0, 0},
+     DisplayFunction:>$DisplayFunction,
+     FormatType->TraditionalForm,
+     Frame->{{True, False}, {True, False}},
+     FrameLabel->{
+       FormBox["\"Red matrice\"", TraditionalForm], 
+       FormBox["\"To\[CHacek]nost\"", TraditionalForm]},
+     FrameTicks->{{{2, 
+         FormBox["32.`", TraditionalForm]}, {4, 
+         FormBox["128.`", TraditionalForm]}, {6, 
+         FormBox["512.`", TraditionalForm]}, {8, 
+         FormBox["2048.`", TraditionalForm]}, {10, 
+         FormBox["4096.`", TraditionalForm]}, {12, 
+         FormBox["6144.`", TraditionalForm]}, {14, 
+         FormBox["8192.`", TraditionalForm]}, {16, 
+         FormBox["10240.`", TraditionalForm]}, {18, 
+         FormBox["12288.`", TraditionalForm]}}, Automatic},
+     GridLines->Automatic,
+     PlotRange->{{0., 18.}, {0., 0.015136719}},
+     PlotRangeClipping->True,
+     PlotRangePadding->{
+       Scaled[0.02], 
+       Scaled[0.02]}], {-1, -0.6180339887498948}, {
+    Left, Bottom}, {2, 1.2360679774997896`}], GraphicsGroupBox[{
+     {GrayLevel[0], RectangleBox[{-0.7, 0.2}, {0.20000000000000007`, 0.45}]}, 
+     {GrayLevel[1], EdgeForm[{GrayLevel[0], Thickness[0.001]}], 
+      GraphicsGroupBox[{
+        RectangleBox[{-0.7, 0.2}, {0.20000000000000007`, 0.45}], InsetBox[
+         GraphicsBox[{{{InsetBox[
+              GraphicsBox[{
+                {Hue[0.9060679774997897, 0.6, 0.6], 
+                 LineBox[{{0, 0.5}, {1, 0.5}}]}, InsetBox[
+                 StyleBox["\<\"\[FilledSquare]\"\>",
+                  StripOnInput->False,
+                  LineColor->Hue[0.9060679774997897, 0.6, 0.6],
+                  FrontFaceColor->Hue[0.9060679774997897, 0.6, 0.6],
+                  BackFaceColor->Hue[0.9060679774997897, 0.6, 0.6],
+                  GraphicsColor->Hue[0.9060679774997897, 0.6, 0.6],
+                  FontSize->Small,
+                  FontColor->Hue[0.9060679774997897, 0.6, 0.6]], {0.5, 0.5}]},
+               PlotRange->{{0, 1}, {0, 1}}], {0.08, 0.08}, {
+              Left, Bottom}, {1, 1}], 
+             
+             InsetBox["\<\"GeForce GTX 460\"\>", {1.2100000000000002`, 0.58}, \
+{-1, 0}, Automatic, {1, 0}]}, {InsetBox[
+              GraphicsBox[{
+                {Hue[0.67, 0.6, 0.6], LineBox[{{0, 0.5}, {1, 0.5}}]}, InsetBox[
+                 StyleBox["\<\"\[FilledCircle]\"\>",
+                  StripOnInput->False,
+                  LineColor->Hue[0.67, 0.6, 0.6],
+                  FrontFaceColor->Hue[0.67, 0.6, 0.6],
+                  BackFaceColor->Hue[0.67, 0.6, 0.6],
+                  GraphicsColor->Hue[0.67, 0.6, 0.6],
+                  FontSize->Small,
+                  FontColor->Hue[0.67, 0.6, 0.6]], {0.5, 0.5}]},
+               PlotRange->{{0, 1}, {0, 1}}], {0.08, 1.24}, {
+              Left, Bottom}, {1, 1}], 
+             InsetBox["\<\"Intel Core i5-760 (MATLAB)\"\>", \
+{1.2100000000000002`, 1.74}, {-1, 0}, Automatic, {1, 0}]}}, {}},
+          AspectRatio->0.2777777777777778,
+          FormatType->TraditionalForm,
+          PlotRange->{{-0.1, 7.26}, {-0.1, 2.42}}], {-0.7, 0.2}, {
+         Left, Bottom}, {0.9, 0.25}]}]}}]},
+  AspectRatio->Automatic,
+  Background->None,
+  ColorOutput->Automatic,
+  ImageSize->Automatic,
+  PlotRange->All]], "Output",
+ CellChangeTimes->{
+  3.522486300776367*^9, 3.522486373854492*^9, 3.522486406370117*^9, 
+   3.522486444823242*^9, 3.522486494729492*^9, 3.522486531510742*^9, 
+   3.5224876747402344`*^9, 3.5224877469589844`*^9, {3.522488054720703*^9, 
+   3.522488058392578*^9}, 3.5224881810927734`*^9, 3.5224882802265625`*^9, {
+   3.522488617741211*^9, 3.5224887107353516`*^9}, 3.522912726051758*^9, 
+   3.5229337501992188`*^9}]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"sTocnost", "=", 
+  RowBox[{"ListPlot", "[", 
+   RowBox[{
+    RowBox[{"{", 
+     RowBox[{
+      RowBox[{"xeonSingle", "[", 
+       RowBox[{"[", 
+        RowBox[{"All", ",", "4"}], "]"}], "]"}], ",", 
+      RowBox[{"xeonSingle", "[", 
+       RowBox[{"[", 
+        RowBox[{"All", ",", "5"}], "]"}], "]"}]}], "}"}], ",", 
+    RowBox[{"Joined", "->", "True"}], ",", 
+    RowBox[{"Mesh", "->", "All"}], ",", 
+    RowBox[{"GridLines", "\[Rule]", "Automatic"}], ",", 
+    RowBox[{"PlotMarkers", "\[Rule]", 
+     RowBox[{"{", 
+      RowBox[{"Automatic", ",", "Small"}], "}"}]}], ",", 
+    RowBox[{"FrameTicks", "\[Rule]", 
+     RowBox[{"{", 
+      RowBox[{
+       RowBox[{"Map", "[", 
+        RowBox[{
+         RowBox[{
+          RowBox[{"{", 
+           RowBox[{
+            RowBox[{"x", "[", 
+             RowBox[{"[", "#", "]"}], "]"}], ",", 
+            RowBox[{"teslaSingle", "[", 
+             RowBox[{"[", 
+              RowBox[{"#", ",", "1"}], "]"}], "]"}]}], "}"}], "&"}], ",", 
+         RowBox[{"Range", "[", 
+          RowBox[{"2", ",", "18", ",", "2"}], "]"}]}], "]"}], ",", 
+       "Automatic"}], "}"}]}], ",", 
+    RowBox[{"Frame", "\[Rule]", 
+     RowBox[{"{", 
+      RowBox[{
+       RowBox[{"{", 
+        RowBox[{"True", ",", " ", "False"}], "}"}], ",", " ", 
+       RowBox[{"{", 
+        RowBox[{"True", ",", " ", "False"}], "}"}]}], "}"}]}], ",", 
+    RowBox[{"FrameLabel", "\[Rule]", 
+     RowBox[{"{", 
+      RowBox[{"\"\<Red matrice\>\"", ",", "\"\<To\[CHacek]nost\>\""}], 
+      "}"}]}], ",", 
+    RowBox[{"PlotLegend", "\[Rule]", 
+     RowBox[{"{", 
+      RowBox[{
+      "\"\<Intel Core i5-760 (MATLAB)\>\"", ",", "\"\<GeForce GTX 460\>\""}], 
+      "}"}]}], ",", 
+    RowBox[{"LegendShadow", "\[Rule]", "None"}], ",", 
+    RowBox[{"LegendPosition", "\[Rule]", 
+     RowBox[{"{", 
+      RowBox[{
+       RowBox[{"-", "0.7"}], ",", "0.2"}], "}"}]}], ",", 
+    RowBox[{"LegendSize", "\[Rule]", 
+     RowBox[{"{", 
+      RowBox[{"0.9", ",", "0.25"}], "}"}]}], ",", 
+    RowBox[{"LegendTextSpace", "\[Rule]", "6"}]}], "]"}]}]], "Input",
+ CellChangeTimes->{{3.522912737442383*^9, 3.522912771364258*^9}, 
+   3.522912804083008*^9}],
+
+Cell[BoxData[
+ GraphicsBox[{InsetBox[
+    GraphicsBox[GraphicsComplexBox[CompressedData["
+1:eJyN0k8o5HEYx/FnGEPIIomS7IamTRr//8/vaa9qD9zkYlrag1Yi5aAZ07ZR
+DpLGv8kBaW/bbrRHtQ67F0UuyoGTlNIkkZkdj5++H0/N72RqenrN96nf9H3/
+3gZGegbTiMhvf5+n+cSs5uj+ncieHz/wn6oye5zAWdwfqcokuoTzOZDnSSdy
+W8ZFLFc/7FkMl7AnPJMQ8cFlnN4ZS4p0wRWc/a/iQaQXfsc3xx+zifrgSs74
+NP9fZACu5sTaiP28L7CX71rOPETD8Hvsj8I1/Hjw20U0Bteyq7RSJBiCfSwX
+p0ShabiOzQzD9Zwb/3wv8hVu4Muc2gKib3Aj9mfgJoebHW5hz9ROQoIRuBXn
+y3Abx8Pdbgotwe04j8Id8Crcif0VuMux74fXYQvegGOWd7fQvv+/r+59mHtg
+9xO4iG8T11lE5drb3H+d9k7uv7Ffrw/aOzNyEhcJaG9393BSgoPa2/Qd0t6p
+Pb34/+Pa2+xPaG+zP6m9zQxr75Lbo2uRWe2d6pfec9o79X4bcR519F7Q3uZ8
+XnvvnRe66Pyn9jb+pb3N/qKj94b2Nu/LlqP3pvZOPX/pve3o/d16Ao9o2uA=
+
+      "], {{{}, {}, 
+        {Hue[0.67, 0.6, 0.6], 
+         LineBox[{1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 
+          18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31}]}, 
+        {Hue[0.9060679774997897, 0.6, 0.6], 
+         LineBox[{32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 
+          47, 48, 49, 50, 51, 52, 53, 54, 55, 56, 57, 58, 59, 60, 61, 62}]}}, {
+        {Hue[0.67, 0.6, 0.6], InsetBox[
+          StyleBox["\<\"\[FilledCircle]\"\>",
+           StripOnInput->False,
+           FontSize->Small], 1], InsetBox[
+          StyleBox["\<\"\[FilledCircle]\"\>",
+           StripOnInput->False,
+           FontSize->Small], 2], InsetBox[
+          StyleBox["\<\"\[FilledCircle]\"\>",
+           StripOnInput->False,
+           FontSize->Small], 3], InsetBox[
+          StyleBox["\<\"\[FilledCircle]\"\>",
+           StripOnInput->False,
+           FontSize->Small], 4], InsetBox[
+          StyleBox["\<\"\[FilledCircle]\"\>",
+           StripOnInput->False,
+           FontSize->Small], 5], InsetBox[
+          StyleBox["\<\"\[FilledCircle]\"\>",
+           StripOnInput->False,
+           FontSize->Small], 6], InsetBox[
+          StyleBox["\<\"\[FilledCircle]\"\>",
+           StripOnInput->False,
+           FontSize->Small], 7], InsetBox[
+          StyleBox["\<\"\[FilledCircle]\"\>",
+           StripOnInput->False,
+           FontSize->Small], 8], InsetBox[
+          StyleBox["\<\"\[FilledCircle]\"\>",
+           StripOnInput->False,
+           FontSize->Small], 9], InsetBox[
+          StyleBox["\<\"\[FilledCircle]\"\>",
+           StripOnInput->False,
+           FontSize->Small], 10], InsetBox[
+          StyleBox["\<\"\[FilledCircle]\"\>",
+           StripOnInput->False,
+           FontSize->Small], 11], InsetBox[
+          StyleBox["\<\"\[FilledCircle]\"\>",
+           StripOnInput->False,
+           FontSize->Small], 12], InsetBox[
+          StyleBox["\<\"\[FilledCircle]\"\>",
+           StripOnInput->False,
+           FontSize->Small], 13], InsetBox[
+          StyleBox["\<\"\[FilledCircle]\"\>",
+           StripOnInput->False,
+           FontSize->Small], 14], InsetBox[
+          StyleBox["\<\"\[FilledCircle]\"\>",
+           StripOnInput->False,
+           FontSize->Small], 15], InsetBox[
+          StyleBox["\<\"\[FilledCircle]\"\>",
+           StripOnInput->False,
+           FontSize->Small], 16], InsetBox[
+          StyleBox["\<\"\[FilledCircle]\"\>",
+           StripOnInput->False,
+           FontSize->Small], 17], InsetBox[
+          StyleBox["\<\"\[FilledCircle]\"\>",
+           StripOnInput->False,
+           FontSize->Small], 18], InsetBox[
+          StyleBox["\<\"\[FilledCircle]\"\>",
+           StripOnInput->False,
+           FontSize->Small], 19], InsetBox[
+          StyleBox["\<\"\[FilledCircle]\"\>",
+           StripOnInput->False,
+           FontSize->Small], 20], InsetBox[
+          StyleBox["\<\"\[FilledCircle]\"\>",
+           StripOnInput->False,
+           FontSize->Small], 21], InsetBox[
+          StyleBox["\<\"\[FilledCircle]\"\>",
+           StripOnInput->False,
+           FontSize->Small], 22], InsetBox[
+          StyleBox["\<\"\[FilledCircle]\"\>",
+           StripOnInput->False,
+           FontSize->Small], 23], InsetBox[
+          StyleBox["\<\"\[FilledCircle]\"\>",
+           StripOnInput->False,
+           FontSize->Small], 24], InsetBox[
+          StyleBox["\<\"\[FilledCircle]\"\>",
+           StripOnInput->False,
+           FontSize->Small], 25], InsetBox[
+          StyleBox["\<\"\[FilledCircle]\"\>",
+           StripOnInput->False,
+           FontSize->Small], 26], InsetBox[
+          StyleBox["\<\"\[FilledCircle]\"\>",
+           StripOnInput->False,
+           FontSize->Small], 27], InsetBox[
+          StyleBox["\<\"\[FilledCircle]\"\>",
+           StripOnInput->False,
+           FontSize->Small], 28], InsetBox[
+          StyleBox["\<\"\[FilledCircle]\"\>",
+           StripOnInput->False,
+           FontSize->Small], 29], InsetBox[
+          StyleBox["\<\"\[FilledCircle]\"\>",
+           StripOnInput->False,
+           FontSize->Small], 30], InsetBox[
+          StyleBox["\<\"\[FilledCircle]\"\>",
+           StripOnInput->False,
+           FontSize->Small], 31]}, 
+        {Hue[0.9060679774997897, 0.6, 0.6], InsetBox[
+          StyleBox["\<\"\[FilledSquare]\"\>",
+           StripOnInput->False,
+           FontSize->Small], 32], InsetBox[
+          StyleBox["\<\"\[FilledSquare]\"\>",
+           StripOnInput->False,
+           FontSize->Small], 33], InsetBox[
+          StyleBox["\<\"\[FilledSquare]\"\>",
+           StripOnInput->False,
+           FontSize->Small], 34], InsetBox[
+          StyleBox["\<\"\[FilledSquare]\"\>",
+           StripOnInput->False,
+           FontSize->Small], 35], InsetBox[
+          StyleBox["\<\"\[FilledSquare]\"\>",
+           StripOnInput->False,
+           FontSize->Small], 36], InsetBox[
+          StyleBox["\<\"\[FilledSquare]\"\>",
+           StripOnInput->False,
+           FontSize->Small], 37], InsetBox[
+          StyleBox["\<\"\[FilledSquare]\"\>",
+           StripOnInput->False,
+           FontSize->Small], 38], InsetBox[
+          StyleBox["\<\"\[FilledSquare]\"\>",
+           StripOnInput->False,
+           FontSize->Small], 39], InsetBox[
+          StyleBox["\<\"\[FilledSquare]\"\>",
+           StripOnInput->False,
+           FontSize->Small], 40], InsetBox[
+          StyleBox["\<\"\[FilledSquare]\"\>",
+           StripOnInput->False,
+           FontSize->Small], 41], InsetBox[
+          StyleBox["\<\"\[FilledSquare]\"\>",
+           StripOnInput->False,
+           FontSize->Small], 42], InsetBox[
+          StyleBox["\<\"\[FilledSquare]\"\>",
+           StripOnInput->False,
+           FontSize->Small], 43], InsetBox[
+          StyleBox["\<\"\[FilledSquare]\"\>",
+           StripOnInput->False,
+           FontSize->Small], 44], InsetBox[
+          StyleBox["\<\"\[FilledSquare]\"\>",
+           StripOnInput->False,
+           FontSize->Small], 45], InsetBox[
+          StyleBox["\<\"\[FilledSquare]\"\>",
+           StripOnInput->False,
+           FontSize->Small], 46], InsetBox[
+          StyleBox["\<\"\[FilledSquare]\"\>",
+           StripOnInput->False,
+           FontSize->Small], 47], InsetBox[
+          StyleBox["\<\"\[FilledSquare]\"\>",
+           StripOnInput->False,
+           FontSize->Small], 48], InsetBox[
+          StyleBox["\<\"\[FilledSquare]\"\>",
+           StripOnInput->False,
+           FontSize->Small], 49], InsetBox[
+          StyleBox["\<\"\[FilledSquare]\"\>",
+           StripOnInput->False,
+           FontSize->Small], 50], InsetBox[
+          StyleBox["\<\"\[FilledSquare]\"\>",
+           StripOnInput->False,
+           FontSize->Small], 51], InsetBox[
+          StyleBox["\<\"\[FilledSquare]\"\>",
+           StripOnInput->False,
+           FontSize->Small], 52], InsetBox[
+          StyleBox["\<\"\[FilledSquare]\"\>",
+           StripOnInput->False,
+           FontSize->Small], 53], InsetBox[
+          StyleBox["\<\"\[FilledSquare]\"\>",
+           StripOnInput->False,
+           FontSize->Small], 54], InsetBox[
+          StyleBox["\<\"\[FilledSquare]\"\>",
+           StripOnInput->False,
+           FontSize->Small], 55], InsetBox[
+          StyleBox["\<\"\[FilledSquare]\"\>",
+           StripOnInput->False,
+           FontSize->Small], 56], InsetBox[
+          StyleBox["\<\"\[FilledSquare]\"\>",
+           StripOnInput->False,
+           FontSize->Small], 57], InsetBox[
+          StyleBox["\<\"\[FilledSquare]\"\>",
+           StripOnInput->False,
+           FontSize->Small], 58], InsetBox[
+          StyleBox["\<\"\[FilledSquare]\"\>",
+           StripOnInput->False,
+           FontSize->Small], 59], InsetBox[
+          StyleBox["\<\"\[FilledSquare]\"\>",
+           StripOnInput->False,
+           FontSize->Small], 60], InsetBox[
+          StyleBox["\<\"\[FilledSquare]\"\>",
+           StripOnInput->False,
+           FontSize->Small], 61], InsetBox[
+          StyleBox["\<\"\[FilledSquare]\"\>",
+           StripOnInput->False,
+           FontSize->Small], 62]}, {}}}],
+     AspectRatio->NCache[GoldenRatio^(-1), 0.6180339887498948],
+     Axes->True,
+     AxesOrigin->{0, 0},
+     DisplayFunction:>$DisplayFunction,
+     FormatType->TraditionalForm,
+     Frame->{{True, False}, {True, False}},
+     FrameLabel->{
+       FormBox["\"Red matrice\"", TraditionalForm], 
+       FormBox["\"To\[CHacek]nost\"", TraditionalForm]},
+     FrameTicks->{{{2, 
+         FormBox["32", TraditionalForm]}, {4, 
+         FormBox["128", TraditionalForm]}, {6, 
+         FormBox["512", TraditionalForm]}, {8, 
+         FormBox["2048", TraditionalForm]}, {10, 
+         FormBox["4096", TraditionalForm]}, {12, 
+         FormBox["6144", TraditionalForm]}, {14, 
+         FormBox["8192", TraditionalForm]}, {16, 
+         FormBox["10240", TraditionalForm]}, {18, 
+         FormBox["12288", TraditionalForm]}}, Automatic},
+     GridLines->Automatic,
+     PlotRange->{{0., 31.}, {0., 0.073730469}},
+     PlotRangeClipping->True,
+     PlotRangePadding->{
+       Scaled[0.02], 
+       Scaled[0.02]}], {-1, -0.6180339887498948}, {
+    Left, Bottom}, {2, 1.2360679774997896`}], GraphicsGroupBox[{
+     {GrayLevel[0], RectangleBox[{-0.7, 0.2}, {0.20000000000000007`, 0.45}]}, 
+     {GrayLevel[1], EdgeForm[{GrayLevel[0], Thickness[0.001]}], 
+      GraphicsGroupBox[{
+        RectangleBox[{-0.7, 0.2}, {0.20000000000000007`, 0.45}], InsetBox[
+         GraphicsBox[{{{InsetBox[
+              GraphicsBox[{
+                {Hue[0.9060679774997897, 0.6, 0.6], 
+                 LineBox[{{0, 0.5}, {1, 0.5}}]}, InsetBox[
+                 StyleBox["\<\"\[FilledSquare]\"\>",
+                  StripOnInput->False,
+                  LineColor->Hue[0.9060679774997897, 0.6, 0.6],
+                  FrontFaceColor->Hue[0.9060679774997897, 0.6, 0.6],
+                  BackFaceColor->Hue[0.9060679774997897, 0.6, 0.6],
+                  GraphicsColor->Hue[0.9060679774997897, 0.6, 0.6],
+                  FontSize->Small,
+                  FontColor->Hue[0.9060679774997897, 0.6, 0.6]], {0.5, 0.5}]},
+               PlotRange->{{0, 1}, {0, 1}}], {0.08, 0.08}, {
+              Left, Bottom}, {1, 1}], 
+             InsetBox["\<\"GeForce GTX 460\"\>", {1.2100000000000002`, 0.58}, \
+{-1, 0}, Automatic, {1, 0}]}, {InsetBox[
+              GraphicsBox[{
+                {Hue[0.67, 0.6, 0.6], LineBox[{{0, 0.5}, {1, 0.5}}]}, InsetBox[
+                 StyleBox["\<\"\[FilledCircle]\"\>",
+                  StripOnInput->False,
+                  LineColor->Hue[0.67, 0.6, 0.6],
+                  FrontFaceColor->Hue[0.67, 0.6, 0.6],
+                  BackFaceColor->Hue[0.67, 0.6, 0.6],
+                  GraphicsColor->Hue[0.67, 0.6, 0.6],
+                  FontSize->Small,
+                  FontColor->Hue[0.67, 0.6, 0.6]], {0.5, 0.5}]},
+               PlotRange->{{0, 1}, {0, 1}}], {0.08, 1.24}, {
+              Left, Bottom}, {1, 1}], 
+             InsetBox["\<\"Intel Core i5-760 (MATLAB)\"\>", \
+{1.2100000000000002`, 1.74}, {-1, 0}, Automatic, {1, 0}]}}, {}},
+          AspectRatio->0.2777777777777778,
+          FormatType->TraditionalForm,
+          PlotRange->{{-0.1, 7.26}, {-0.1, 2.42}}], {-0.7, 0.2}, {
+         Left, Bottom}, {0.9, 0.25}]}]}}]},
+  AspectRatio->Automatic,
+  Background->None,
+  ColorOutput->Automatic,
+  ImageSize->{420., Automatic},
+  PlotRange->All]], "Output",
+ CellChangeTimes->{{3.522912743145508*^9, 3.522912771942383*^9}, 
+   3.522912805004883*^9, 3.5229337605273438`*^9}]
+}, Open  ]],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"cpuDouble", "=", 
+   RowBox[{"Import", "[", 
+    RowBox[{
+    "\"\<C:\\\\Users\\\\Dejan\\\\Documents\\\\double_rez.txt\>\"", ",", 
+     "\"\<Table\>\""}], "]"}]}], ";"}]], "Input",
+ CellChangeTimes->{{3.522483124390625*^9, 3.5224831295*^9}, {
+  3.522912846223633*^9, 3.522912863629883*^9}}],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"gpuDouble", "=", 
+   RowBox[{"Import", "[", 
+    RowBox[{
+    "\"\<C:\\\\Users\\\\Dejan\\\\Documents\\\\double_gpu_rez.txt\>\"", ",", 
+     "\"\<Table\>\""}], "]"}]}], ";"}]], "Input",
+ CellChangeTimes->{{3.522483139609375*^9, 3.52248314603125*^9}, {
+  3.522912866442383*^9, 3.522912868504883*^9}}],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"teslaDouble", "=", 
+   RowBox[{"Import", "[", 
+    RowBox[{
+    "\"\<C:\\\\Users\\\\Dejan\\\\Documents\\\\tesla_double.txt\>\"", ",", 
+     "\"\<Table\>\""}], "]"}]}], ";"}]], "Input",
+ CellChangeTimes->{{3.522912872348633*^9, 3.522912886317383*^9}}],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"xeonDouble", "=", 
+   RowBox[{"Import", "[", 
+    RowBox[{
+    "\"\<C:\\\\Users\\\\Dejan\\\\Documents\\\\xeon_double.txt\>\"", ",", 
+     "\"\<Table\>\""}], "]"}]}], ";"}]], "Input",
+ CellChangeTimes->{{3.522912894286133*^9, 3.522912899739258*^9}}],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"dBrzina", "=", 
+  RowBox[{"ListPlot", "[", 
+   RowBox[{
+    RowBox[{"{", 
+     RowBox[{
+      RowBox[{"cpuDouble", "[", 
+       RowBox[{"[", 
+        RowBox[{"All", ",", "2"}], "]"}], "]"}], ",", 
+      RowBox[{"gpuDouble", "[", 
+       RowBox[{"[", 
+        RowBox[{"All", ",", "2"}], "]"}], "]"}], ",", " ", 
+      RowBox[{"xeonDouble", "[", 
+       RowBox[{"[", 
+        RowBox[{"All", ",", "2"}], "]"}], "]"}], ",", 
+      RowBox[{"teslaDouble", "[", 
+       RowBox[{"[", 
+        RowBox[{"All", ",", "2"}], "]"}], "]"}]}], "}"}], ",", " ", 
+    RowBox[{"PlotRange", "\[Rule]", 
+     RowBox[{"{", 
+      RowBox[{"0", ",", "32000"}], "}"}]}], ",", 
+    RowBox[{"Joined", "->", "True"}], ",", 
+    RowBox[{"Mesh", "->", "All"}], ",", 
+    RowBox[{"GridLines", "\[Rule]", "Automatic"}], ",", 
+    RowBox[{"PlotMarkers", "\[Rule]", 
+     RowBox[{"{", 
+      RowBox[{"Automatic", ",", "Small"}], "}"}]}], ",", 
+    RowBox[{"FrameTicks", "\[Rule]", 
+     RowBox[{"{", 
+      RowBox[{
+       RowBox[{"Map", "[", 
+        RowBox[{
+         RowBox[{
+          RowBox[{"{", 
+           RowBox[{
+            RowBox[{"x", "[", 
+             RowBox[{"[", "#", "]"}], "]"}], ",", 
+            RowBox[{"cpuSingle", "[", 
+             RowBox[{"[", 
+              RowBox[{"#", ",", "1"}], "]"}], "]"}]}], "}"}], "&"}], ",", 
+         RowBox[{"Range", "[", 
+          RowBox[{"1", ",", "18", ",", "2"}], "]"}]}], "]"}], ",", 
+       "Automatic"}], "}"}]}], ",", 
+    RowBox[{"Frame", "\[Rule]", 
+     RowBox[{"{", 
+      RowBox[{
+       RowBox[{"{", 
+        RowBox[{"True", ",", " ", "False"}], "}"}], ",", " ", 
+       RowBox[{"{", 
+        RowBox[{"True", ",", " ", "False"}], "}"}]}], "}"}]}], ",", 
+    RowBox[{"FrameLabel", "\[Rule]", 
+     RowBox[{"{", 
+      RowBox[{"\"\<Red matrice\>\"", ",", "\"\<Vrijeme (ms)\>\""}], "}"}]}], 
+    ",", 
+    RowBox[{"PlotLegend", "\[Rule]", 
+     RowBox[{"{", 
+      RowBox[{
+      "\"\<Intel Core i5-760 (MATLAB)\>\"", ",", "\"\<GeForce GTX 460\>\""}], 
+      "}"}]}], ",", 
+    RowBox[{"LegendShadow", "\[Rule]", "None"}], ",", 
+    RowBox[{"LegendPosition", "\[Rule]", 
+     RowBox[{"{", 
+      RowBox[{
+       RowBox[{"-", "0.7"}], ",", "0.2"}], "}"}]}], ",", 
+    RowBox[{"LegendSize", "\[Rule]", 
+     RowBox[{"{", 
+      RowBox[{"0.9", ",", "0.25"}], "}"}]}], ",", 
+    RowBox[{"LegendTextSpace", "\[Rule]", "6"}]}], "]"}]}]], "Input",
+ CellChangeTimes->{{3.522483157953125*^9, 3.52248318796875*^9}, {
+  3.5224877805478516`*^9, 3.5224877838603516`*^9}, {3.522488032314453*^9, 
+  3.522488043501953*^9}, {3.5224881894677734`*^9, 3.5224881924521484`*^9}, {
+  3.5224887468652344`*^9, 3.522488773129883*^9}, {3.522912907770508*^9, 
+  3.522912937598633*^9}, {3.5229338438085938`*^9, 3.5229338509023438`*^9}}],
+
+Cell[BoxData[
+ GraphicsBox[{InsetBox[
+    GraphicsBox[GraphicsComplexBox[CompressedData["
+1:eJxFk3kwlGEcgNcxco0k45g2Q44Rjd1lWUzxiugPDGFFyBJJWYywE9OSqbHl
+SBY1mhxruhyLRBmSMwqtnRxT48pRGzUyIdeKvPvzzXzzzfP+8c33PL/fpxcS
+fSZMmkAguG/fO8/da8F+34LGaY8Nlj0+QGUxJxSHecWY5ZH+l9XrkU1lmFXR
+V1FerXJsB2Z11J8uHJtQmsSshXL2X7MqFx9Au0xEDHMfsgmHilkXWXTUmDG9
+gjEfQTk/k+0ts+MwGyCboc6oOhkOZiMUnSrb+TElD7MxEgzS56NXSzCboLXt
+r7uaVIH5GKo1Y/JK6PWYzZA4bGWaQWtGEt+c4THpC4614NuwMZC6TG0F33DW
+Zq6CghB8q6S7nLhoGnydnD1rko6vge9wxJjGwKGD4CvTKuSHqlHA92HrOGm2
+0gd8b6klyhU4RoHv2YFBZXsBG3xvlpLiYlYzwFfub0/FUa374BuhslU0yi0F
+3wxeX68vvRx8dfP7iCaKL8D3l/9Ju+/aRCTxdaVxHIJn7oJv85T64Z4ZPvh6
+ZBYw1dImwJe9bhvTLy/x00JbtUmL1QLJ+4j/50EypYGvV75eVrybH/i6yLCU
+DIiR4HvZdLlgtDEZfMvtfM9R3t8B32JO9aRongu+O3zJsAh8Y7fX05HwFHzN
+Z6sM1X2rMZORqIEv49L7EjMFMXlSTac4kvmbI57+640GZjtmC9ST8KYocugd
+ZipqXzIOIAl7MVuiec9XOpWBA5itkPgTS0SXGsJMQ4tCtxBr4QhmaxSQ3baU
+Qh6D/kHLc+6Jj7ph34yc+EvrdQLo71z0Y87bewT662a1iC0jv0H/Qm/qkLh/
+b98Ild7lihF7/1ciQ3WT3WoK/dO1FC26b7hC/3bNVGVWHQP6n9ekTrWzY6F/
+mk4nN1clBfobUFbY06zb0D/zN2PZ3/8e9HdK4NqUKRdC/01Pkhfzcyn0tzHd
+HCcXPIP+tmYPtMltfOifIqaE0pPqoH+C7Icr8U8aob9danjXRYe30H8haKsl
+qkwyLyv0J5Ag2MqSzIuGVvzCHj/XkMzLGvl3hNcHRgnQP+kuUvU=
+      "], {{{}, {}, 
+        {Hue[0.67, 0.6, 0.6], 
+         LineBox[{1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15}]}, 
+        {Hue[0.9060679774997897, 0.6, 0.6], 
+         LineBox[{16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 
+          30}]}, 
+        {Hue[0.1421359549995791, 0.6, 0.6], 
+         LineBox[{31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 
+          46, 47, 48, 49, 50, 51, 52, 53, 54}]}, 
+        {Hue[0.37820393249936934`, 0.6, 0.6], 
+         LineBox[{55, 56, 57, 58, 59, 60, 61, 62, 63, 64, 65, 66, 67, 68, 69, 
+          70, 71, 72, 73, 74, 75, 76, 77, 78}]}}, {
+        {Hue[0.67, 0.6, 0.6], InsetBox[
+          StyleBox["\<\"\[FilledCircle]\"\>",
+           StripOnInput->False,
+           FontSize->Small], 1], InsetBox[
+          StyleBox["\<\"\[FilledCircle]\"\>",
+           StripOnInput->False,
+           FontSize->Small], 2], InsetBox[
+          StyleBox["\<\"\[FilledCircle]\"\>",
+           StripOnInput->False,
+           FontSize->Small], 3], InsetBox[
+          StyleBox["\<\"\[FilledCircle]\"\>",
+           StripOnInput->False,
+           FontSize->Small], 4], InsetBox[
+          StyleBox["\<\"\[FilledCircle]\"\>",
+           StripOnInput->False,
+           FontSize->Small], 5], InsetBox[
+          StyleBox["\<\"\[FilledCircle]\"\>",
+           StripOnInput->False,
+           FontSize->Small], 6], InsetBox[
+          StyleBox["\<\"\[FilledCircle]\"\>",
+           StripOnInput->False,
+           FontSize->Small], 7], InsetBox[
+          StyleBox["\<\"\[FilledCircle]\"\>",
+           StripOnInput->False,
+           FontSize->Small], 8], InsetBox[
+          StyleBox["\<\"\[FilledCircle]\"\>",
+           StripOnInput->False,
+           FontSize->Small], 9], InsetBox[
+          StyleBox["\<\"\[FilledCircle]\"\>",
+           StripOnInput->False,
+           FontSize->Small], 10], InsetBox[
+          StyleBox["\<\"\[FilledCircle]\"\>",
+           StripOnInput->False,
+           FontSize->Small], 11], InsetBox[
+          StyleBox["\<\"\[FilledCircle]\"\>",
+           StripOnInput->False,
+           FontSize->Small], 12], InsetBox[
+          StyleBox["\<\"\[FilledCircle]\"\>",
+           StripOnInput->False,
+           FontSize->Small], 13], InsetBox[
+          StyleBox["\<\"\[FilledCircle]\"\>",
+           StripOnInput->False,
+           FontSize->Small], 14], InsetBox[
+          StyleBox["\<\"\[FilledCircle]\"\>",
+           StripOnInput->False,
+           FontSize->Small], 15]}, 
+        {Hue[0.9060679774997897, 0.6, 0.6], InsetBox[
+          StyleBox["\<\"\[FilledSquare]\"\>",
+           StripOnInput->False,
+           FontSize->Small], 16], InsetBox[
+          StyleBox["\<\"\[FilledSquare]\"\>",
+           StripOnInput->False,
+           FontSize->Small], 17], InsetBox[
+          StyleBox["\<\"\[FilledSquare]\"\>",
+           StripOnInput->False,
+           FontSize->Small], 18], InsetBox[
+          StyleBox["\<\"\[FilledSquare]\"\>",
+           StripOnInput->False,
+           FontSize->Small], 19], InsetBox[
+          StyleBox["\<\"\[FilledSquare]\"\>",
+           StripOnInput->False,
+           FontSize->Small], 20], InsetBox[
+          StyleBox["\<\"\[FilledSquare]\"\>",
+           StripOnInput->False,
+           FontSize->Small], 21], InsetBox[
+          StyleBox["\<\"\[FilledSquare]\"\>",
+           StripOnInput->False,
+           FontSize->Small], 22], InsetBox[
+          StyleBox["\<\"\[FilledSquare]\"\>",
+           StripOnInput->False,
+           FontSize->Small], 23], InsetBox[
+          StyleBox["\<\"\[FilledSquare]\"\>",
+           StripOnInput->False,
+           FontSize->Small], 24], InsetBox[
+          StyleBox["\<\"\[FilledSquare]\"\>",
+           StripOnInput->False,
+           FontSize->Small], 25], InsetBox[
+          StyleBox["\<\"\[FilledSquare]\"\>",
+           StripOnInput->False,
+           FontSize->Small], 26], InsetBox[
+          StyleBox["\<\"\[FilledSquare]\"\>",
+           StripOnInput->False,
+           FontSize->Small], 27], InsetBox[
+          StyleBox["\<\"\[FilledSquare]\"\>",
+           StripOnInput->False,
+           FontSize->Small], 28], InsetBox[
+          StyleBox["\<\"\[FilledSquare]\"\>",
+           StripOnInput->False,
+           FontSize->Small], 29], InsetBox[
+          StyleBox["\<\"\[FilledSquare]\"\>",
+           StripOnInput->False,
+           FontSize->Small], 30]}, 
+        {Hue[0.1421359549995791, 0.6, 0.6], InsetBox[
+          StyleBox["\<\"\[FilledDiamond]\"\>",
+           StripOnInput->False,
+           FontSize->Small], 31], InsetBox[
+          StyleBox["\<\"\[FilledDiamond]\"\>",
+           StripOnInput->False,
+           FontSize->Small], 32], InsetBox[
+          StyleBox["\<\"\[FilledDiamond]\"\>",
+           StripOnInput->False,
+           FontSize->Small], 33], InsetBox[
+          StyleBox["\<\"\[FilledDiamond]\"\>",
+           StripOnInput->False,
+           FontSize->Small], 34], InsetBox[
+          StyleBox["\<\"\[FilledDiamond]\"\>",
+           StripOnInput->False,
+           FontSize->Small], 35], InsetBox[
+          StyleBox["\<\"\[FilledDiamond]\"\>",
+           StripOnInput->False,
+           FontSize->Small], 36], InsetBox[
+          StyleBox["\<\"\[FilledDiamond]\"\>",
+           StripOnInput->False,
+           FontSize->Small], 37], InsetBox[
+          StyleBox["\<\"\[FilledDiamond]\"\>",
+           StripOnInput->False,
+           FontSize->Small], 38], InsetBox[
+          StyleBox["\<\"\[FilledDiamond]\"\>",
+           StripOnInput->False,
+           FontSize->Small], 39], InsetBox[
+          StyleBox["\<\"\[FilledDiamond]\"\>",
+           StripOnInput->False,
+           FontSize->Small], 40], InsetBox[
+          StyleBox["\<\"\[FilledDiamond]\"\>",
+           StripOnInput->False,
+           FontSize->Small], 41], InsetBox[
+          StyleBox["\<\"\[FilledDiamond]\"\>",
+           StripOnInput->False,
+           FontSize->Small], 42], InsetBox[
+          StyleBox["\<\"\[FilledDiamond]\"\>",
+           StripOnInput->False,
+           FontSize->Small], 43], InsetBox[
+          StyleBox["\<\"\[FilledDiamond]\"\>",
+           StripOnInput->False,
+           FontSize->Small], 44], InsetBox[
+          StyleBox["\<\"\[FilledDiamond]\"\>",
+           StripOnInput->False,
+           FontSize->Small], 45], InsetBox[
+          StyleBox["\<\"\[FilledDiamond]\"\>",
+           StripOnInput->False,
+           FontSize->Small], 46], InsetBox[
+          StyleBox["\<\"\[FilledDiamond]\"\>",
+           StripOnInput->False,
+           FontSize->Small], 47], InsetBox[
+          StyleBox["\<\"\[FilledDiamond]\"\>",
+           StripOnInput->False,
+           FontSize->Small], 48], InsetBox[
+          StyleBox["\<\"\[FilledDiamond]\"\>",
+           StripOnInput->False,
+           FontSize->Small], 49], InsetBox[
+          StyleBox["\<\"\[FilledDiamond]\"\>",
+           StripOnInput->False,
+           FontSize->Small], 50], InsetBox[
+          StyleBox["\<\"\[FilledDiamond]\"\>",
+           StripOnInput->False,
+           FontSize->Small], 51], InsetBox[
+          StyleBox["\<\"\[FilledDiamond]\"\>",
+           StripOnInput->False,
+           FontSize->Small], 52], InsetBox[
+          StyleBox["\<\"\[FilledDiamond]\"\>",
+           StripOnInput->False,
+           FontSize->Small], 53], InsetBox[
+          StyleBox["\<\"\[FilledDiamond]\"\>",
+           StripOnInput->False,
+           FontSize->Small], 54]}, 
+        {Hue[0.37820393249936934`, 0.6, 0.6], InsetBox[
+          StyleBox["\<\"\[FilledUpTriangle]\"\>",
+           StripOnInput->False,
+           FontSize->Small], 55], InsetBox[
+          StyleBox["\<\"\[FilledUpTriangle]\"\>",
+           StripOnInput->False,
+           FontSize->Small], 56], InsetBox[
+          StyleBox["\<\"\[FilledUpTriangle]\"\>",
+           StripOnInput->False,
+           FontSize->Small], 57], InsetBox[
+          StyleBox["\<\"\[FilledUpTriangle]\"\>",
+           StripOnInput->False,
+           FontSize->Small], 58], InsetBox[
+          StyleBox["\<\"\[FilledUpTriangle]\"\>",
+           StripOnInput->False,
+           FontSize->Small], 59], InsetBox[
+          StyleBox["\<\"\[FilledUpTriangle]\"\>",
+           StripOnInput->False,
+           FontSize->Small], 60], InsetBox[
+          StyleBox["\<\"\[FilledUpTriangle]\"\>",
+           StripOnInput->False,
+           FontSize->Small], 61], InsetBox[
+          StyleBox["\<\"\[FilledUpTriangle]\"\>",
+           StripOnInput->False,
+           FontSize->Small], 62], InsetBox[
+          StyleBox["\<\"\[FilledUpTriangle]\"\>",
+           StripOnInput->False,
+           FontSize->Small], 63], InsetBox[
+          StyleBox["\<\"\[FilledUpTriangle]\"\>",
+           StripOnInput->False,
+           FontSize->Small], 64], InsetBox[
+          StyleBox["\<\"\[FilledUpTriangle]\"\>",
+           StripOnInput->False,
+           FontSize->Small], 65], InsetBox[
+          StyleBox["\<\"\[FilledUpTriangle]\"\>",
+           StripOnInput->False,
+           FontSize->Small], 66], InsetBox[
+          StyleBox["\<\"\[FilledUpTriangle]\"\>",
+           StripOnInput->False,
+           FontSize->Small], 67], InsetBox[
+          StyleBox["\<\"\[FilledUpTriangle]\"\>",
+           StripOnInput->False,
+           FontSize->Small], 68], InsetBox[
+          StyleBox["\<\"\[FilledUpTriangle]\"\>",
+           StripOnInput->False,
+           FontSize->Small], 69], InsetBox[
+          StyleBox["\<\"\[FilledUpTriangle]\"\>",
+           StripOnInput->False,
+           FontSize->Small], 70], InsetBox[
+          StyleBox["\<\"\[FilledUpTriangle]\"\>",
+           StripOnInput->False,
+           FontSize->Small], 71], InsetBox[
+          StyleBox["\<\"\[FilledUpTriangle]\"\>",
+           StripOnInput->False,
+           FontSize->Small], 72], InsetBox[
+          StyleBox["\<\"\[FilledUpTriangle]\"\>",
+           StripOnInput->False,
+           FontSize->Small], 73], InsetBox[
+          StyleBox["\<\"\[FilledUpTriangle]\"\>",
+           StripOnInput->False,
+           FontSize->Small], 74], InsetBox[
+          StyleBox["\<\"\[FilledUpTriangle]\"\>",
+           StripOnInput->False,
+           FontSize->Small], 75], InsetBox[
+          StyleBox["\<\"\[FilledUpTriangle]\"\>",
+           StripOnInput->False,
+           FontSize->Small], 76], InsetBox[
+          StyleBox["\<\"\[FilledUpTriangle]\"\>",
+           StripOnInput->False,
+           FontSize->Small], 77], InsetBox[
+          StyleBox["\<\"\[FilledUpTriangle]\"\>",
+           StripOnInput->False,
+           FontSize->Small], 78]}, {}}}],
+     AspectRatio->NCache[GoldenRatio^(-1), 0.6180339887498948],
+     Axes->True,
+     AxesOrigin->{0, 0},
+     DisplayFunction:>$DisplayFunction,
+     FormatType->TraditionalForm,
+     Frame->{{True, False}, {True, False}},
+     FrameLabel->{
+       FormBox["\"Red matrice\"", TraditionalForm], 
+       FormBox["\"Vrijeme (ms)\"", TraditionalForm]},
+     FrameTicks->{{{1, 
+         FormBox["16.`", TraditionalForm]}, {3, 
+         FormBox["64.`", TraditionalForm]}, {5, 
+         FormBox["256.`", TraditionalForm]}, {7, 
+         FormBox["1024.`", TraditionalForm]}, {9, 
+         FormBox["3072.`", TraditionalForm]}, {11, 
+         FormBox["5120.`", TraditionalForm]}, {13, 
+         FormBox["7168.`", TraditionalForm]}, {15, 
+         FormBox["9216.`", TraditionalForm]}, {17, 
+         FormBox["11264.`", TraditionalForm]}}, Automatic},
+     GridLines->Automatic,
+     PlotRange->{{0, 24.}, {0, 32000}},
+     PlotRangeClipping->True,
+     PlotRangePadding->{
+       Scaled[0.02], Automatic}], {-1, -0.6180339887498948}, {
+    Left, Bottom}, {2, 1.2360679774997896`}], GraphicsGroupBox[{
+     {GrayLevel[0], RectangleBox[{-0.7, 0.2}, {0.20000000000000007`, 0.45}]}, 
+     {GrayLevel[1], EdgeForm[{GrayLevel[0], Thickness[0.001]}], 
+      GraphicsGroupBox[{
+        RectangleBox[{-0.7, 0.2}, {0.20000000000000007`, 0.45}], InsetBox[
+         GraphicsBox[{{{InsetBox[
+              GraphicsBox[{
+                {Hue[0.37820393249936846`, 0.6, 0.6], 
+                 LineBox[{{0, 0.5}, {1, 0.5}}]}, InsetBox[
+                 StyleBox["\<\"\[FilledUpTriangle]\"\>",
+                  StripOnInput->False,
+                  LineColor->Hue[0.37820393249936846`, 0.6, 0.6],
+                  FrontFaceColor->Hue[0.37820393249936846`, 0.6, 0.6],
+                  BackFaceColor->Hue[0.37820393249936846`, 0.6, 0.6],
+                  GraphicsColor->Hue[0.37820393249936846`, 0.6, 0.6],
+                  FontSize->Small,
+                  
+                  FontColor->Hue[
+                   0.37820393249936846`, 0.6, 0.6]], {0.5, 0.5}]},
+               PlotRange->{{0, 1}, {0, 1}}], {0.08, 0.08}, {
+              Left, Bottom}, {1, 1}], 
+             InsetBox["\<\"\"\>", {1.2100000000000002`, 0.58}, {-1, 0}, 
+              Automatic, {1, 0}]}, {InsetBox[
+              GraphicsBox[{
+                {Hue[0.1421359549995791, 0.6, 0.6], 
+                 LineBox[{{0, 0.5}, {1, 0.5}}]}, InsetBox[
+                 StyleBox["\<\"\[FilledDiamond]\"\>",
+                  StripOnInput->False,
+                  LineColor->Hue[0.1421359549995791, 0.6, 0.6],
+                  FrontFaceColor->Hue[0.1421359549995791, 0.6, 0.6],
+                  BackFaceColor->Hue[0.1421359549995791, 0.6, 0.6],
+                  GraphicsColor->Hue[0.1421359549995791, 0.6, 0.6],
+                  FontSize->Small,
+                  FontColor->Hue[0.1421359549995791, 0.6, 0.6]], {0.5, 0.5}]},
+               PlotRange->{{0, 1}, {0, 1}}], {0.08, 1.24}, {
+              Left, Bottom}, {1, 1}], 
+             InsetBox["\<\"\"\>", {1.2100000000000002`, 1.74}, {-1, 0}, 
+              Automatic, {1, 0}]}, {InsetBox[
+              GraphicsBox[{
+                {Hue[0.9060679774997897, 0.6, 0.6], 
+                 LineBox[{{0, 0.5}, {1, 0.5}}]}, InsetBox[
+                 StyleBox["\<\"\[FilledSquare]\"\>",
+                  StripOnInput->False,
+                  LineColor->Hue[0.9060679774997897, 0.6, 0.6],
+                  FrontFaceColor->Hue[0.9060679774997897, 0.6, 0.6],
+                  BackFaceColor->Hue[0.9060679774997897, 0.6, 0.6],
+                  GraphicsColor->Hue[0.9060679774997897, 0.6, 0.6],
+                  FontSize->Small,
+                  FontColor->Hue[0.9060679774997897, 0.6, 0.6]], {0.5, 0.5}]},
+               PlotRange->{{0, 1}, {0, 1}}], {0.08, 2.4}, {
+              Left, Bottom}, {1, 1}], 
+             InsetBox["\<\"GeForce GTX 460\"\>", {1.2100000000000002`, 2.9}, {-1, 0},
+               Automatic, {1, 0}]}, {InsetBox[
+              GraphicsBox[{
+                {Hue[0.67, 0.6, 0.6], LineBox[{{0, 0.5}, {1, 0.5}}]}, InsetBox[
+                 StyleBox["\<\"\[FilledCircle]\"\>",
+                  StripOnInput->False,
+                  LineColor->Hue[0.67, 0.6, 0.6],
+                  FrontFaceColor->Hue[0.67, 0.6, 0.6],
+                  BackFaceColor->Hue[0.67, 0.6, 0.6],
+                  GraphicsColor->Hue[0.67, 0.6, 0.6],
+                  FontSize->Small,
+                  FontColor->Hue[0.67, 0.6, 0.6]], {0.5, 0.5}]},
+               PlotRange->{{0, 1}, {0, 1}}], {0.08, 3.56}, {
+              Left, Bottom}, {1, 1}], 
+             InsetBox["\<\"Intel Core i5-760 (MATLAB)\"\>", \
+{1.2100000000000002`, 4.0600000000000005`}, {-1, 0}, Automatic, {1, 0}]}}, {}},
+          AspectRatio->0.2777777777777778,
+          FormatType->TraditionalForm,
+          
+          PlotRange->{{-0.1, 7.26}, {-0.1, 
+           4.739999999999999}}], {-0.7, 0.2}, {
+         Left, Bottom}, {0.9, 0.25}]}]}}]},
+  AspectRatio->Automatic,
+  Background->None,
+  ColorOutput->Automatic,
+  ImageSize->Automatic,
+  PlotRange->All]], "Output",
+ CellChangeTimes->{{3.52248317140625*^9, 3.522483188484375*^9}, 
+   3.522486554276367*^9, 3.5224877850791016`*^9, {3.522488032689453*^9, 
+   3.522488044955078*^9}, 3.5224881931083984`*^9, {3.5224887487089844`*^9, 
+   3.5224887748046875`*^9}, {3.522912903161133*^9, 3.522912939145508*^9}, {
+   3.5229338304179688`*^9, 3.5229338515273438`*^9}}]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"dUbrzanje", "=", 
+  RowBox[{"ListPlot", "[", 
+   RowBox[{
+    RowBox[{"{", 
+     RowBox[{
+      RowBox[{
+       RowBox[{"cpuDouble", "[", 
+        RowBox[{"[", 
+         RowBox[{"All", ",", "2"}], "]"}], "]"}], "/", 
+       RowBox[{"gpuDouble", "[", 
+        RowBox[{"[", 
+         RowBox[{"All", ",", "2"}], "]"}], "]"}]}], ",", 
+      RowBox[{
+       RowBox[{"cpuDouble", "[", 
+        RowBox[{"[", 
+         RowBox[{"All", ",", "2"}], "]"}], "]"}], "/", 
+       RowBox[{"teslaDouble", "[", 
+        RowBox[{"[", 
+         RowBox[{
+          RowBox[{"1", ";;", "15"}], ",", "2"}], "]"}], "]"}]}], ",", 
+      RowBox[{
+       RowBox[{"xeonDouble", "[", 
+        RowBox[{"[", 
+         RowBox[{"All", ",", "2"}], "]"}], "]"}], "/", 
+       RowBox[{"teslaDouble", "[", 
+        RowBox[{"[", 
+         RowBox[{"All", ",", "2"}], "]"}], "]"}]}], ",", 
+      RowBox[{
+       RowBox[{"xeonDouble", "[", 
+        RowBox[{"[", 
+         RowBox[{
+          RowBox[{"1", ";;", "15"}], ",", "2"}], "]"}], "]"}], "/", 
+       RowBox[{"gpuDouble", "[", 
+        RowBox[{"[", 
+         RowBox[{"All", ",", "2"}], "]"}], "]"}]}]}], "}"}], ",", " ", 
+    RowBox[{"PlotRange", "\[Rule]", 
+     RowBox[{"{", 
+      RowBox[{"0", ",", "4"}], "}"}]}], ",", 
+    RowBox[{"Joined", "->", "True"}], ",", 
+    RowBox[{"Mesh", "->", "All"}], ",", 
+    RowBox[{"GridLines", "\[Rule]", "Automatic"}], ",", 
+    RowBox[{"PlotMarkers", "\[Rule]", 
+     RowBox[{"{", 
+      RowBox[{"Automatic", ",", "Small"}], "}"}]}], ",", " ", 
+    RowBox[{"FrameTicks", "\[Rule]", 
+     RowBox[{"{", 
+      RowBox[{
+       RowBox[{"Map", "[", 
+        RowBox[{
+         RowBox[{
+          RowBox[{"{", 
+           RowBox[{
+            RowBox[{"x", "[", 
+             RowBox[{"[", "#", "]"}], "]"}], ",", 
+            RowBox[{"cpuSingle", "[", 
+             RowBox[{"[", 
+              RowBox[{"#", ",", "1"}], "]"}], "]"}]}], "}"}], "&"}], ",", 
+         RowBox[{"Range", "[", 
+          RowBox[{"1", ",", "18", ",", "2"}], "]"}]}], "]"}], ",", 
+       RowBox[{"{", 
+        RowBox[{
+         RowBox[{"{", 
+          RowBox[{"0.5", ",", "\"\<0.5x\>\""}], "}"}], ",", 
+         RowBox[{"{", 
+          RowBox[{"1", ",", "\"\<1x\>\""}], "}"}], ",", 
+         RowBox[{"{", 
+          RowBox[{"1.5", ",", "\"\<1.5x\>\""}], "}"}], ",", 
+         RowBox[{"{", 
+          RowBox[{"2", ",", "\"\<2x\>\""}], "}"}]}], "}"}]}], "}"}]}], ",", 
+    RowBox[{"Frame", "\[Rule]", 
+     RowBox[{"{", 
+      RowBox[{
+       RowBox[{"{", 
+        RowBox[{"True", ",", " ", "False"}], "}"}], ",", " ", 
+       RowBox[{"{", 
+        RowBox[{"True", ",", " ", "False"}], "}"}]}], "}"}]}], ",", 
+    RowBox[{"FrameLabel", "\[Rule]", 
+     RowBox[{"{", 
+      RowBox[{"\"\<Red matrice\>\"", ",", "\"\<Ubrzanje\>\""}], "}"}]}]}], 
+   "]"}]}]], "Input",
+ CellChangeTimes->{{3.52248320871875*^9, 3.522483228859375*^9}, {
+   3.5224878302197266`*^9, 3.5224878737822266`*^9}, 3.522487933415039*^9, {
+   3.5224881960615234`*^9, 3.5224881985771484`*^9}, {3.522912987473633*^9, 
+   3.522913042739258*^9}, {3.522913074520508*^9, 3.522913131098633*^9}, {
+   3.522913380754883*^9, 3.522913401176758*^9}}],
+
+Cell[BoxData[
+ GraphicsBox[GraphicsComplexBox[CompressedData["
+1:eJxdkglIk2EYx6eoqWmGR9NleOA5NlFTp6btsdTBJuUBc6AY5H2sItQER5dh
+EEoWXmipWGmm88gDS8FaiuGFpUlUNEw0m+KGuabTaUXf+wh98PHx+56Xl/f3
+/79O5y/GpurTaDTen/fv99+j4p5rTNNrWejlUj+gal7YbL8+RbExuNZ/tElI
+lVF8GAwK8mwFbtMUW4PSm9F4d2yWYlu4lRMdXei8RrE9NDdVt9txf1LsCHlm
+lgyG3SbFzrBzQVwrSlZT7AJ9rmUD4LlFsRu8t5aNPhnSUOwBGU7Pgzlywkzg
+dZ+5lF9M9mOBqDAm08BNS7EX1FfqFPxSMldxL9uwlbqQBvTNivSp8ZQPoW8A
+U91oHjmAvscyohZfK8fRd4Qj81CK9n35cynLuXdU6Luxw4gzkWrQd661vOd7
+rD4QX1n9nsxQqgfE1/TXQKaD3AiIb1Cb5DpfbAjEV5jj18J7SZgJ03SbyqZZ
+YyC+KvGLmtNiUyC+wyxmbO44mavQg/hqKvysRF6d6HtoxbPVVTuM6x4EJz9V
+li2hr13oRcjqJ+ezBVB8iH4m0aIvLT27yqFPi74ucRUMZtoO9gvub/0LqjXY
+L1f9xmIyXIv9LrLH6JrObew3pGOw/KZgC/uNknzLZbtvY7+CNlbIRMoO9vtV
+Mp9pNEjm3pB1KjTnRxhhH/Bg14pkMh3FvrARKZXHJO5SfByC2690x9eR/fzg
+c6uyKjCJsD9EiKxGH/IJB4CMnhj2aYHsxwHjKDN7Kx6ZB8Irp66SonQd3rf/
+85/sDazUZe/fN/cvMx3hURO47pFWcdKSrsD8e88mHBVwDmD+vIPO1xocNzH/
+sgUvu6k+Neavm2EV32tbx/zr6oSpFqWrmH//bZPHusVVzN9nS094pGsN81/e
+Eovuj61g/rSlGyek7xSYf68vo4hru4r55zn0RF7NX+Gah7NKhiN20SM+aGSj
+OGkP+TebiSsS
+   "], {{{}, {}, 
+     {Hue[0.67, 0.6, 0.6], 
+      LineBox[{1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15}]}, 
+     {Hue[0.9060679774997897, 0.6, 0.6], 
+      LineBox[{16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30}]}, 
+     {Hue[0.1421359549995791, 0.6, 0.6], 
+      LineBox[{70, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46,
+        47, 48, 49, 50, 51, 52, 53, 54}]}, 
+     {Hue[0.37820393249936934`, 0.6, 0.6], 
+      LineBox[{71, 56, 57, 58, 59, 60, 61, 62, 63, 64, 65, 66, 67, 68, 
+       69}]}}, {
+     {Hue[0.67, 0.6, 0.6], InsetBox[
+       StyleBox["\<\"\[FilledCircle]\"\>",
+        StripOnInput->False,
+        FontSize->Small], 1], InsetBox[
+       StyleBox["\<\"\[FilledCircle]\"\>",
+        StripOnInput->False,
+        FontSize->Small], 2], InsetBox[
+       StyleBox["\<\"\[FilledCircle]\"\>",
+        StripOnInput->False,
+        FontSize->Small], 3], InsetBox[
+       StyleBox["\<\"\[FilledCircle]\"\>",
+        StripOnInput->False,
+        FontSize->Small], 4], InsetBox[
+       StyleBox["\<\"\[FilledCircle]\"\>",
+        StripOnInput->False,
+        FontSize->Small], 5], InsetBox[
+       StyleBox["\<\"\[FilledCircle]\"\>",
+        StripOnInput->False,
+        FontSize->Small], 6], InsetBox[
+       StyleBox["\<\"\[FilledCircle]\"\>",
+        StripOnInput->False,
+        FontSize->Small], 7], InsetBox[
+       StyleBox["\<\"\[FilledCircle]\"\>",
+        StripOnInput->False,
+        FontSize->Small], 8], InsetBox[
+       StyleBox["\<\"\[FilledCircle]\"\>",
+        StripOnInput->False,
+        FontSize->Small], 9], InsetBox[
+       StyleBox["\<\"\[FilledCircle]\"\>",
+        StripOnInput->False,
+        FontSize->Small], 10], InsetBox[
+       StyleBox["\<\"\[FilledCircle]\"\>",
+        StripOnInput->False,
+        FontSize->Small], 11], InsetBox[
+       StyleBox["\<\"\[FilledCircle]\"\>",
+        StripOnInput->False,
+        FontSize->Small], 12], InsetBox[
+       StyleBox["\<\"\[FilledCircle]\"\>",
+        StripOnInput->False,
+        FontSize->Small], 13], InsetBox[
+       StyleBox["\<\"\[FilledCircle]\"\>",
+        StripOnInput->False,
+        FontSize->Small], 14], InsetBox[
+       StyleBox["\<\"\[FilledCircle]\"\>",
+        StripOnInput->False,
+        FontSize->Small], 15], InsetBox[
+       StyleBox["\<\"\[FilledCircle]\"\>",
+        StripOnInput->False,
+        FontSize->Small], 70], InsetBox[
+       StyleBox["\<\"\[FilledCircle]\"\>",
+        StripOnInput->False,
+        FontSize->Small], 71]}, 
+     {Hue[0.9060679774997897, 0.6, 0.6], InsetBox[
+       StyleBox["\<\"\[FilledSquare]\"\>",
+        StripOnInput->False,
+        FontSize->Small], 16], InsetBox[
+       StyleBox["\<\"\[FilledSquare]\"\>",
+        StripOnInput->False,
+        FontSize->Small], 17], InsetBox[
+       StyleBox["\<\"\[FilledSquare]\"\>",
+        StripOnInput->False,
+        FontSize->Small], 18], InsetBox[
+       StyleBox["\<\"\[FilledSquare]\"\>",
+        StripOnInput->False,
+        FontSize->Small], 19], InsetBox[
+       StyleBox["\<\"\[FilledSquare]\"\>",
+        StripOnInput->False,
+        FontSize->Small], 20], InsetBox[
+       StyleBox["\<\"\[FilledSquare]\"\>",
+        StripOnInput->False,
+        FontSize->Small], 21], InsetBox[
+       StyleBox["\<\"\[FilledSquare]\"\>",
+        StripOnInput->False,
+        FontSize->Small], 22], InsetBox[
+       StyleBox["\<\"\[FilledSquare]\"\>",
+        StripOnInput->False,
+        FontSize->Small], 23], InsetBox[
+       StyleBox["\<\"\[FilledSquare]\"\>",
+        StripOnInput->False,
+        FontSize->Small], 24], InsetBox[
+       StyleBox["\<\"\[FilledSquare]\"\>",
+        StripOnInput->False,
+        FontSize->Small], 25], InsetBox[
+       StyleBox["\<\"\[FilledSquare]\"\>",
+        StripOnInput->False,
+        FontSize->Small], 26], InsetBox[
+       StyleBox["\<\"\[FilledSquare]\"\>",
+        StripOnInput->False,
+        FontSize->Small], 27], InsetBox[
+       StyleBox["\<\"\[FilledSquare]\"\>",
+        StripOnInput->False,
+        FontSize->Small], 28], InsetBox[
+       StyleBox["\<\"\[FilledSquare]\"\>",
+        StripOnInput->False,
+        FontSize->Small], 29], InsetBox[
+       StyleBox["\<\"\[FilledSquare]\"\>",
+        StripOnInput->False,
+        FontSize->Small], 30]}, 
+     {Hue[0.1421359549995791, 0.6, 0.6], InsetBox[
+       StyleBox["\<\"\[FilledDiamond]\"\>",
+        StripOnInput->False,
+        FontSize->Small], 32], InsetBox[
+       StyleBox["\<\"\[FilledDiamond]\"\>",
+        StripOnInput->False,
+        FontSize->Small], 33], InsetBox[
+       StyleBox["\<\"\[FilledDiamond]\"\>",
+        StripOnInput->False,
+        FontSize->Small], 34], InsetBox[
+       StyleBox["\<\"\[FilledDiamond]\"\>",
+        StripOnInput->False,
+        FontSize->Small], 35], InsetBox[
+       StyleBox["\<\"\[FilledDiamond]\"\>",
+        StripOnInput->False,
+        FontSize->Small], 36], InsetBox[
+       StyleBox["\<\"\[FilledDiamond]\"\>",
+        StripOnInput->False,
+        FontSize->Small], 37], InsetBox[
+       StyleBox["\<\"\[FilledDiamond]\"\>",
+        StripOnInput->False,
+        FontSize->Small], 38], InsetBox[
+       StyleBox["\<\"\[FilledDiamond]\"\>",
+        StripOnInput->False,
+        FontSize->Small], 39], InsetBox[
+       StyleBox["\<\"\[FilledDiamond]\"\>",
+        StripOnInput->False,
+        FontSize->Small], 40], InsetBox[
+       StyleBox["\<\"\[FilledDiamond]\"\>",
+        StripOnInput->False,
+        FontSize->Small], 41], InsetBox[
+       StyleBox["\<\"\[FilledDiamond]\"\>",
+        StripOnInput->False,
+        FontSize->Small], 42], InsetBox[
+       StyleBox["\<\"\[FilledDiamond]\"\>",
+        StripOnInput->False,
+        FontSize->Small], 43], InsetBox[
+       StyleBox["\<\"\[FilledDiamond]\"\>",
+        StripOnInput->False,
+        FontSize->Small], 44], InsetBox[
+       StyleBox["\<\"\[FilledDiamond]\"\>",
+        StripOnInput->False,
+        FontSize->Small], 45], InsetBox[
+       StyleBox["\<\"\[FilledDiamond]\"\>",
+        StripOnInput->False,
+        FontSize->Small], 46], InsetBox[
+       StyleBox["\<\"\[FilledDiamond]\"\>",
+        StripOnInput->False,
+        FontSize->Small], 47], InsetBox[
+       StyleBox["\<\"\[FilledDiamond]\"\>",
+        StripOnInput->False,
+        FontSize->Small], 48], InsetBox[
+       StyleBox["\<\"\[FilledDiamond]\"\>",
+        StripOnInput->False,
+        FontSize->Small], 49], InsetBox[
+       StyleBox["\<\"\[FilledDiamond]\"\>",
+        StripOnInput->False,
+        FontSize->Small], 50], InsetBox[
+       StyleBox["\<\"\[FilledDiamond]\"\>",
+        StripOnInput->False,
+        FontSize->Small], 51], InsetBox[
+       StyleBox["\<\"\[FilledDiamond]\"\>",
+        StripOnInput->False,
+        FontSize->Small], 52], InsetBox[
+       StyleBox["\<\"\[FilledDiamond]\"\>",
+        StripOnInput->False,
+        FontSize->Small], 53], InsetBox[
+       StyleBox["\<\"\[FilledDiamond]\"\>",
+        StripOnInput->False,
+        FontSize->Small], 54]}, 
+     {Hue[0.37820393249936934`, 0.6, 0.6], InsetBox[
+       StyleBox["\<\"\[FilledUpTriangle]\"\>",
+        StripOnInput->False,
+        FontSize->Small], 56], InsetBox[
+       StyleBox["\<\"\[FilledUpTriangle]\"\>",
+        StripOnInput->False,
+        FontSize->Small], 57], InsetBox[
+       StyleBox["\<\"\[FilledUpTriangle]\"\>",
+        StripOnInput->False,
+        FontSize->Small], 58], InsetBox[
+       StyleBox["\<\"\[FilledUpTriangle]\"\>",
+        StripOnInput->False,
+        FontSize->Small], 59], InsetBox[
+       StyleBox["\<\"\[FilledUpTriangle]\"\>",
+        StripOnInput->False,
+        FontSize->Small], 60], InsetBox[
+       StyleBox["\<\"\[FilledUpTriangle]\"\>",
+        StripOnInput->False,
+        FontSize->Small], 61], InsetBox[
+       StyleBox["\<\"\[FilledUpTriangle]\"\>",
+        StripOnInput->False,
+        FontSize->Small], 62], InsetBox[
+       StyleBox["\<\"\[FilledUpTriangle]\"\>",
+        StripOnInput->False,
+        FontSize->Small], 63], InsetBox[
+       StyleBox["\<\"\[FilledUpTriangle]\"\>",
+        StripOnInput->False,
+        FontSize->Small], 64], InsetBox[
+       StyleBox["\<\"\[FilledUpTriangle]\"\>",
+        StripOnInput->False,
+        FontSize->Small], 65], InsetBox[
+       StyleBox["\<\"\[FilledUpTriangle]\"\>",
+        StripOnInput->False,
+        FontSize->Small], 66], InsetBox[
+       StyleBox["\<\"\[FilledUpTriangle]\"\>",
+        StripOnInput->False,
+        FontSize->Small], 67], InsetBox[
+       StyleBox["\<\"\[FilledUpTriangle]\"\>",
+        StripOnInput->False,
+        FontSize->Small], 68], InsetBox[
+       StyleBox["\<\"\[FilledUpTriangle]\"\>",
+        StripOnInput->False,
+        FontSize->Small], 69]}, {}}}],
+  AspectRatio->NCache[GoldenRatio^(-1), 0.6180339887498948],
+  Axes->True,
+  AxesOrigin->{0, 0},
+  Frame->{{True, False}, {True, False}},
+  FrameLabel->{
+    FormBox["\"Red matrice\"", TraditionalForm], 
+    FormBox["\"Ubrzanje\"", TraditionalForm]},
+  FrameTicks->{{{1, 
+      FormBox["16.`", TraditionalForm]}, {3, 
+      FormBox["64.`", TraditionalForm]}, {5, 
+      FormBox["256.`", TraditionalForm]}, {7, 
+      FormBox["1024.`", TraditionalForm]}, {9, 
+      FormBox["3072.`", TraditionalForm]}, {11, 
+      FormBox["5120.`", TraditionalForm]}, {13, 
+      FormBox["7168.`", TraditionalForm]}, {15, 
+      FormBox["9216.`", TraditionalForm]}, {17, 
+      FormBox["11264.`", TraditionalForm]}}, {{0.5, 
+      FormBox["\"0.5x\"", TraditionalForm]}, {1, 
+      FormBox["\"1x\"", TraditionalForm]}, {1.5, 
+      FormBox["\"1.5x\"", TraditionalForm]}, {2, 
+      FormBox["\"2x\"", TraditionalForm]}}},
+  GridLines->Automatic,
+  ImageSize->{431., Automatic},
+  PlotRange->{{0, 24.}, {0, 4}},
+  PlotRangeClipping->True,
+  PlotRangePadding->{
+    Scaled[0.02], Automatic}]], "Output",
+ CellChangeTimes->{{3.5224832198125*^9, 3.522483229921875*^9}, 
+   3.522486556479492*^9, {3.5224878474541016`*^9, 3.5224878745322266`*^9}, 
+   3.522487934524414*^9, 3.5224881997177734`*^9, 3.522912980458008*^9, {
+   3.522913029473633*^9, 3.522913043176758*^9}, 3.522913090145508*^9, 
+   3.522913132020508*^9, {3.522913381114258*^9, 3.522913401473633*^9}, 
+   3.5229338638242188`*^9}]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"Dimensions", "[", "cpuDouble", "]"}]], "Input",
+ CellChangeTimes->{{3.522913007083008*^9, 3.522913014145508*^9}}],
+
+Cell[BoxData[
+ RowBox[{"{", 
+  RowBox[{"15", ",", "5"}], "}"}]], "Output",
+ CellChangeTimes->{3.522913014458008*^9}]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"dTocnost1", "=", 
+  RowBox[{"ListPlot", "[", 
+   RowBox[{
+    RowBox[{"{", 
+     RowBox[{
+      RowBox[{"cpuDouble", "[", 
+       RowBox[{"[", 
+        RowBox[{"All", ",", "4"}], "]"}], "]"}], ",", 
+      RowBox[{"cpuDouble", "[", 
+       RowBox[{"[", 
+        RowBox[{"All", ",", "5"}], "]"}], "]"}]}], "}"}], ",", 
+    RowBox[{"PlotRange", "\[Rule]", 
+     RowBox[{"{", 
+      RowBox[{"0", ",", " ", 
+       RowBox[{"2", "*", 
+        RowBox[{"10", "^", 
+         RowBox[{"-", "11"}]}]}]}], "}"}]}], ",", 
+    RowBox[{"Joined", "->", "True"}], ",", 
+    RowBox[{"Mesh", "->", "All"}], ",", 
+    RowBox[{"GridLines", "\[Rule]", "Automatic"}], ",", 
+    RowBox[{"PlotMarkers", "\[Rule]", 
+     RowBox[{"{", 
+      RowBox[{"Automatic", ",", "Small"}], "}"}]}], ",", 
+    RowBox[{"FrameTicks", "\[Rule]", 
+     RowBox[{"{", 
+      RowBox[{
+       RowBox[{"Map", "[", 
+        RowBox[{
+         RowBox[{
+          RowBox[{"{", 
+           RowBox[{
+            RowBox[{"x", "[", 
+             RowBox[{"[", "#", "]"}], "]"}], ",", 
+            RowBox[{"cpuSingle", "[", 
+             RowBox[{"[", 
+              RowBox[{"#", ",", "1"}], "]"}], "]"}]}], "}"}], "&"}], ",", 
+         RowBox[{"Range", "[", 
+          RowBox[{"1", ",", "18", ",", "2"}], "]"}]}], "]"}], ",", 
+       "Automatic"}], "}"}]}], ",", 
+    RowBox[{"Frame", "\[Rule]", 
+     RowBox[{"{", 
+      RowBox[{
+       RowBox[{"{", 
+        RowBox[{"True", ",", " ", "False"}], "}"}], ",", " ", 
+       RowBox[{"{", 
+        RowBox[{"True", ",", " ", "False"}], "}"}]}], "}"}]}], ",", 
+    RowBox[{"FrameLabel", "\[Rule]", 
+     RowBox[{"{", 
+      RowBox[{"\"\<Red matrice\>\"", ",", "\"\<To\[CHacek]nost\>\""}], 
+      "}"}]}], ",", 
+    RowBox[{"PlotLegend", "\[Rule]", 
+     RowBox[{"{", 
+      RowBox[{
+      "\"\<Intel Core i5-760 (MATLAB)\>\"", ",", "\"\<GeForce GTX 460\>\""}], 
+      "}"}]}], ",", 
+    RowBox[{"LegendShadow", "\[Rule]", "None"}], ",", 
+    RowBox[{"LegendPosition", "\[Rule]", 
+     RowBox[{"{", 
+      RowBox[{
+       RowBox[{"-", "0.55"}], ",", "0.2"}], "}"}]}], ",", 
+    RowBox[{"LegendSize", "\[Rule]", 
+     RowBox[{"{", 
+      RowBox[{"0.9", ",", "0.25"}], "}"}]}], ",", 
+    RowBox[{"LegendTextSpace", "\[Rule]", "6"}]}], "]"}]}]], "Input",
+ CellChangeTimes->{{3.52248356565625*^9, 3.522483603140625*^9}, {
+   3.522483633265625*^9, 3.522483670375*^9}, {3.5224837266875*^9, 
+   3.522483728640625*^9}, 3.522486027901367*^9, {3.522486732713867*^9, 
+   3.522486755823242*^9}, {3.522487943883789*^9, 3.522488003401367*^9}, {
+   3.5224882032802734`*^9, 3.5224882088427734`*^9}, {3.5224887588164062`*^9, 
+   3.5224887804921875`*^9}, 3.522913217676758*^9, {3.522913253239258*^9, 
+   3.522913274926758*^9}}],
+
+Cell[BoxData[
+ GraphicsBox[{InsetBox[
+    GraphicsBox[GraphicsComplexBox[CompressedData["
+1:eJxTTMoPSmViYGCQA2IQDQEf7Bf3in/5//++DVTAAZXP4WD/af6////FbSF8
+AYfv2htZGBh0oHwRB5czghwMDB5QvoSDpugXoPp4KF8Gys+H8hUcQuzFuBgY
+6qB8JYe++p1sDAwtUL6Kw31+8////0+H8tUcKrI0GBkYpkL5GmjyWg7b3H8A
+vTMNytdxeDjFjZ3BYSOUr+dgrl364f//5ba4/Avx33e4f28YJbIC/Qn371XX
+FUDaAO7fXxJZnAwMPnD/fjBQA9JJcP9C3FsK9y+E3wr3L8T97XD/pmgeEd5s
+MBvuX9m3bED1M3H6F5Wv48CXw8fOe2kz3L/zLjS/+/9/lS0AmwR4kQ==
+      "], {{{}, {}, 
+        {Hue[0.67, 0.6, 0.6], 
+         LineBox[{1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15}]}, 
+        {Hue[0.9060679774997897, 0.6, 0.6], 
+         LineBox[{16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 
+          30}]}}, {
+        {Hue[0.67, 0.6, 0.6], InsetBox[
+          StyleBox["\<\"\[FilledCircle]\"\>",
+           StripOnInput->False,
+           FontSize->Small], 1], InsetBox[
+          StyleBox["\<\"\[FilledCircle]\"\>",
+           StripOnInput->False,
+           FontSize->Small], 2], InsetBox[
+          StyleBox["\<\"\[FilledCircle]\"\>",
+           StripOnInput->False,
+           FontSize->Small], 3], InsetBox[
+          StyleBox["\<\"\[FilledCircle]\"\>",
+           StripOnInput->False,
+           FontSize->Small], 4], InsetBox[
+          StyleBox["\<\"\[FilledCircle]\"\>",
+           StripOnInput->False,
+           FontSize->Small], 5], InsetBox[
+          StyleBox["\<\"\[FilledCircle]\"\>",
+           StripOnInput->False,
+           FontSize->Small], 6], InsetBox[
+          StyleBox["\<\"\[FilledCircle]\"\>",
+           StripOnInput->False,
+           FontSize->Small], 7], InsetBox[
+          StyleBox["\<\"\[FilledCircle]\"\>",
+           StripOnInput->False,
+           FontSize->Small], 8], InsetBox[
+          StyleBox["\<\"\[FilledCircle]\"\>",
+           StripOnInput->False,
+           FontSize->Small], 9], InsetBox[
+          StyleBox["\<\"\[FilledCircle]\"\>",
+           StripOnInput->False,
+           FontSize->Small], 10], InsetBox[
+          StyleBox["\<\"\[FilledCircle]\"\>",
+           StripOnInput->False,
+           FontSize->Small], 11], InsetBox[
+          StyleBox["\<\"\[FilledCircle]\"\>",
+           StripOnInput->False,
+           FontSize->Small], 12], InsetBox[
+          StyleBox["\<\"\[FilledCircle]\"\>",
+           StripOnInput->False,
+           FontSize->Small], 13], InsetBox[
+          StyleBox["\<\"\[FilledCircle]\"\>",
+           StripOnInput->False,
+           FontSize->Small], 14], InsetBox[
+          StyleBox["\<\"\[FilledCircle]\"\>",
+           StripOnInput->False,
+           FontSize->Small], 15]}, 
+        {Hue[0.9060679774997897, 0.6, 0.6], InsetBox[
+          StyleBox["\<\"\[FilledSquare]\"\>",
+           StripOnInput->False,
+           FontSize->Small], 16], InsetBox[
+          StyleBox["\<\"\[FilledSquare]\"\>",
+           StripOnInput->False,
+           FontSize->Small], 17], InsetBox[
+          StyleBox["\<\"\[FilledSquare]\"\>",
+           StripOnInput->False,
+           FontSize->Small], 18], InsetBox[
+          StyleBox["\<\"\[FilledSquare]\"\>",
+           StripOnInput->False,
+           FontSize->Small], 19], InsetBox[
+          StyleBox["\<\"\[FilledSquare]\"\>",
+           StripOnInput->False,
+           FontSize->Small], 20], InsetBox[
+          StyleBox["\<\"\[FilledSquare]\"\>",
+           StripOnInput->False,
+           FontSize->Small], 21], InsetBox[
+          StyleBox["\<\"\[FilledSquare]\"\>",
+           StripOnInput->False,
+           FontSize->Small], 22], InsetBox[
+          StyleBox["\<\"\[FilledSquare]\"\>",
+           StripOnInput->False,
+           FontSize->Small], 23], InsetBox[
+          StyleBox["\<\"\[FilledSquare]\"\>",
+           StripOnInput->False,
+           FontSize->Small], 24], InsetBox[
+          StyleBox["\<\"\[FilledSquare]\"\>",
+           StripOnInput->False,
+           FontSize->Small], 25], InsetBox[
+          StyleBox["\<\"\[FilledSquare]\"\>",
+           StripOnInput->False,
+           FontSize->Small], 26], InsetBox[
+          StyleBox["\<\"\[FilledSquare]\"\>",
+           StripOnInput->False,
+           FontSize->Small], 27], InsetBox[
+          StyleBox["\<\"\[FilledSquare]\"\>",
+           StripOnInput->False,
+           FontSize->Small], 28], InsetBox[
+          StyleBox["\<\"\[FilledSquare]\"\>",
+           StripOnInput->False,
+           FontSize->Small], 29], InsetBox[
+          StyleBox["\<\"\[FilledSquare]\"\>",
+           StripOnInput->False,
+           FontSize->Small], 30]}, {}}}],
+     AspectRatio->NCache[GoldenRatio^(-1), 0.6180339887498948],
+     Axes->True,
+     AxesOrigin->{0, 0},
+     DisplayFunction:>$DisplayFunction,
+     FormatType->TraditionalForm,
+     Frame->{{True, False}, {True, False}},
+     FrameLabel->{
+       FormBox["\"Red matrice\"", TraditionalForm], 
+       FormBox["\"To\[CHacek]nost\"", TraditionalForm]},
+     FrameTicks->{{{1, 
+         FormBox["16.`", TraditionalForm]}, {3, 
+         FormBox["64.`", TraditionalForm]}, {5, 
+         FormBox["256.`", TraditionalForm]}, {7, 
+         FormBox["1024.`", TraditionalForm]}, {9, 
+         FormBox["3072.`", TraditionalForm]}, {11, 
+         FormBox["5120.`", TraditionalForm]}, {13, 
+         FormBox["7168.`", TraditionalForm]}, {15, 
+         FormBox["9216.`", TraditionalForm]}, {17, 
+         FormBox["11264.`", TraditionalForm]}}, Automatic},
+     GridLines->Automatic,
+     PlotRange->NCache[{{0, 15.}, {0, 
+         Rational[1, 50000000000]}}, {{0, 15.}, {0, 2.*^-11}}],
+     PlotRangeClipping->True,
+     PlotRangePadding->{
+       Scaled[0.02], Automatic}], {-1, -0.6180339887498948}, {Left, Bottom}, 
+    {2, 1.2360679774997896`}], GraphicsGroupBox[{
+     {GrayLevel[0], RectangleBox[{-0.55, 0.2}, {0.35, 0.45}]}, 
+     {GrayLevel[1], EdgeForm[{GrayLevel[0], Thickness[0.001]}], 
+      GraphicsGroupBox[{RectangleBox[{-0.55, 0.2}, {0.35, 0.45}], InsetBox[
+         GraphicsBox[{{{InsetBox[
+              GraphicsBox[{
+                {Hue[0.9060679774997897, 0.6, 0.6], 
+                 LineBox[{{0, 0.5}, {1, 0.5}}]}, InsetBox[
+                 StyleBox["\<\"\[FilledSquare]\"\>",
+                  StripOnInput->False,
+                  LineColor->Hue[0.9060679774997897, 0.6, 0.6],
+                  FrontFaceColor->Hue[0.9060679774997897, 0.6, 0.6],
+                  BackFaceColor->Hue[0.9060679774997897, 0.6, 0.6],
+                  GraphicsColor->Hue[0.9060679774997897, 0.6, 0.6],
+                  FontSize->Small,
+                  FontColor->Hue[0.9060679774997897, 0.6, 0.6]], {0.5, 0.5}]},
+               PlotRange->{{0, 1}, {0, 1}}], {0.08, 0.08}, {
+              Left, Bottom}, {1, 1}], 
+             InsetBox["\<\"GeForce GTX 460\"\>", {1.2100000000000002`, 0.58}, \
+{-1, 0}, Automatic, {1, 0}]}, {InsetBox[
+              GraphicsBox[{
+                {Hue[0.67, 0.6, 0.6], LineBox[{{0, 0.5}, {1, 0.5}}]}, InsetBox[
+                 StyleBox["\<\"\[FilledCircle]\"\>",
+                  StripOnInput->False,
+                  LineColor->Hue[0.67, 0.6, 0.6],
+                  FrontFaceColor->Hue[0.67, 0.6, 0.6],
+                  BackFaceColor->Hue[0.67, 0.6, 0.6],
+                  GraphicsColor->Hue[0.67, 0.6, 0.6],
+                  FontSize->Small,
+                  FontColor->Hue[0.67, 0.6, 0.6]], {0.5, 0.5}]},
+               PlotRange->{{0, 1}, {0, 1}}], {0.08, 1.24}, {
+              Left, Bottom}, {1, 1}], 
+             InsetBox["\<\"Intel Core i5-760 (MATLAB)\"\>", \
+{1.2100000000000002`, 1.74}, {-1, 0}, Automatic, {1, 0}]}}, {}},
+          AspectRatio->0.2777777777777778,
+          FormatType->TraditionalForm,
+          PlotRange->{{-0.1, 7.26}, {-0.1, 2.42}}], {-0.55, 0.2}, {
+         Left, Bottom}, {0.9, 0.25}]}]}}]},
+  AspectRatio->Automatic,
+  Background->None,
+  ColorOutput->Automatic,
+  ImageSize->Automatic,
+  PlotRange->All]], "Output",
+ CellChangeTimes->{
+  3.522486028854492*^9, 3.522486063166992*^9, 3.522486625635742*^9, 
+   3.522486662120117*^9, {3.522486719760742*^9, 3.522486756166992*^9}, {
+   3.522487945211914*^9, 3.522488004166992*^9}, 3.5224882113271484`*^9, {
+   3.5224887602070312`*^9, 3.5224887816328125`*^9}, 3.522913161567383*^9, 
+   3.522913218770508*^9, {3.522913253817383*^9, 3.522913275895508*^9}, 
+   3.5229338724648438`*^9}]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"dTocnost2", "=", 
+  RowBox[{"ListPlot", "[", 
+   RowBox[{
+    RowBox[{"{", 
+     RowBox[{
+      RowBox[{"xeonDouble", "[", 
+       RowBox[{"[", 
+        RowBox[{"All", ",", "4"}], "]"}], "]"}], ",", 
+      RowBox[{"xeonDouble", "[", 
+       RowBox[{"[", 
+        RowBox[{"All", ",", "5"}], "]"}], "]"}]}], "}"}], ",", 
+    RowBox[{"PlotRange", "\[Rule]", 
+     RowBox[{"{", 
+      RowBox[{"0", ",", " ", 
+       RowBox[{"2", "*", 
+        RowBox[{"10", "^", 
+         RowBox[{"-", "10"}]}]}]}], "}"}]}], ",", 
+    RowBox[{"Joined", "->", "True"}], ",", 
+    RowBox[{"Mesh", "->", "All"}], ",", 
+    RowBox[{"GridLines", "\[Rule]", "Automatic"}], ",", 
+    RowBox[{"PlotMarkers", "\[Rule]", 
+     RowBox[{"{", 
+      RowBox[{"Automatic", ",", "Small"}], "}"}]}], ",", 
+    RowBox[{"FrameTicks", "\[Rule]", 
+     RowBox[{"{", 
+      RowBox[{
+       RowBox[{"Map", "[", 
+        RowBox[{
+         RowBox[{
+          RowBox[{"{", 
+           RowBox[{
+            RowBox[{"x", "[", 
+             RowBox[{"[", "#", "]"}], "]"}], ",", 
+            RowBox[{"xeonSingle", "[", 
+             RowBox[{"[", 
+              RowBox[{"#", ",", "1"}], "]"}], "]"}]}], "}"}], "&"}], ",", 
+         RowBox[{"Range", "[", 
+          RowBox[{"1", ",", "18", ",", "2"}], "]"}]}], "]"}], ",", 
+       "Automatic"}], "}"}]}], ",", 
+    RowBox[{"Frame", "\[Rule]", 
+     RowBox[{"{", 
+      RowBox[{
+       RowBox[{"{", 
+        RowBox[{"True", ",", " ", "False"}], "}"}], ",", " ", 
+       RowBox[{"{", 
+        RowBox[{"True", ",", " ", "False"}], "}"}]}], "}"}]}], ",", 
+    RowBox[{"FrameLabel", "\[Rule]", 
+     RowBox[{"{", 
+      RowBox[{"\"\<Red matrice\>\"", ",", "\"\<To\[CHacek]nost\>\""}], 
+      "}"}]}], ",", 
+    RowBox[{"PlotLegend", "\[Rule]", 
+     RowBox[{"{", 
+      RowBox[{
+      "\"\<Intel Core i5-760 (MATLAB)\>\"", ",", "\"\<GeForce GTX 460\>\""}], 
+      "}"}]}], ",", 
+    RowBox[{"LegendShadow", "\[Rule]", "None"}], ",", 
+    RowBox[{"LegendPosition", "\[Rule]", 
+     RowBox[{"{", 
+      RowBox[{
+       RowBox[{"-", "0.55"}], ",", "0.2"}], "}"}]}], ",", 
+    RowBox[{"LegendSize", "\[Rule]", 
+     RowBox[{"{", 
+      RowBox[{"0.9", ",", "0.25"}], "}"}]}], ",", 
+    RowBox[{"LegendTextSpace", "\[Rule]", "6"}]}], "]"}]}]], "Input",
+ CellChangeTimes->{{3.522913171067383*^9, 3.522913220458008*^9}, 
+   3.522913271114258*^9, 3.5229338889648438`*^9}],
+
+Cell[BoxData[
+ GraphicsBox[{InsetBox[
+    GraphicsBox[GraphicsComplexBox[CompressedData["
+1:eJxd0ksoRFEYwPFvEFMWKBkLakiS0IzxSqb5FkTKwmshKyMpC7LwWogyyILy
+iEjksUAyK6IolEdekQZlMWJNiCYxPkf389W4dTv97umezv3fE2NvKKnxAwCT
+un9H7Xq2zVoMajzP4Qc41294I3Kz9Wh7nf4mCrJqDkXnu0fZzA7H3JMwPUAB
+OxLt5WOfROXsKHYT24gDHRuBAA52LPZkFwN0DrHjUFe0qrY3xY7HRnetWn+R
+nYD17Y4PomV2Irpihz1ETnYSlnXXf1HHOjsFqzb7/QF32SZMHjwF2N5hm/Gw
+alIHuMdOxfy+By/Z9tkWdLqr1fsH7DSMCTbqAP7m0/H6MoCITtkZvP4FOxNH
+XgpVr2t2Ft5G6PRgvLP+9fftDdzb86+/Qfq78hZ+v0P6nz3lq/ki6f9silej
+Xfpr/dqkf2tdgtp/t/R3h2Sq/fdK/5nUWi/RqPTX5sekf+XRlfo/E9I/+jFQ
+rTcu/X37pOB8xZo/dB5L/6CbJnUeFqX/1HnXE9GS9Pe15Z/T8MbRrM7PsvRf
+MLeEAaxIf1dpoh7wXvpr52VT+mv/a8v6A67/0Pk=
+      "], {{{}, {}, 
+        {Hue[0.67, 0.6, 0.6], 
+         LineBox[{1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 
+          18, 19, 20, 21, 22, 23, 24}]}, 
+        {Hue[0.9060679774997897, 0.6, 0.6], 
+         LineBox[{25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 
+          40, 41, 42, 43, 44, 45, 46, 47, 48}]}}, {
+        {Hue[0.67, 0.6, 0.6], InsetBox[
+          StyleBox["\<\"\[FilledCircle]\"\>",
+           StripOnInput->False,
+           FontSize->Small], 1], InsetBox[
+          StyleBox["\<\"\[FilledCircle]\"\>",
+           StripOnInput->False,
+           FontSize->Small], 2], InsetBox[
+          StyleBox["\<\"\[FilledCircle]\"\>",
+           StripOnInput->False,
+           FontSize->Small], 3], InsetBox[
+          StyleBox["\<\"\[FilledCircle]\"\>",
+           StripOnInput->False,
+           FontSize->Small], 4], InsetBox[
+          StyleBox["\<\"\[FilledCircle]\"\>",
+           StripOnInput->False,
+           FontSize->Small], 5], InsetBox[
+          StyleBox["\<\"\[FilledCircle]\"\>",
+           StripOnInput->False,
+           FontSize->Small], 6], InsetBox[
+          StyleBox["\<\"\[FilledCircle]\"\>",
+           StripOnInput->False,
+           FontSize->Small], 7], InsetBox[
+          StyleBox["\<\"\[FilledCircle]\"\>",
+           StripOnInput->False,
+           FontSize->Small], 8], InsetBox[
+          StyleBox["\<\"\[FilledCircle]\"\>",
+           StripOnInput->False,
+           FontSize->Small], 9], InsetBox[
+          StyleBox["\<\"\[FilledCircle]\"\>",
+           StripOnInput->False,
+           FontSize->Small], 10], InsetBox[
+          StyleBox["\<\"\[FilledCircle]\"\>",
+           StripOnInput->False,
+           FontSize->Small], 11], InsetBox[
+          StyleBox["\<\"\[FilledCircle]\"\>",
+           StripOnInput->False,
+           FontSize->Small], 12], InsetBox[
+          StyleBox["\<\"\[FilledCircle]\"\>",
+           StripOnInput->False,
+           FontSize->Small], 13], InsetBox[
+          StyleBox["\<\"\[FilledCircle]\"\>",
+           StripOnInput->False,
+           FontSize->Small], 14], InsetBox[
+          StyleBox["\<\"\[FilledCircle]\"\>",
+           StripOnInput->False,
+           FontSize->Small], 15], InsetBox[
+          StyleBox["\<\"\[FilledCircle]\"\>",
+           StripOnInput->False,
+           FontSize->Small], 16], InsetBox[
+          StyleBox["\<\"\[FilledCircle]\"\>",
+           StripOnInput->False,
+           FontSize->Small], 17], InsetBox[
+          StyleBox["\<\"\[FilledCircle]\"\>",
+           StripOnInput->False,
+           FontSize->Small], 18], InsetBox[
+          StyleBox["\<\"\[FilledCircle]\"\>",
+           StripOnInput->False,
+           FontSize->Small], 19], InsetBox[
+          StyleBox["\<\"\[FilledCircle]\"\>",
+           StripOnInput->False,
+           FontSize->Small], 20], InsetBox[
+          StyleBox["\<\"\[FilledCircle]\"\>",
+           StripOnInput->False,
+           FontSize->Small], 21], InsetBox[
+          StyleBox["\<\"\[FilledCircle]\"\>",
+           StripOnInput->False,
+           FontSize->Small], 22], InsetBox[
+          StyleBox["\<\"\[FilledCircle]\"\>",
+           StripOnInput->False,
+           FontSize->Small], 23], InsetBox[
+          StyleBox["\<\"\[FilledCircle]\"\>",
+           StripOnInput->False,
+           FontSize->Small], 24]}, 
+        {Hue[0.9060679774997897, 0.6, 0.6], InsetBox[
+          StyleBox["\<\"\[FilledSquare]\"\>",
+           StripOnInput->False,
+           FontSize->Small], 25], InsetBox[
+          StyleBox["\<\"\[FilledSquare]\"\>",
+           StripOnInput->False,
+           FontSize->Small], 26], InsetBox[
+          StyleBox["\<\"\[FilledSquare]\"\>",
+           StripOnInput->False,
+           FontSize->Small], 27], InsetBox[
+          StyleBox["\<\"\[FilledSquare]\"\>",
+           StripOnInput->False,
+           FontSize->Small], 28], InsetBox[
+          StyleBox["\<\"\[FilledSquare]\"\>",
+           StripOnInput->False,
+           FontSize->Small], 29], InsetBox[
+          StyleBox["\<\"\[FilledSquare]\"\>",
+           StripOnInput->False,
+           FontSize->Small], 30], InsetBox[
+          StyleBox["\<\"\[FilledSquare]\"\>",
+           StripOnInput->False,
+           FontSize->Small], 31], InsetBox[
+          StyleBox["\<\"\[FilledSquare]\"\>",
+           StripOnInput->False,
+           FontSize->Small], 32], InsetBox[
+          StyleBox["\<\"\[FilledSquare]\"\>",
+           StripOnInput->False,
+           FontSize->Small], 33], InsetBox[
+          StyleBox["\<\"\[FilledSquare]\"\>",
+           StripOnInput->False,
+           FontSize->Small], 34], InsetBox[
+          StyleBox["\<\"\[FilledSquare]\"\>",
+           StripOnInput->False,
+           FontSize->Small], 35], InsetBox[
+          StyleBox["\<\"\[FilledSquare]\"\>",
+           StripOnInput->False,
+           FontSize->Small], 36], InsetBox[
+          StyleBox["\<\"\[FilledSquare]\"\>",
+           StripOnInput->False,
+           FontSize->Small], 37], InsetBox[
+          StyleBox["\<\"\[FilledSquare]\"\>",
+           StripOnInput->False,
+           FontSize->Small], 38], InsetBox[
+          StyleBox["\<\"\[FilledSquare]\"\>",
+           StripOnInput->False,
+           FontSize->Small], 39], InsetBox[
+          StyleBox["\<\"\[FilledSquare]\"\>",
+           StripOnInput->False,
+           FontSize->Small], 40], InsetBox[
+          StyleBox["\<\"\[FilledSquare]\"\>",
+           StripOnInput->False,
+           FontSize->Small], 41], InsetBox[
+          StyleBox["\<\"\[FilledSquare]\"\>",
+           StripOnInput->False,
+           FontSize->Small], 42], InsetBox[
+          StyleBox["\<\"\[FilledSquare]\"\>",
+           StripOnInput->False,
+           FontSize->Small], 43], InsetBox[
+          StyleBox["\<\"\[FilledSquare]\"\>",
+           StripOnInput->False,
+           FontSize->Small], 44], InsetBox[
+          StyleBox["\<\"\[FilledSquare]\"\>",
+           StripOnInput->False,
+           FontSize->Small], 45], InsetBox[
+          StyleBox["\<\"\[FilledSquare]\"\>",
+           StripOnInput->False,
+           FontSize->Small], 46], InsetBox[
+          StyleBox["\<\"\[FilledSquare]\"\>",
+           StripOnInput->False,
+           FontSize->Small], 47], InsetBox[
+          StyleBox["\<\"\[FilledSquare]\"\>",
+           StripOnInput->False,
+           FontSize->Small], 48]}, {}}}],
+     AspectRatio->NCache[GoldenRatio^(-1), 0.6180339887498948],
+     Axes->True,
+     AxesOrigin->{0, 0},
+     DisplayFunction:>$DisplayFunction,
+     FormatType->TraditionalForm,
+     Frame->{{True, False}, {True, False}},
+     FrameLabel->{
+       FormBox["\"Red matrice\"", TraditionalForm], 
+       FormBox["\"To\[CHacek]nost\"", TraditionalForm]},
+     FrameTicks->{{{1, 
+         FormBox["16.`", TraditionalForm]}, {3, 
+         FormBox["64.`", TraditionalForm]}, {5, 
+         FormBox["256.`", TraditionalForm]}, {7, 
+         FormBox["1024.`", TraditionalForm]}, {9, 
+         FormBox["3072.`", TraditionalForm]}, {11, 
+         FormBox["5120.`", TraditionalForm]}, {13, 
+         FormBox["7168.`", TraditionalForm]}, {15, 
+         FormBox["9216.`", TraditionalForm]}, {17, 
+         FormBox["11264.`", TraditionalForm]}}, Automatic},
+     GridLines->Automatic,
+     PlotRange->NCache[{{0, 24.}, {0, 
+         Rational[1, 5000000000]}}, {{0, 24.}, {0, 2.*^-10}}],
+     PlotRangeClipping->True,
+     PlotRangePadding->{
+       Scaled[0.02], Automatic}], {-1, -0.6180339887498948}, {
+    Left, Bottom}, {2, 1.2360679774997896`}], GraphicsGroupBox[{
+     {GrayLevel[0], RectangleBox[{-0.55, 0.2}, {0.35, 0.45}]}, 
+     {GrayLevel[1], EdgeForm[{GrayLevel[0], Thickness[0.001]}], 
+      GraphicsGroupBox[{RectangleBox[{-0.55, 0.2}, {0.35, 0.45}], InsetBox[
+         GraphicsBox[{{{InsetBox[
+              GraphicsBox[{
+                {Hue[0.9060679774997897, 0.6, 0.6], 
+                 LineBox[{{0, 0.5}, {1, 0.5}}]}, InsetBox[
+                 StyleBox["\<\"\[FilledSquare]\"\>",
+                  StripOnInput->False,
+                  LineColor->Hue[0.9060679774997897, 0.6, 0.6],
+                  FrontFaceColor->Hue[0.9060679774997897, 0.6, 0.6],
+                  BackFaceColor->Hue[0.9060679774997897, 0.6, 0.6],
+                  GraphicsColor->Hue[0.9060679774997897, 0.6, 0.6],
+                  FontSize->Small,
+                  FontColor->Hue[0.9060679774997897, 0.6, 0.6]], {0.5, 0.5}]},
+               PlotRange->{{0, 1}, {0, 1}}], {0.08, 0.08}, {
+              Left, Bottom}, {1, 1}], 
+             InsetBox["\<\"GeForce GTX 460\"\>", {1.2100000000000002`, 0.58}, \
+{-1, 0}, Automatic, {1, 0}]}, {InsetBox[
+              GraphicsBox[{
+                {Hue[0.67, 0.6, 0.6], LineBox[{{0, 0.5}, {1, 0.5}}]}, InsetBox[
+                 StyleBox["\<\"\[FilledCircle]\"\>",
+                  StripOnInput->False,
+                  LineColor->Hue[0.67, 0.6, 0.6],
+                  FrontFaceColor->Hue[0.67, 0.6, 0.6],
+                  BackFaceColor->Hue[0.67, 0.6, 0.6],
+                  GraphicsColor->Hue[0.67, 0.6, 0.6],
+                  FontSize->Small,
+                  FontColor->Hue[0.67, 0.6, 0.6]], {0.5, 0.5}]},
+               PlotRange->{{0, 1}, {0, 1}}], {0.08, 1.24}, {
+              Left, Bottom}, {1, 1}], 
+             InsetBox["\<\"Intel Core i5-760 (MATLAB)\"\>", \
+{1.2100000000000002`, 1.74}, {-1, 0}, Automatic, {1, 0}]}}, {}},
+          AspectRatio->0.2777777777777778,
+          FormatType->TraditionalForm,
+          PlotRange->{{-0.1, 7.26}, {-0.1, 2.42}}], {-0.55, 0.2}, {
+         Left, Bottom}, {0.9, 0.25}]}]}}]},
+  AspectRatio->Automatic,
+  Background->None,
+  ColorOutput->Automatic,
+  ImageSize->Automatic,
+  PlotRange->All]], "Output",
+ CellChangeTimes->{{3.522913180254883*^9, 3.522913221411133*^9}, 
+   3.522913272036133*^9, {3.5229338772148438`*^9, 3.5229338893242188`*^9}}]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"Export", "[", 
+  RowBox[{"\"\<sBrzina.pdf\>\"", ",", "sBrzina"}], "]"}]], "Input",
+ CellChangeTimes->{{3.522488871149414*^9, 3.5224888775234375`*^9}}],
+
+Cell[BoxData["\<\"sBrzina.pdf\"\>"], "Output",
+ CellChangeTimes->{3.5224888821484375`*^9}]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"Export", "[", 
+  RowBox[{"\"\<dBrzina.pdf\>\"", ",", "dBrzina"}], "]"}]], "Input",
+ CellChangeTimes->{{3.5224888873046875`*^9, 3.5224888884453125`*^9}}],
+
+Cell[BoxData["\<\"dBrzina.pdf\"\>"], "Output",
+ CellChangeTimes->{3.5224888896328125`*^9}]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"Export", "[", 
+  RowBox[{"\"\<sUbrzanje.pdf\>\"", ",", "sUbrzanje"}], "]"}]], "Input",
+ CellChangeTimes->{{3.522488894791992*^9, 3.522488903838867*^9}}],
+
+Cell[BoxData["\<\"sUbrzanje.pdf\"\>"], "Output",
+ CellChangeTimes->{3.522488905151367*^9}]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"Export", "[", 
+  RowBox[{"\"\<dUbrzanje.pdf\>\"", ",", "dUbrzanje"}], "]"}]], "Input",
+ CellChangeTimes->{{3.522488910073242*^9, 3.522488911432617*^9}}],
+
+Cell[BoxData["\<\"dUbrzanje.pdf\"\>"], "Output",
+ CellChangeTimes->{3.522488912416992*^9}]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"Export", "[", 
+  RowBox[{"\"\<dTocnost.pdf\>\"", ",", "dTocnost"}], "]"}]], "Input",
+ CellChangeTimes->{{3.522488919276367*^9, 3.5224889248242188`*^9}}],
+
+Cell[BoxData["\<\"dTocnost.pdf\"\>"], "Output",
+ CellChangeTimes->{3.5224889253398438`*^9}]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"Export", "[", 
+  RowBox[{"\"\<sTocnost.pdf\>\"", ",", "sTocnost"}], "]"}]], "Input",
+ CellChangeTimes->{{3.5224889300585938`*^9, 3.5224889336992188`*^9}}],
+
+Cell[BoxData["\<\"sTocnost.pdf\"\>"], "Output",
+ CellChangeTimes->{3.5224889346367188`*^9}]
+}, Open  ]]
+},
+WindowSize->{677, 775},
+WindowMargins->{{0, Automatic}, {Automatic, -2}},
+FrontEndVersion->"8.0 for Microsoft Windows (64-bit) (February 23, 2011)",
+StyleDefinitions->"Default.nb"
+]
+(* End of Notebook Content *)
+
+(* Internal cache information *)
+(*CellTagsOutline
+CellTagsIndex->{}
+*)
+(*CellTagsIndex
+CellTagsIndex->{}
+*)
+(*NotebookFileOutline
+Notebook[{
+Cell[557, 20, 248, 7, 31, "Input"],
+Cell[CellGroupData[{
+Cell[830, 31, 759, 19, 92, "Input"],
+Cell[1592, 52, 8698, 208, 236, "Output"]
+}, Open  ]],
+Cell[10305, 263, 286, 7, 31, "Input"],
+Cell[CellGroupData[{
+Cell[10616, 274, 2116, 50, 132, "Input"],
+Cell[12735, 326, 1641, 42, 245, "Output"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[14413, 373, 269, 5, 31, "Input"],
+Cell[14685, 380, 137, 2, 30, "Output"]
+}, Open  ]],
+Cell[14837, 385, 399, 8, 31, "Input"],
+Cell[CellGroupData[{
+Cell[15261, 397, 1770, 41, 132, "Input"],
+Cell[17034, 440, 8010, 203, 338, "Output"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[25081, 648, 173, 3, 31, "Input"],
+Cell[25257, 653, 116, 1, 30, "Output"]
+}, Open  ]],
+Cell[25388, 657, 623, 12, 31, "Input"],
+Cell[26014, 671, 530, 11, 31, "Input"],
+Cell[26547, 684, 285, 7, 31, "Input"],
+Cell[26835, 693, 283, 7, 31, "Input"],
+Cell[27121, 702, 267, 6, 31, "Input"],
+Cell[27391, 710, 172, 4, 31, "Input"],
+Cell[CellGroupData[{
+Cell[27588, 718, 3994, 89, 232, "Input"],
+Cell[31585, 809, 493, 10, 21, "Message"],
+Cell[32081, 821, 493, 10, 21, "Message"],
+Cell[32577, 833, 493, 10, 21, "Message"],
+Cell[33073, 845, 529, 11, 21, "Message"],
+Cell[33605, 858, 532, 11, 21, "Message"],
+Cell[34140, 871, 532, 11, 21, "Message"],
+Cell[34675, 884, 532, 11, 21, "Message"],
+Cell[35210, 897, 528, 11, 21, "Message"],
+Cell[35741, 910, 4540, 101, 240, "Output"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[40318, 1016, 192, 3, 31, "Input"],
+Cell[40513, 1021, 169, 4, 30, "Output"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[40719, 1030, 4432, 109, 312, "Input"],
+Cell[45154, 1141, 18506, 409, 309, "Output"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[63697, 1555, 2429, 63, 192, "Input"],
+Cell[66129, 1620, 9016, 204, 239, "Output"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[75182, 1829, 2162, 60, 192, "Input"],
+Cell[77347, 1891, 12140, 279, 277, "Output"]
+}, Open  ]],
+Cell[89502, 2173, 325, 8, 31, "Input"],
+Cell[89830, 2183, 333, 8, 31, "Input"],
+Cell[90166, 2193, 285, 7, 31, "Input"],
+Cell[90454, 2202, 283, 7, 31, "Input"],
+Cell[CellGroupData[{
+Cell[90762, 2213, 2764, 72, 212, "Input"],
+Cell[93529, 2287, 16994, 377, 239, "Output"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[110560, 2669, 3149, 85, 232, "Input"],
+Cell[113712, 2756, 11088, 273, 291, "Output"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[124837, 3034, 137, 2, 31, "Input"],
+Cell[124977, 3038, 116, 3, 30, "Output"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[125130, 3046, 2717, 71, 192, "Input"],
+Cell[127850, 3119, 8156, 181, 240, "Output"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[136043, 3305, 2378, 66, 192, "Input"],
+Cell[138424, 3373, 10393, 235, 240, "Output"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[148854, 3613, 174, 3, 31, "Input"],
+Cell[149031, 3618, 90, 1, 30, "Output"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[149158, 3624, 176, 3, 31, "Input"],
+Cell[149337, 3629, 90, 1, 30, "Output"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[149464, 3635, 176, 3, 31, "Input"],
+Cell[149643, 3640, 90, 1, 30, "Output"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[149770, 3646, 176, 3, 31, "Input"],
+Cell[149949, 3651, 90, 1, 30, "Output"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[150076, 3657, 176, 3, 31, "Input"],
+Cell[150255, 3662, 91, 1, 30, "Output"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[150383, 3668, 178, 3, 31, "Input"],
+Cell[150564, 3673, 91, 1, 30, "Output"]
+}, Open  ]]
+}
+]
+*)
+
+(* End of internal cache information *)
