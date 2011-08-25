@@ -1,15 +1,15 @@
 function [] = bench()
 
 k = 1;
-for i=4:21
+for i=4:18
     size = 2^i;
     if i > 10
         size = 1024 * (i-9);
     end
     size
-    filename = strcat(num2str(size), 's.h5');
-    filename_rez = strcat('rez', num2str(size), 's.h5');
-    x = hdf5read(filename', '/16');
+    filename = strcat(num2str(size), 'd.h5');
+    filename_rez = strcat('rez', num2str(size), 'd.h5');
+    x = hdf5read(filename, '/16');
     rez_gpu = hdf5read(filename_rez, '/16');
     
     
@@ -29,8 +29,9 @@ for i=4:21
     
     gpu_c = tril(rez_gpu);
     b(k, 5) = max(max(abs(x-gpu_c*gpu_c')));
+    save '-ascii' 'double_rez.txt' b;
     k = k+1;
 end
-save '-ascii' 'single_rez.txt' b;
+
 end
 

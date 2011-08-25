@@ -4,7 +4,7 @@
 //#include <cutil.h>
 #include <math.h>
 #include <hdf5.h>
-
+#include <string.h>
 using namespace std;
 
 void cpu_potrf(double *m_in, double *m_out, int size)
@@ -121,7 +121,7 @@ __global__ void GPU_STRSM(double *m, int size, int p)
     b[0][tid] = b[0][tid] / m[(0 + p * 16) * size + (0 + 16 * p)];
 
     for (i = 1; i < 16; i++) {
-        double d = 0;
+        //double d = 0;
         for (j = 0; j < i; j++) {
              b[i][tid] -=  m[(j + p * 16) * size + (i + p * 16)] * b[j][tid];
         }
@@ -417,17 +417,25 @@ int main(int argc, char *argv[])
     hsize_t     dims[2];
     dims[0] = dims[1] = size;
     
-    file_id = H5Fcreate("rez.h5", H5F_ACC_TRUNC, H5P_DEFAULT, H5P_DEFAULT);
+    
+    if (argc > 2) { 
+        char str[80];
+        puts(argv[2]);
+        strcpy (str,"rez");
+        strcat (str, argv[2]);
+puts(str);
+
+        file_id = H5Fcreate(str, H5F_ACC_TRUNC, H5P_DEFAULT, H5P_DEFAULT);
     //file_id = H5Fopen("rez.h5", H5F_ACC_RDWR, H5P_DEFAULT);
-    dataspace_id = H5Screate_simple(2, dims, NULL);
-    dataset_id = H5Dcreate(file_id, "/16", H5T_IEEE_F64LE, dataspace_id,
+        dataspace_id = H5Screate_simple(2, dims, NULL);
+        dataset_id = H5Dcreate(file_id, "/16", H5T_IEEE_F64LE, dataspace_id,
                           H5P_DEFAULT, H5P_DEFAULT, H5P_DEFAULT);
         
         H5Dwrite(dataset_id, H5T_IEEE_F64LE, 
                          H5S_ALL, H5S_ALL, H5P_DEFAULT, m_in);
         H5Dclose(dataset_id);
         H5Fclose(file_id);
-
+    }
 //  saveMatrix(m_out, "rez.mat", n);
 
     free(m_in);
